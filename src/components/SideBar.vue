@@ -57,8 +57,11 @@ import MenuItem from "./MenuItem.vue";
 
 export default {
   name: "recursive-menu",
+
+  
   data: () => ({
     smallMenu: false,
+    //Menu de opciones de la barra lateral
     menuTree: [
       {
         label: "Home",
