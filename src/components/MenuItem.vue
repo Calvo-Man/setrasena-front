@@ -1,6 +1,7 @@
 <template>
   <div class="menu-item" :class="{ opened: expanded }">
-    <router-link  class="button" :to="to">
+    <!-- Si 'to' no es null, renderiza <router-link>, de lo contrario, renderiza un <div> -->
+    <router-link v-if="to" class="button" :to="to">
       <div
         class="label"
         @click="toggleMenu()"
@@ -10,12 +11,28 @@
           <span class="text" v-if="showLabel">{{ label }}</span>
         </div>
         <div v-if="data" class="right">
-          <i class="expand material-icons arrow" :class="{ opened: expanded }"
-            >expand_more</i
-          >
+          <i class="expand material-icons arrow" :class="{ opened: expanded }">
+            expand_more
+          </i>
         </div>
       </div>
     </router-link>
+
+    <!-- Renderiza un <div> si 'to' es null -->
+    <div v-else class="button" @click="toggleMenu()">
+      <div class="label">
+        <div class="left">
+          <span v-if="icon" class="material-icons">{{ icon }}</span>
+          <span class="text" v-if="showLabel">{{ label }}</span>
+        </div>
+        <div v-if="data" class="right">
+          <i class="expand material-icons arrow" :class="{ opened: expanded }">
+            expand_more
+          </i>
+        </div>
+      </div>
+    </div>
+
     <div
       v-show="showChildren"
       :class="{ 'small-menu': smallMenu }"
@@ -99,8 +116,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
- 
-
 .menu-item {
   position: relative;
   width: 100%;
@@ -114,20 +129,15 @@ export default {
     height: 50px;
     
     box-sizing: border-box;
-    // font-size: 14px;
-    // color: #6a6a6a;
     transition: all 0.3s ease;
     > div {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .arrow{
-        
+    .arrow {
       transition: all 0.3s ease;
       &.expand {
-        
-        
         &.opened {
           transform: rotate(180deg);
         }
@@ -136,17 +146,18 @@ export default {
     &.small-item {
       width: fit-content;
     }
-    
   }
   .items-container {
     width: 100%;
-    
     transition: height 0.3s ease;
     overflow: hidden;
     border-left: solid 1px var(--dark-alt);
     margin-left: calc(5% + 6px);
-    
+  }
+  .button{
+    &:hover{
+      cursor: pointer;
+    }
   }
 }
-
 </style>
