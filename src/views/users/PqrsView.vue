@@ -1,10 +1,10 @@
 <template>
-    <div class="title">
+    <div class="title mb-4">
         <h1>Generar PQRS</h1>
     </div>
     <div class="form-contaier mx-aut">
-        <v-container class="mx-auto text-center bg-indigo-darken-4 rounded" width="500">
-            <p class="font-weight-black text-blue-lighten-4 mb-4">Generar PQRS</p>
+        <v-container class="mx-auto text-center bg-white rounded" width="500">
+            <p class="font-weight-black text-dark mb-4">Formulario</p>
             <v-form fast-fail submit.prevent>
                 <v-text-field v-model="name" class="bg-dark" label="Name" :rules="nameRules" />
                 <v-text-field type="number" v-model="age" class="bg-dark" label="Age" :rules="ageRules" />

@@ -1,9 +1,9 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <v-app class="body">
+  <v-app style="background: var(--grey);">
     <RouterView />
   </v-app>
 </template>
@@ -11,7 +11,7 @@ import { RouterLink, RouterView } from "vue-router";
 <style lang="scss">
 :root {
   --primary: #4ade80;
-  --grey: #c8cace;
+  --grey: #d3d7e0;
   --red-dark:#EB2929;
   --dark: #1e293b;
   --dark-alt: #334155;
@@ -23,8 +23,9 @@ import { RouterLink, RouterView } from "vue-router";
   padding: 0;
   box-sizing: border-box;
   font-family: "Fira sans", sans-serif;
+  
 }
- .body{
+ body{
   background: var(--grey);
 }
 button {
