@@ -1,9 +1,8 @@
 <template>
   <div class="app">
         <SideBar />
-        <div class="container">
+        <div class="container mx-auto">
           <main>
-
             <RouterView /> 
           </main>
         </div>

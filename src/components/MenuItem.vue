@@ -1,6 +1,6 @@
 <template>
   <div class="menu-item" :class="{ opened: expanded }">
-    <router-link v-if="to" class="button" :to="to">
+    <router-link  class="button" :to="to">
       <div
         class="label"
         @click="toggleMenu()"
@@ -148,4 +148,5 @@ export default {
     
   }
 }
+
 </style>
