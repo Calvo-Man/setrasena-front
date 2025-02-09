@@ -11,7 +11,7 @@ const ToggleMenu = () => {
 };
 </script>
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" >
     <div class="logo">
       <img :src="logoURL" alt="" />
     </div>
@@ -75,7 +75,7 @@ export default {
       {
         label: "Estatutos",
         icon: "description",
-        to: "/",
+        
         children: [
           {
             label: "Principios",
@@ -87,7 +87,7 @@ export default {
       {
         label:"Junta directiva",
         icon:"people_outline",
-        to:"/",
+        
         children:[
             {
                 label:"Junta nacional",
@@ -99,7 +99,7 @@ export default {
       {
         label:"Simbolos patrios",
         icon:"flag",
-        to:"/",
+        
         children:[
             {
                 label:"Himno de colombia",
@@ -130,7 +130,7 @@ export default {
       {
         label: "Publicaciones",
         icon: "forum",
-        to: "/",
+        
         children:[
             {
                 label:"Boletines",
@@ -156,7 +156,7 @@ export default {
       {
         label: "Afiliate aqui",
         icon: "app_registration",
-        to: "/afiliarse",
+        to: "/afiliacion",
       },
     ],
   }),
