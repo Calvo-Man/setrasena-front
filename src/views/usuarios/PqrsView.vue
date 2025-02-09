@@ -99,6 +99,7 @@
 import axios from "axios";
 export default {
   data: () => ({
+    API_Backend: process.env.VITE_API_BACKEND,
     name: "",
     apellido: "",
     email: "",
@@ -157,7 +158,7 @@ export default {
 
       try {
         // Lógica para el registro de usuario
-        await axios.post(`http://localhost:3000/auth/register`, {
+        await axios.post(`${this.API_Backend}/auth/register`, {
           name: this.name,
           age: numericAge,
           height: numericHeight,
