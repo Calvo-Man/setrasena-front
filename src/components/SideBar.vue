@@ -264,7 +264,7 @@ aside {
 
       &.router-link-exact-active {
         background-color: var(--dark);
-        border-right: 5px solid red;
+        border-right: 5px solid var(--light);
 
         .material-icons,
         .text {

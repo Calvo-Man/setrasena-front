@@ -97,9 +97,10 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data: () => ({
-    API_Backend: process.env.VITE_API_BACKEND,
+    API_Backend : import.meta.env.VITE_API_BACKEND,
     name: "",
     apellido: "",
     email: "",
