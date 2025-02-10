@@ -11,7 +11,7 @@ const ToggleMenu = () => {
 };
 </script>
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" >
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="scrollable-nav position-fixed">
     <div class="logo">
       <img :src="logoURL" alt="" />
     </div>
@@ -75,7 +75,7 @@ export default {
       {
         label: "Estatutos",
         icon: "description",
-        
+
         children: [
           {
             label: "Principios",
@@ -85,37 +85,38 @@ export default {
         ],
       },
       {
-        label:"Junta directiva",
-        icon:"people_outline",
-        
-        children:[
-            {
-                label:"Junta nacional",
-                icon:"",
-                to:"/junta-nacional"
-            }
-        ]
+        label: "Junta directiva",
+        icon: "people_outline",
+
+        children: [
+          {
+            label: "Junta nacional",
+            icon: "",
+            to: "/junta-nacional",
+          },
+        ],
       },
       {
-        label:"Simbolos patrios",
-        icon:"flag",
-        
-        children:[
-            {
-                label:"Himno de colombia",
-                icon:"",
-                to:"/himno-colombia"
-            },
-            {
-                label:"Himno del SENA",
-                icon:"",
-                to:"/himno-sena"
-            },{
-                label:"Himno internacional socialista",
-                icon:"",
-                to:"/himno-socialista"
-            }
-        ]
+        label: "Simbolos patrios",
+        icon: "flag",
+
+        children: [
+          {
+            label: "Himno de colombia",
+            icon: "",
+            to: "/himno-colombia",
+          },
+          {
+            label: "Himno del SENA",
+            icon: "",
+            to: "/himno-sena",
+          },
+          {
+            label: "Himno internacional socialista",
+            icon: "",
+            to: "/himno-socialista",
+          },
+        ],
       },
       {
         label: "Eventos y reuniones",
@@ -130,23 +131,24 @@ export default {
       {
         label: "Publicaciones",
         icon: "forum",
-        
-        children:[
-            {
-                label:"Boletines",
-                icon:"",
-                to:"/boletines"
-            },
-            {
-                label:"Comunicados",
-                icon:"",
-                to:"/comunicados"
-            },{
-                label:"Flash informativo",
-                icon:"",
-                to:"/flash-informativo"
-            }
-        ]
+
+        children: [
+          {
+            label: "Boletines",
+            icon: "",
+            to: "/boletines",
+          },
+          {
+            label: "Comunicados",
+            icon: "",
+            to: "/comunicados",
+          },
+          {
+            label: "Flash informativo",
+            icon: "",
+            to: "/flash-informativo",
+          },
+        ],
       },
       {
         label: "Generar PQRS",
@@ -166,8 +168,9 @@ export default {
 };
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 aside {
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
 
@@ -180,7 +183,8 @@ aside {
   padding: 1rem;
 
   transition: 0.2s ease-in-out;
-
+  overflow-y: auto;
+ 
   .flex {
     flex: 1 1 0%;
   }
@@ -316,4 +320,13 @@ aside {
     z-index: 99;
   }
 }
+ /* Ocultar la barra de desplazamiento */
+ .scrollable-nav::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento */
+  }
+
+  /* Si deseas que la barra lateral siga desplazándose pero sin mostrar la barra de scroll en Firefox y otros navegadores */
+  .scrollable-nav {
+    scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+  }
 </style>

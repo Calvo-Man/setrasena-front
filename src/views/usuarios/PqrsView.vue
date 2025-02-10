@@ -72,7 +72,7 @@
         <v-row>
           <v-col cols="12">
             <v-textarea
-              v-model="texto"
+              v-model="mensaje"
               label="Escribe aquí"
               hint="Describe tu peticion PQRS aqui"
               persistent-hint
@@ -88,7 +88,7 @@
           type="submit"
           @click="register"
         >
-          Generar
+          Generar PQRS
         </v-btn>
       </v-form>
     </v-container>
@@ -106,8 +106,8 @@ export default {
     email: "",
     telefono: "",
     regional: "",
-    password: "",
-    confirmPassword: "",
+    centro_formacion: "",
+    mensaje: "",
     regionales: [
       {
         id: 1,
@@ -153,20 +153,18 @@ export default {
   }),
   methods: {
     async register() {
-      const numericAge = parseInt(this.age, 10);
-      const numericHeight = parseInt(this.height, 10);
-      const numericWeight = parseInt(this.weight, 10);
-
+      
       try {
-        // Lógica para el registro de usuario
+        
         await axios.post(`${this.API_Backend}/auth/register`, {
           name: this.name,
-          age: numericAge,
-          height: numericHeight,
-          weight: numericWeight,
+          apellido: this.apellido,
           email: this.email,
-          password: this.password,
-          role: 1,
+          telefono: this.telefono,
+          regional: this.regional,
+          centro_formacion: this.centro_formacion,
+          mensaje: this.mensaje
+         
         });
         alert("Registration successful!");
         this.$router.push({ name: "Login" });

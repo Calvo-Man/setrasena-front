@@ -8,6 +8,7 @@ import VisionView from "@/views/nosotros/VisionView.vue";
 import HimnoNacional from "@/views/simbolos-patrios/HimnoNacional.vue";
 import HimnoSena from "@/views/simbolos-patrios/HimnoSena.vue";
 import HimnoInternacional from "@/views/simbolos-patrios/HimnoInternacional.vue";
+import RegionalesMapView from "@/views/regionales/RegionalesMapView.vue";
 
 export const routes = [
   {
@@ -25,6 +26,7 @@ export const routes = [
       { path: "/himno-colombia", name: "Himno Nacional", component:HimnoNacional },
       { path: "/himno-sena", name: "Himno SENA", component:HimnoSena },
       { path: "/himno-socialista", name: "Himno Internacional", component:HimnoInternacional },
+      { path: "/regionales", name: "Regionales", component:RegionalesMapView },
     ],
   },
 ];
