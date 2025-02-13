@@ -9,6 +9,12 @@ import HimnoNacional from "@/views/simbolos-patrios/HimnoNacional.vue";
 import HimnoSena from "@/views/simbolos-patrios/HimnoSena.vue";
 import HimnoInternacional from "@/views/simbolos-patrios/HimnoInternacional.vue";
 import RegionalesMapView from "@/views/regionales/RegionalesMapView.vue";
+import PrincipiosView from "@/views/estatutos/PrincipiosView.vue";
+import JuntaNacionalView from "@/views/juntas/JuntaNacionalView.vue";
+import BoletinesView from "@/views/publicaciones/BoletinesView.vue";
+import ComunicadosView from "@/views/publicaciones/ComunicadosView.vue";
+import FlashInformativoView from "@/views/publicaciones/FlashInformativoView.vue";
+import EventosyReunionesView from "@/views/eventos/EventosyReunionesView.vue";
 
 export const routes = [
   {
@@ -27,6 +33,12 @@ export const routes = [
       { path: "/himno-sena", name: "Himno SENA", component:HimnoSena },
       { path: "/himno-socialista", name: "Himno Internacional", component:HimnoInternacional },
       { path: "/regionales", name: "Regionales", component:RegionalesMapView },
+      { path: "/principios", name: "Principios", component:PrincipiosView },
+      { path: "/junta-nacional", name: "Junta Nacional", component:JuntaNacionalView },
+      { path: "/boletines", name: "Boletines", component:BoletinesView },
+      { path: "/comunicados", name: "Comunicados", component:ComunicadosView },
+      { path: "/flash-informativo", name: "Flash Informativo", component:FlashInformativoView },
+      { path: "/eventos", name: "Eventos y Reuniones", component:EventosyReunionesView },
     ],
   },
 ];

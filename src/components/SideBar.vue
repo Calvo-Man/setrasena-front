@@ -11,7 +11,7 @@ const ToggleMenu = () => {
 };
 </script>
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="scrollable-nav position-fixed">
+  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="scrollable-nav position-fixe">
     <div class="logo">
       <img :src="logoURL" alt="" />
     </div>
@@ -56,7 +56,7 @@ export default {
         to: "",
         children: [
           {
-            label: "Misión",
+            label: "Misión y visión",
             icon: "",
             to: "/mision",
           },
@@ -149,6 +149,27 @@ export default {
             to: "/flash-informativo",
           },
         ],
+      },
+      {
+        label: "Administracion",
+        icon: "admin_panel_settings",
+
+        children: [
+          {
+            label: "Boletines",
+            icon: "",
+            to: "/boletines",
+          },
+          {
+            label: "Comunicados",
+            icon: "",
+            to: "/comunicados",
+          },
+          {
+            label: "Flash informativo",
+            icon: "",
+            to: "/flash-informativo",
+          }]
       },
       {
         label: "Generar PQRS",

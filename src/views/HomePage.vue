@@ -1,29 +1,29 @@
 <template>
-    <div class="container">
+    
       <v-carousel
         show-arrows="hover"
         cycle
         hide-delimiter-background
         height="200"
-        width="100%"
+        width="500"
+        delimiter-icon="mdi-minus" 
+
       >
-        <v-carousel-item v-for="(slide, i) in slides" :key="i">
+        <v-carousel-item v-for="(slide, i) in slides" :key="i" >
           <v-sheet height="100%">
             <v-img
               :src="slide.image"
-              alt="Slide Image"
-                 
-              contain
-              class="full-img"
+              alt="Slide Image"     
+              cover
             />
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
-    </div>
+    
   </template>
   
   <script>
-  import imagen1 from "@/assets/imagen1.jpeg";
+  import imagen1 from "@/assets/img-prueba.png";
   import imagen2 from "@/assets/imagen2.jpeg";
   import imagen3 from "@/assets/imagen3.jpeg";
   export default {
@@ -49,14 +49,8 @@
   </script>
   
   <style scoped>
-  .container {
-    width: 50vw;
-    background-color: blue;
-  }
   
-  .full-img {
-    object-fit: cover; /* La imagen cubre completamente el área del carrusel */
-    
-  }
+  
+ 
   </style>
   

@@ -3,7 +3,7 @@ import { RouterView } from "vue-router";
 </script>
 
 <template>
-  <v-app style="background: var(--grey);">
+  <v-app style="background: var(--grey);" class="scrollable-nav">
     <RouterView />
   </v-app>
 </template>
@@ -13,10 +13,10 @@ import { RouterView } from "vue-router";
   --primary: #4ade80;
   --grey: #d3d7e0;
   --red-dark:#EB2929;
-  --dark: #1e293b;
+  --dark: #0b0b0c;
   --dark-alt: #334155;
-  --light: #f1f5f9;
-  --sidebar-width: 300px;
+  --light: #ffffff;
+  --sidebar-width: 350px;
 }
 * {
   margin: 0;
@@ -45,4 +45,5 @@ button {
     }
   }
 }
+
 </style>
