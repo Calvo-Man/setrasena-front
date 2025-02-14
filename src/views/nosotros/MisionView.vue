@@ -1,47 +1,51 @@
 <template>
-  <v-card class="ml-5 mt-1" elevation="11" subtitle="Sindicato de trabajadores y empleados del SENA" width="500" >
-    <template v-slot:title>
-      <img
-        src="../../assets/logo.png"
-        alt="icono personalizado"
-        style="width: 24px; height: 24px; margin-right: 8px"
-      />
-      <span class="font-weight-black">Misión</span>
-    </template>
-
-    <v-card-text class="bg-surface-light pt-4" height="500">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-      debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-      totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-      debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-      totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-      debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-      totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
-    </v-card-text>
-  </v-card>
-  <v-card class="mx-auto mt-4" elevation="11" subtitle="Sindicato de trabajadores y empleados del SENA" width="500" >
-      <template v-slot:title>
-        <img
-          src="../../assets/logo.png"
-          alt="icono personalizado"
-          style="width: 24px; height: 24px; margin-right: 8px"
-        />
-        <span class="font-weight-black">Visión</span>
-      </template>
-  
-      <v-card-text class="bg-surface-light pt-4" height="500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-        debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-        totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-        debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-        totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione
-        debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat
-        totam, magni doloremque veniam neque porro libero rerum unde voluptatem!
+  <v-container>
+    <!-- Tarjeta para la Misión -->
+    <v-card class="mx-auto my-4" max-width="500">
+      <v-card-title>
+        <span class="headline">Misión</span>
+      </v-card-title>
+      <v-card-text class="mt-4">
+        Nuestra misión es ofrecer programas educativos de alta calidad que respondan a las necesidades del entorno laboral y social, proporcionando a los estudiantes los conocimientos técnicos, habilidades y competencias necesarias para su éxito personal y profesional.
       </v-card-text>
     </v-card>
-    
+
+    <!-- Tarjeta para la Visión -->
+    <v-card class="mx-auto my-4" max-width="500">
+      <v-card-title>
+        <span class="headline">Visión</span>
+      </v-card-title>
+      <v-card-text class="mt-4">
+        Nuestra visión es ser una organización líder en la formación de profesionales altamente capacitados que transformen sus comunidades y el mundo laboral con sus conocimientos, habilidades y valores, contribuyendo al desarrollo sostenible y el bienestar social.
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
+
+<script>
+export default {
+  name: 'VisionMisionCards',
+};
+</script>
+
+<style scoped>
+.v-card {
+  margin: 20px auto;
+  box-shadow: 10px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.v-card-title {
+  background-color: var(--dark);
+  color: white;
+  padding: 16px;
+  font-size: 1.5em;
+  border-radius: 8px 8px 0 0;
+}
+
+.v-card-text {
+  padding: 16px;
+  font-size: 1.1em;
+  color: #333;
+}
+</style>

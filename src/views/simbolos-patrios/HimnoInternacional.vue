@@ -1,130 +1,173 @@
 <template>
-  <v-container>
-    <!-- Card principal con logo -->
-    <v-card class="mx-auto mt-1 mb-4" elevation="11" subtitle="Sindicato de trabajadores y empleados del SENA" width="500">
-      <template v-slot:title>
-        <img src="../../assets/logo.png" alt="icono personalizado" style="width: 24px; height: 24px; margin-right: 8px" />
-        <span class="font-weight-black">La Internacional</span>
-      </template>
-    </v-card>
-
-    <!-- Contenedor para las estrofas -->
-    <v-row>
-      <!-- Primera y Segunda Estrofa -->
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Primera Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Himno Internacional Socialista</h1>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Coro -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Coro</h2>
+          <p>
             Agrupémonos todos,<br />
             en la lucha final.<br />
             El género humano<br />
-            es la internacional. (Bis)
-          </v-card-text>
-        </v-card>
-      </v-col>
-      
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Segunda Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+            es la internacional. (Bis)<br />
+          </p>
+        </section>
+
+        <!-- Primera Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Primera Estrofa</h2>
+          <p>
+            Agrupémonos todos,<br />
+            en la lucha final.<br />
+            El género humano<br />
+            es la internacional. (Bis)<br />
+          </p>
+        </section>
+
+        <!-- Segunda Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Segunda Estrofa</h2>
+          <p>
             ¡Arriba, parias de la Tierra!<br />
             ¡En pie, famélica legión!<br />
             Atruena la razón en marcha:<br />
-            es el fin de la opresión.
-          </v-card-text>
-        </v-card>
-      </v-col>
+            es el fin de la opresión.<br />
+          </p>
+        </section>
 
-      <!-- Tercera y Cuarta Estrofa -->
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Tercera Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Tercera Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Tercera Estrofa</h2>
+          <p>
             Del pasado hay que hacer añicos.<br />
             ¡Legión esclava en pie a vencer!<br />
             El mundo va a cambiar de base.<br />
-            Los nada de hoy todo han de ser.
-          </v-card-text>
-        </v-card>
-      </v-col>
+            Los nada de hoy todo han de ser.<br />
+          </p>
+        </section>
 
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Cuarta Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Cuarta Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Cuarta Estrofa</h2>
+          <p>
             Ni en dioses, reyes ni tribunos,<br />
             está el supremo salvador.<br />
             Nosotros mismos realicemos<br />
-            el esfuerzo redentor.
-          </v-card-text>
-        </v-card>
-      </v-col>
+            el esfuerzo redentor.<br />
+          </p>
+        </section>
 
-      <!-- Quinta y Sexta Estrofa -->
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Quinta Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Quinta Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Quinta Estrofa</h2>
+          <p>
             Para hacer que el tirano caiga<br />
             y el mundo esclavo liberar,<br />
             soplemos la potente fragua<br />
-            que el hombre nuevo ha de forjar.
-          </v-card-text>
-        </v-card>
-      </v-col>
+            que el hombre nuevo ha de forjar.<br />
+          </p>
+        </section>
 
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Sexta Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Sexta Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Sexta Estrofa</h2>
+          <p>
             La ley nos burla y el Estado<br />
             oprime y sangra al productor;<br />
             nos da derechos irrisorios,<br />
-            no hay deberes del señor.
-          </v-card-text>
-        </v-card>
-      </v-col>
+            no hay deberes del señor.<br />
+          </p>
+        </section>
 
-      <!-- Séptima Estrofa y Corro Repetido -->
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Séptima Estrofa</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Séptima Estrofa -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Séptima Estrofa</h2>
+          <p>
             Basta ya de tutela odiosa,<br />
             que la igualdad ley ha de ser:<br />
             "No más deberes sin derechos,<br />
-            ningún derecho sin deber".
-          </v-card-text>
-        </v-card>
-      </v-col>
+            ningún derecho sin deber".<br />
+          </p>
+        </section>
 
-      <v-col xs="12" sm="6" class="mb-4">
-        <v-card class="mx-auto" elevation="3">
-          <v-card-item>
-            <v-card-title>Corro Repetido</v-card-title>
-          </v-card-item>
-          <v-card-text>
+        <!-- Corro Repetido -->
+        <section class="col-12 col-md-6 col-lg-4 section">
+          <h2 class="section-title">Corro Repetido</h2>
+          <p>
             Agrupémonos todos,<br />
             en la lucha final.<br />
             El género humano<br />
-            es la internacional. (Bis)
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+            es la internacional. (Bis)<br />
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+export default {
+  name: 'HimnoInternacionalTrabajadores',
+};
+</script>
+
+<style scoped>
+.card {
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-header {
+  background-color: var(--dark);
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col-12 {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .col-md-6 {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-4 {
+    width: 33.33%;
+  }
+}
+</style>

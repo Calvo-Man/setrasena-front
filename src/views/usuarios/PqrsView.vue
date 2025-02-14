@@ -1,8 +1,8 @@
 <template>
   <div class="form-container mx-auto">
     <v-container class="mx-auto text-center bg-white rounded" width="500">
-      <h3 class="font-weight-black text-dark mb-4">Formulario para PQRS</h3>
-      <v-form fast-fail submit.prevent>
+      <h3 class="font-weight-black text-white bg-dar mb-4">Formulario para PQRS</h3>
+      <v-form @submit.prevent="register">
         <!-- Fila para el nombre y apellido -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -35,8 +35,8 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              type="number"
-              v-model="age"
+              type="tel"
+              v-model="telefono"
               label="Telefono"
               :rules="phoneRules"
               required
@@ -60,8 +60,8 @@
             <v-select
               v-model="centro_formacion"
               label="Centro de formación"
-              :items="regionales"
-              item-title="regional_name"
+              :items="centrosDeFormacion"
+              item-title="centro_name"
               item-value="id"
               required
             />
@@ -81,15 +81,19 @@
             />
           </v-col>
         </v-row>
-
+        
         <!-- Botón de submit -->
         <v-btn
           class="mt-8 text-blue-lighten-4 bg-black"
           type="submit"
-          @click="register"
         >
           Generar PQRS
         </v-btn>
+        <h5 class="text-disabled mt-4">
+          SETRASENA UN SINDICATO COMPROMETIDO EN LA LUCHA CONTRA LA CORRUPCION
+          <br />
+          Bogotá, Carrera 7 N°34-50
+        </h5>
       </v-form>
     </v-container>
   </div>
@@ -100,7 +104,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    API_Backend : import.meta.env.VITE_API_BACKEND,
+    API_Backend: import.meta.env.VITE_API_BACKEND,
     name: "",
     apellido: "",
     email: "",
@@ -109,76 +113,52 @@ export default {
     centro_formacion: "",
     mensaje: "",
     regionales: [
-      {
-        id: 1,
-        regional_name: "Regional Norte",
-      },
-      {
-        id: 2,
-        regional_name: "Regional Sur",
-      },
-      {
-        id: 3,
-        regional_name: "Regional Este",
-      },
-      {
-        id: 4,
-        regional_name: "Regional Oeste",
-      },
-      {
-        id: 5,
-        regional_name: "Regional Centro",
-      },
+      { id: 1, regional_name: "Regional Norte" },
+      { id: 2, regional_name: "Regional Sur" },
+      { id: 3, regional_name: "Regional Este" },
+      { id: 4, regional_name: "Regional Oeste" },
+      { id: 5, regional_name: "Regional Centro" },
     ],
-
+    centrosDeFormacion: [
+      { id: 1, centro_name: "Centro A" },
+      { id: 2, centro_name: "Centro B" },
+      { id: 3, centro_name: "Centro C" },
+      { id: 4, centro_name: "Centro D" },
+    ],
     nameRules: [(value) => !!value || "Name is required."],
-    ageRules: [(value) => !!value || "Age is required."],
-    weightRules: [(value) => !!value || "Weight is required."],
-    heightRules: [(value) => !!value || "Height is required."],
     emailRules: [
       (value) => !!value || "E-mail is required.",
       (value) => /.+@.+\..+/.test(value) || "E-mail must be valid.",
     ],
-    passwordRules: [
-      (value) => !!value || "Password is required.",
-      // value => value.length >= 8 || 'Password must be at least 8 characters.',
-      // value => /(?=.*[A-Z])/.test(value) || 'Password must contain at least one uppercase letter.',
-      // value => /(?=.*[0-9])/.test(value) || 'Password must contain at least one number.',
-      // value => /(?=.*[!@#$%^&*])/.test(value) || 'Password must contain at least one special character.',
-    ],
-    confirmPasswordRules: [
-      (value) => !!value || "Confirm Password is required.",
-      //value => value === this.password || 'Passwords do not match.',
-    ],
+    phoneRules: [(value) => !!value || "Phone is required."],
   }),
   methods: {
     async register() {
-      
       try {
-        
-        await axios.post(`${this.API_Backend}/auth/register`, {
+        const response = await axios.post(`${this.API_Backend}/auth/register`, {
           name: this.name,
           apellido: this.apellido,
           email: this.email,
           telefono: this.telefono,
           regional: this.regional,
           centro_formacion: this.centro_formacion,
-          mensaje: this.mensaje
-         
+          mensaje: this.mensaje,
         });
         alert("Registration successful!");
         this.$router.push({ name: "Login" });
       } catch (error) {
-        console.log(error);
+        console.error(error);
         alert("Error registering user");
       }
     },
   },
 };
 </script>
-<style scoped>
 
-
+<style scoped lang="scss">
+.bg-dar {
+  background-color: var(--dark);
+}
 /* Ajustes de margen y padding en pantallas pequeñas */
 @media (max-width: 600px) {
   .form-container {
@@ -187,4 +167,3 @@ export default {
   }
 }
 </style>
-
