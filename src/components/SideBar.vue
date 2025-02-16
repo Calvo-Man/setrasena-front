@@ -153,23 +153,8 @@ export default {
       {
         label: "Administracion",
         icon: "admin_panel_settings",
+        to: "/admin",
 
-        children: [
-          {
-            label: "Boletines",
-            icon: "",
-            to: "/boletines",
-          },
-          {
-            label: "Comunicados",
-            icon: "",
-            to: "/comunicados",
-          },
-          {
-            label: "Flash informativo",
-            icon: "",
-            to: "/flash-informativo",
-          }]
       },
       {
         label: "Generar PQRS",

@@ -119,10 +119,13 @@
             />
           </v-col>
           <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="regional"
+            <v-select
+              v-model="regionalSelected"
               label="Regional"
-              :rules="regionalRules"
+              :items="regionales"
+              item-title="nombre"
+              item-value="id"
+              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
               required
             />
           </v-col>
@@ -229,6 +232,7 @@ export default {
     acceptedTerms: false,
     careerOptions: ["Sí", "No"],
     yesNoOptions: ["Sí", "No"],
+    regionales:[],
 
     nameRules: [(value) => !!value || "Nombre es requerido."],
     dobRules: [(value) => !!value || "Fecha de nacimiento es requerida."],
@@ -248,6 +252,9 @@ export default {
     departmentRules: [(value) => !!value || "Dependencia es requerida."],
     salaryRules: [(value) => !!value || "Asignación básica es requerida."],
   }),
+  mounted(){
+    this.fetchRegionales()
+  },
 
   methods: {
     submit() {
@@ -304,6 +311,14 @@ export default {
         if (error.response.status === 400) {
           alert("Error al enviar los datos.");
         }
+      }
+    },
+    async fetchRegionales() {
+      try {
+        const response = await axios.get(`${this.API_Backend}/regional`);
+        this.regionales = response.data;
+      } catch (error) {
+        console.error(error);
       }
     },
   },

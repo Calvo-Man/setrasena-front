@@ -15,6 +15,7 @@ import BoletinesView from "@/views/publicaciones/BoletinesView.vue";
 import ComunicadosView from "@/views/publicaciones/ComunicadosView.vue";
 import FlashInformativoView from "@/views/publicaciones/FlashInformativoView.vue";
 import EventosyReunionesView from "@/views/eventos/EventosyReunionesView.vue";
+import PanelAdminView from "@/views/admin/PanelAdminView.vue";
 
 export const routes = [
   {
@@ -39,6 +40,7 @@ export const routes = [
       { path: "/comunicados", name: "Comunicados", component:ComunicadosView },
       { path: "/flash-informativo", name: "Flash Informativo", component:FlashInformativoView },
       { path: "/eventos", name: "Eventos y Reuniones", component:EventosyReunionesView },
+      {path:"/admin", name:"Panel Admin", component:PanelAdminView},
     ],
   },
 ];

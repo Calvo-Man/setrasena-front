@@ -1,7 +1,9 @@
 <template>
   <div class="form-container mx-auto">
-    <v-container class="mx-auto text-center bg-white rounded" width="500">
-      <h3 class="font-weight-black text-white bg-dar mb-4">Formulario para PQRS</h3>
+    <v-container class="mx-auto text-center bg-white rounded" width="550">
+      <div class="bg-dark card-header">
+        <h3 class="font-weight-black text-white mb-4">Formulario para PQRS</h3>
+      </div>
       <v-form @submit.prevent="register">
         <!-- Fila para el nombre y apellido -->
         <v-row>
@@ -49,9 +51,10 @@
           <v-col cols="12" sm="6">
             <v-select
               v-model="regional"
+              @update:model-value="fecthCentrosDeRegionales"
               label="Regional"
               :items="regionales"
-              item-title="regional_name"
+              item-title="nombre"
               item-value="id"
               required
             />
@@ -60,8 +63,8 @@
             <v-select
               v-model="centro_formacion"
               label="Centro de formación"
-              :items="centrosDeFormacion"
-              item-title="centro_name"
+              :items="centros_formacion"
+              item-title="nombre"
               item-value="id"
               required
             />
@@ -81,12 +84,9 @@
             />
           </v-col>
         </v-row>
-        
+
         <!-- Botón de submit -->
-        <v-btn
-          class="mt-8 text-blue-lighten-4 bg-black"
-          type="submit"
-        >
+        <v-btn class="mt-8 text-blue-lighten-4 bg-black" type="submit">
           Generar PQRS
         </v-btn>
         <h5 class="text-disabled mt-4">
@@ -112,19 +112,9 @@ export default {
     regional: "",
     centro_formacion: "",
     mensaje: "",
-    regionales: [
-      { id: 1, regional_name: "Regional Norte" },
-      { id: 2, regional_name: "Regional Sur" },
-      { id: 3, regional_name: "Regional Este" },
-      { id: 4, regional_name: "Regional Oeste" },
-      { id: 5, regional_name: "Regional Centro" },
-    ],
-    centrosDeFormacion: [
-      { id: 1, centro_name: "Centro A" },
-      { id: 2, centro_name: "Centro B" },
-      { id: 3, centro_name: "Centro C" },
-      { id: 4, centro_name: "Centro D" },
-    ],
+    regionales: [],
+    centros_formacion: [],
+
     nameRules: [(value) => !!value || "Name is required."],
     emailRules: [
       (value) => !!value || "E-mail is required.",
@@ -132,6 +122,11 @@ export default {
     ],
     phoneRules: [(value) => !!value || "Phone is required."],
   }),
+  mounted() {
+    this.fetchRegionales();
+  },
+  computed: {},
+
   methods: {
     async register() {
       try {
@@ -151,13 +146,43 @@ export default {
         alert("Error registering user");
       }
     },
+    async fetchRegionales() {
+      try {
+        const response = await axios.get(`${this.API_Backend}/regional`);
+        this.regionales = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async fecthCentrosDeRegionales(id_regional) {
+      if (!this.regionales) {
+        alert("Debe seleccionar una regional");
+        return;
+      }
+      try {
+        this.regionales.forEach((regional) => {
+          if (regional.id == id_regional) {
+            this.centros_formacion=regional.centros;
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.bg-dar {
+.bg-dark {
   background-color: var(--dark);
+}
+.card-header {
+  background-color: var(--dark);
+  color: white;
+  padding: 10px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 10px;
 }
 /* Ajustes de margen y padding en pantallas pequeñas */
 @media (max-width: 600px) {
