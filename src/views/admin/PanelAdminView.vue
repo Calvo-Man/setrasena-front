@@ -1,49 +1,36 @@
+<script setup>
+import ListCentros from "@/components/ListCentros.vue";
+import listRegionales from "@/components/listRegionales.vue";
+import ListBoletines from "@/components/ListBoletines.vue";
+</script>
 <template>
   <div class="card">
     <div class="card-header">
       <h1 class="card-title">Panel de Administración</h1>
     </div>
-    <v-container>
+    <v-container class="mx-auto">
       <v-row>
         <!-- Botones para mostrar los formularios -->
-        <v-col
-          cols="12"
-          md="6"
-          class="mt-4 d-flex flex-wrap gap-3 opcion-panel"
-        >
-          <v-btn @click="setForm('boletin')" color="primary">
-            Agregar Boletín
-          </v-btn>
-          <v-btn @click="setForm('comunicado')" color="primary">
-            Agregar Comunicado
-          </v-btn>
-          <v-btn @click="setForm('flash')" color="primary">
-            Agregar Flash Informativo
-          </v-btn>
-          <v-btn @click="setForm('regional')" color="primary">
-            Agregar Regional
-          </v-btn>
-          <v-btn @click="setForm('centroFormacion')" color="primary">
-            Agregar Centro de Formación
-          </v-btn>
+        <v-col cols="12" sm="12" class="mb-0">
+          <v-select
+            v-model="selectedForm"
+            label="Seleccione una opción"
+            :items="opciones"
+            item-title="nombre"
+            item-value="value"
+            required
+          />
         </v-col>
 
         <!-- Columna para mostrar el formulario correspondiente -->
-        <v-col cols="12" md="6">
+        <v-col cols="12">
           <!-- Formulario de Boletín -->
-          <v-card v-if="currentForm === 'boletin'">
-            <v-card-title>Agregar Boletín</v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-text-field label="Título del Boletín" required />
-                <v-textarea label="Contenido del Boletín" rows="5" required />
-                <v-btn type="submit" color="success">Guardar Boletín</v-btn>
-              </v-form>
-            </v-card-text>
+          <v-card v-if="selectedForm === 'boletin'">
+            <ListBoletines />
           </v-card>
 
           <!-- Formulario de Comunicado -->
-          <v-card v-if="currentForm === 'comunicado'">
+          <v-card v-if="selectedForm === 'comunicado'">
             <v-card-title>Agregar Comunicado</v-card-title>
             <v-card-text>
               <v-form>
@@ -59,7 +46,7 @@
           </v-card>
 
           <!-- Formulario de Flash Informativo -->
-          <v-card v-if="currentForm === 'flash'">
+          <v-card v-if="selectedForm === 'flash'">
             <v-card-title>Agregar Flash Informativo</v-card-title>
             <v-card-text>
               <v-form>
@@ -71,30 +58,13 @@
           </v-card>
 
           <!-- Formulario de Regional -->
-          <v-card v-if="currentForm === 'regional'">
-            <v-card-title>Agregar Regional</v-card-title>
-            <v-card-text>
-              <v-form fast-fail submit.prevent>
-                <v-text-field
-                  label="Nombre de la Regional"
-                  v-model="regional"
-                  required
-                />
-                <v-btn  @click="SaveRegional" color="success">Guardar Regional</v-btn>
-              </v-form>
-            </v-card-text>
+          <v-card v-if="selectedForm === 'regional'">
+            <listRegionales />
           </v-card>
 
           <!-- Formulario de Centro de Formación -->
-          <v-card v-if="currentForm === 'centroFormacion'">
-            <v-card-title>Agregar Centro de Formación</v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-text-field label="Nombre del Centro de Formación" required />
-                <v-textarea label="Descripción del Centro" rows="5" required />
-                <v-btn type="submit" color="success">Guardar Centro</v-btn>
-              </v-form>
-            </v-card-text>
+          <v-card v-if="selectedForm === 'centroFormacion'">
+            <ListCentros :regionales="regionales" />
           </v-card>
         </v-col>
       </v-row>
@@ -103,33 +73,54 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   data: () => ({
-    API_Backend:import.meta.env.VITE_API_BACKEND,
-    currentForm: "",
-    regional: "",
+    API_Backend: import.meta.env.VITE_API_BACKEND,
+    selectedForm: "",
+    opciones: [
+      { value: "boletin", nombre: "Boletín" },
+      { value: "comunicado", nombre: "Comunicado" },
+      { value: "flash", nombre: "Flash Informativo" },
+      { value: "eventos", nombre: "Eventos" },
+      { value: "regional", nombre: "Regional" },
+      { value: "centroFormacion", nombre: "Centro de Formación" },
+    ],
+    regionales: [],
   }),
+  mounted() {
+    this.fetchRegionales();
+  },
 
   methods: {
     async SaveRegional() {
-        if(!this.regional){
-            console.log("Debe llenar el campo")
-            return;
-        }
-        try {
-        const response = await axios.post(`${this.API_Backend}/regional/crear`, {
-          nombre: this.regional,
-        });
+      if (!this.regional) {
+        console.log("Debe llenar el campo");
+        return;
+      }
+      try {
+        const response = await axios.post(
+          `${this.API_Backend}/regional/crear`,
+          {
+            nombre: this.regional,
+          }
+        );
         alert("Registration successful!");
-        
       } catch (error) {
         console.error(error);
         alert("Error registering Regional");
       }
     },
     setForm(form) {
-      this.currentForm = form;
+      this.selectedForm = form;
+    },
+    async fetchRegionales() {
+      try {
+        const response = await axios.get(`${this.API_Backend}/regional`);
+        this.regionales = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

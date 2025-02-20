@@ -1,3 +1,6 @@
+<script setup>
+import MapColombia from "@/components/MapColombia.vue";
+</script>
 <template>
     <v-card
       class="mx-auto"
@@ -23,6 +26,7 @@
       </template>
     </v-img>
     </v-card>
+    <MapColombia />
   </template>
 <script >
 import banner from '@/assets/RegionalesMap.jpeg';
