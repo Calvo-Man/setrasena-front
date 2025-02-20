@@ -2,6 +2,9 @@
 import ListCentros from "@/components/ListCentros.vue";
 import listRegionales from "@/components/listRegionales.vue";
 import ListBoletines from "@/components/ListBoletines.vue";
+import ListComunicados from "@/components/ListComunicados.vue";
+import ListFlash from "@/components/ListFlash.vue";
+import ListEventos from "@/components/ListEventos.vue";
 </script>
 <template>
   <div class="card">
@@ -31,30 +34,17 @@ import ListBoletines from "@/components/ListBoletines.vue";
 
           <!-- Formulario de Comunicado -->
           <v-card v-if="selectedForm === 'comunicado'">
-            <v-card-title>Agregar Comunicado</v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-text-field label="Título del Comunicado" required />
-                <v-textarea
-                  label="Contenido del Comunicado"
-                  rows="5"
-                  required
-                />
-                <v-btn type="submit" color="success">Guardar Comunicado</v-btn>
-              </v-form>
-            </v-card-text>
+            <ListComunicados />
           </v-card>
 
           <!-- Formulario de Flash Informativo -->
           <v-card v-if="selectedForm === 'flash'">
-            <v-card-title>Agregar Flash Informativo</v-card-title>
-            <v-card-text>
-              <v-form>
-                <v-text-field label="Título del Flash" required />
-                <v-textarea label="Contenido del Flash" rows="5" required />
-                <v-btn type="submit" color="success">Guardar Flash</v-btn>
-              </v-form>
-            </v-card-text>
+            <ListFlash />
+          </v-card>
+
+          <!-- Formulario de Eventos -->
+          <v-card v-if="selectedForm === 'eventos'">
+            <ListEventos />
           </v-card>
 
           <!-- Formulario de Regional -->

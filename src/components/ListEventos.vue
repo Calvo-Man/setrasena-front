@@ -8,7 +8,7 @@
         <v-toolbar
           flat
         >
-          <v-toolbar-title>Listado de Boletines</v-toolbar-title>
+          <v-toolbar-title>Listado de Eventos</v-toolbar-title>
           <v-divider
             class="mx-4"
             inset
