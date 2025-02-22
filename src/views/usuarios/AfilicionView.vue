@@ -58,7 +58,7 @@
           <v-col cols="12" sm="6">
             <v-text-field
               v-model="phone"
-              label="Teléfono particular"
+              label="Numero telefónico de contacto"
               :rules="phoneRules"
               type="number"
               required
@@ -68,17 +68,9 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="mobile"
-              label="Teléfono móvil"
-              type="number"
-              :rules="mobileRules"
-              required
-            />
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field
               v-model="email"
               label="E-mail"
+
               :rules="emailRules"
               type="email"
               required
@@ -92,50 +84,10 @@
         </h3>
         <v-row>
           <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="fecha_ingreso"
-              label="Fecha de ingreso al Sena"
-              type="date"
-              :rules="dateRules"
-              required
-            />
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="cargo"
-              label="Cargo"
-              :rules="positionRules"
-              required
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="grado"
-              label="Grado"
-              :rules="degreeRules"
-              required
-            />
-          </v-col>
-          <v-col cols="12" sm="6">
             <v-select
-              v-model="regionalSelected"
-              label="Regional"
-              :items="regionales"
-              item-title="nombre"
-              item-value="id"
-              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
-              required
-            />
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="departamento"
-              label="Dependencia"
-              :rules="departmentRules"
+              v-model="objeto_contractual"
+              label="Objeto contractual"
+              :items="objeto_contractual_options"
               required
             />
           </v-col>
@@ -152,29 +104,117 @@
         <v-row>
           <v-col cols="12" sm="6">
             <v-select
-              v-model="isInCareer"
-              label="Inscrito en carrera administrativa"
-              :items="careerOptions"
+              v-model="regional"
+              @update:model-value="fecthCentrosDeRegionales"
+              label="Seleccione una regional"
+              :items="regionales"
+              item-title="nombre"
+              item-value="id"
               :rules="[(v) => !!v || 'Debe seleccionar una opción']"
               required
             />
           </v-col>
+          <v-col cols="12" sm="6">
+            <v-select
+              v-model="centro_formacion"
+              label="Seleccione el centro de formacion"
+              :items="centros"
+              item-title="nombre"
+              item-value="id"
+              required
+            />
+          </v-col>
+         
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="fecha_ingreso"
+              label="Fecha de ingreso"
+              type="date"
+              :rules="dateRules"
+              required
+            />
+          </v-col>
+          <v-col cols="12" sm="6" v-if="objeto_contractual !== 'Planta'">
+            <v-text-field
+              v-model="fecha_salida"
+              label="Fecha de terminación"
+              type="date"
+              :rules="dateRules"
+              required
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" sm="6" v-if="objeto_contractual !== 'Planta'">
+            <v-text-field
+              v-model="numero_contrato"
+              label="Numero de contrato"
+              :rules="contratoRules"
+              required
+            />
+          </v-col>  
+        </v-row>
+        <v-row v-if="objeto_contractual === 'Planta'">
+          <v-col cols="8" sm="7">
+            <v-text-field
+              v-model="cargo"
+              label="Cargo"
+              :rules="positionRules"
+              required
+            />
+          </v-col>
+          <v-col cols="4" sm="5">
+            <v-text-field
+              v-model="grado"
+              label="Grado"
+              :rules="degreeRules"
+              required
+            />
+          </v-col>
+        </v-row>
+        <v-row v-if="objeto_contractual === 'Planta'">
+          <v-col cols="12" sm="6">
+            <v-text-field
+              v-model="dependencia"
+              label="Dependencia"
+              :rules="dependencyRules"
+              type="text"
+              required
+            />
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-select
+              v-model="isInCareer"
+              label="Inscrito en carrera administrativa"
+              :items="yesNoOptions"
+              item-title="text"
+              item-value="value"
+              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
+              required
+            />
+          </v-col>
+        </v-row>
+        <v-row v-if="objeto_contractual === 'Planta'">
           <v-col cols="12" sm="6">
             <v-select
               v-model="isPublicEmployee"
               label="Empleado público"
               :rules="[(v) => !!v || 'Debe seleccionar una opción']"
               :items="yesNoOptions"
+              item-title="text"
+              item-value="value"
               required
             />
           </v-col>
-        </v-row>
-        <v-row>
           <v-col cols="12" sm="6">
             <v-select
               v-model="isOfficialWorker"
               label="Trabajador oficial"
               :items="yesNoOptions"
+              item-title="text"
+              item-value="value"
               :rules="[(v) => !!v || 'Debe seleccionar una opción']"
               required
             />
@@ -218,21 +258,25 @@ export default {
     lugar_nacimiento: "",
     idNumber: "",
     phone: "",
-    mobile: "",
     email: "",
     fecha_ingreso: "",
     cargo: "",
     grado: "",
     regional: "",
-    departamento: "",
+    numero_contrato:"",
+    centro_formacion: "",
+    dependencia: "",
     salario: "",
+    objeto_contractual: "",
     isInCareer: null,
     isPublicEmployee: null,
     isOfficialWorker: null,
     acceptedTerms: false,
-    careerOptions: ["Sí", "No"],
-    yesNoOptions: ["Sí", "No"],
+    
+    yesNoOptions: [{ text: "Sí", value: true }, { text: "No", value: false }],
+    objeto_contractual_options:["Planta","Contrato","Prestación de servicios"],
     regionales:[],
+    centros:[],
 
     nameRules: [(value) => !!value || "Nombre es requerido."],
     dobRules: [(value) => !!value || "Fecha de nacimiento es requerida."],
@@ -249,7 +293,7 @@ export default {
     positionRules: [(value) => !!value || "Cargo es requerido."],
     degreeRules: [(value) => !!value || "Grado es requerido."],
     regionalRules: [(value) => !!value || "Regional es requerido."],
-    departmentRules: [(value) => !!value || "Dependencia es requerida."],
+    dependencyRules: [(value) => !!value || "Dependencia es requerida."],
     salaryRules: [(value) => !!value || "Asignación básica es requerida."],
   }),
   mounted(){
@@ -265,19 +309,15 @@ export default {
         !this.lugar_nacimiento ||
         !this.idNumber ||
         !this.phone ||
-        !this.mobile ||
         !this.email ||
         !this.fecha_ingreso ||
         !this.cargo ||
         !this.grado ||
         !this.regional ||
-        !this.departamento ||
-        !this.salario ||
-        !this.isInCareer ||
-        !this.isPublicEmployee ||
-        !this.isOfficialWorker
+        !this.centro_formacion ||
+        !this.dependencia ||
+        !this.salario  
       ) {
-        alert("Todos los campos son obligatorios.");
         return;
       }
       // Validar el formulario
@@ -286,26 +326,27 @@ export default {
         return;
       }
       const formData = {
-        nombre: this.nombre,
-        apellido: this.apellido,
+        nombres: this.nombre,
+        apellidos: this.apellido,
+        documento: this.idNumber,
         fecha_nacimiento: this.fecha_nacimiento,
         lugar_nacimiento: this.lugar_nacimiento,
-        idNumber: this.idNumber,
-        phone: this.phone,
-        mobile: this.mobile,
+        telefono: this.phone,
         email: this.email,
-        fecha_ingreso: this.fecha_ingreso,
+        honorario_mensual: this.salario,
+        objeto_contractual: this.objeto_contractual,
+        fecha_ingreso_sena: this.fecha_ingreso,
         cargo: this.cargo,
         grado: this.grado,
+        dependencia: this.dependencia,
+        inscrito_carrera_admin: this.isInCareer,
+        empleado_publico: this.isPublicEmployee,
+        trabajador_oficial: this.isOfficialWorker,
         regional: this.regional,
-        departamento: this.departamento,
-        salario: this.salario,
-        isInCareer: this.isInCareer,
-        isPublicEmployee: this.isPublicEmployee,
-        isOfficialWorker: this.isOfficialWorker,
+        centro: this.centro_formacion
       };
       try {
-        const response = axios.post(`${this.API_Backend}/afilicion`, formData);
+        const response = axios.post(`${this.API_Backend}/afiliado/crear`, formData);
         alert("Datos enviados correctamente");
       } catch (error) {
         if (error.response.status === 400) {
@@ -317,6 +358,22 @@ export default {
       try {
         const response = await axios.get(`${this.API_Backend}/regional`);
         this.regionales = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async fecthCentrosDeRegionales(id_regional) {
+      if (!this.regionales) {
+        alert("Debe seleccionar una regional");
+        return;
+      }
+      this.centro_formacion="";
+      try {
+        this.regionales.forEach((regional) => {
+          if (regional.id == id_regional) {
+            this.centros=regional.centros;
+          }
+        });
       } catch (error) {
         console.error(error);
       }
