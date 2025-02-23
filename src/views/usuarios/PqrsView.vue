@@ -1,10 +1,10 @@
 <template>
   <div class="form-container mx-auto">
-    <v-container class="mx-auto text-center bg-white rounded" width="550">
+    <v-container class="mx-auto text-center bg-white rounded" width="600">
       <div class="bg-dark card-header">
         <h3 class="font-weight-black text-white mb-4">Formulario para PQRS</h3>
       </div>
-      <v-form @submit.prevent="register">
+      <v-form @submit.prevent="submit">
         <!-- Fila para el nombre y apellido -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -17,7 +17,7 @@
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field
-              v-model="lastName"
+              v-model="apellido"
               label="Apellido"
               :rules="nameRules"
               required
@@ -82,6 +82,14 @@
               rows="4"
               required
             />
+            <!-- Alerta de error si el mensaje contiene malas palabras -->
+            <v-alert
+              v-if="mensaje && isProfane"
+              type="error"
+              class="mt-2"
+            >
+              ¡Por favor, no uses malas palabras en tu mensaje!
+            </v-alert>
           </v-col>
         </v-row>
 
@@ -101,10 +109,16 @@
 
 <script>
 import axios from "axios";
+import {Filter} from "bad-words";  // Importa la librería
+import { listBadWords } from "@/assets/js/BadWordsList";
+
+
 
 export default {
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
+    // Crear una instancia de la librería Filter
+    filter: new Filter({ list: listBadWords }),
     name: "",
     apellido: "",
     email: "",
@@ -114,38 +128,49 @@ export default {
     mensaje: "",
     regionales: [],
     centros_formacion: [],
-
-    nameRules: [(value) => !!value || "Name is required."],
+    nameRules: [(value) => !!value || "El nombre es requerido."],
     emailRules: [
-      (value) => !!value || "E-mail is required.",
-      (value) => /.+@.+\..+/.test(value) || "E-mail must be valid.",
+      (value) => !!value || "El correo es requerido.",
+      (value) => /.+@.+\..+/.test(value) || "El correo no es valido.",
     ],
-    phoneRules: [(value) => !!value || "Phone is required."],
+    phoneRules: [(value) => !!value || "El telefono es requerido."],
+    isProfane: false, // Variable para controlar el estado de malas palabras
+    
   }),
   mounted() {
     this.fetchRegionales();
   },
-  computed: {},
-
   methods: {
-    async register() {
+    // Método para validar si el mensaje contiene malas palabras
+    validateMessage() {
+      this.isProfane = this.filter.isProfane(this.mensaje);
+      
+    },
+
+    // Método de submit
+    async submit() {
+      // Evitar enviar el formulario si hay malas palabras
+      if (this.isProfane) {
+        alert("Por favor, no utilices malas palabras.");
+        return; // Detener la ejecución del formulario
+      }
+
       try {
-        const response = await axios.post(`${this.API_Backend}/auth/register`, {
-          name: this.name,
-          apellido: this.apellido,
+        const response = await axios.post(`${this.API_Backend}/pqrs/crear`, {
+          nombres: this.name,
+          apellidos: this.apellido,
           email: this.email,
           telefono: this.telefono,
           regional: this.regional,
-          centro_formacion: this.centro_formacion,
-          mensaje: this.mensaje,
+          centro: this.centro_formacion,
+          asunto: this.mensaje,
         });
-        alert("Registration successful!");
-        this.$router.push({ name: "Login" });
+        alert("¡Registro exitoso!");
       } catch (error) {
         console.error(error);
-        alert("Error registering user");
       }
     },
+
     async fetchRegionales() {
       try {
         const response = await axios.get(`${this.API_Backend}/regional`);
@@ -154,6 +179,7 @@ export default {
         console.error(error);
       }
     },
+
     async fecthCentrosDeRegionales(id_regional) {
       if (!this.regionales) {
         alert("Debe seleccionar una regional");
@@ -162,12 +188,18 @@ export default {
       try {
         this.regionales.forEach((regional) => {
           if (regional.id == id_regional) {
-            this.centros_formacion=regional.centros;
+            this.centros_formacion = regional.centros;
           }
         });
       } catch (error) {
         console.error(error);
       }
+    },
+  },
+  watch: {
+    // Observer para detectar cambios en el mensaje en tiempo real
+    mensaje() {
+      this.validateMessage(); // Validar cada vez que el mensaje cambie
     },
   },
 };

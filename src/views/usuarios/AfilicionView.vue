@@ -5,8 +5,7 @@
       <h3 class="font-weight-black text-white bg-dark mb-4">
         Datos Personales
       </h3>
-
-      <v-form validate-on="submit lazy" @submit.prevent="submit">
+      <v-form validate-on="submit lazy" @submit.prevent="crearAfiliado">
         <!-- Datos personales -->
         <v-row>
           <v-col cols="12" sm="6">
@@ -301,7 +300,7 @@ export default {
   },
 
   methods: {
-    submit() {
+    crearAfiliado() {
       if (
         !this.nombre ||
         !this.apellido ||
