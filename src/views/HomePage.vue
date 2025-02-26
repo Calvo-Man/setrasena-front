@@ -1,10 +1,13 @@
+<script setup>
+import BannerEventos from "@/components/BannerEventos.vue";
+</script>
 <template>
   <v-card class="mx-auto bg-black" width="1000">
     <v-carousel
       show-arrows="hover"
       cycle
       hide-delimiter-background
-      height="250"
+      height="300"
       delimiter-icon="mdi-minus"
     >
       <v-carousel-item v-for="(slide, i) in slides" :key="i">
@@ -15,51 +18,104 @@
     </v-carousel>
 
     <v-divider></v-divider>
-    <v-card-title class="mt-4">
-      Eventos recientes
+    <v-card-title>
+      Eventos recientes SETRASENA
     </v-card-title>
+    <BannerEventos/>
+    <v-banner color="red-darken-3" icon="mdi-account-box" lines="two">
+      <template v-slot:prepend>
+        <v-avatar></v-avatar>
+      </template>
 
-    <v-sheet class="mx-auto" max-width="1000">
-      <v-slide-group v-model="model" class="pa-4 bg-grey-lighten-4" center-active show-arrows>
-        <v-slide-group-item
-          v-for="n in eventos.length"
-          :key="n"
-          v-slot="{ isSelected, toggle }"
-        > 
-          <v-card
-            :color="isSelected ? 'red-darken-2' : 'white'"
-            class="ma-4"
-            height="250"
-            width="250"
-            @click="toggle"
-          >
-            <v-img
-              :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-              height="100"
-              cover
-            ></v-img>
-            <v-card-text class="text-body-1">{{ eventos[n - 1].nombre }}</v-card-text>
-            <v-card-subtitle>Ciudad: {{ eventos[n - 1].ciudad }}</v-card-subtitle>
-            <v-card-subtitle>Lugar: {{ eventos[n - 1].lugar }}</v-card-subtitle>
-            <v-card-subtitle>Fecha: {{ eventos[n - 1].fecha }}</v-card-subtitle>
-            <div class="d-flex fill-height justify-center">
-              
-            </div>
-          </v-card>
-        </v-slide-group-item>
-      </v-slide-group>
-      <v-expand-transition>
-        <v-sheet v-if="model != null" height="200">
-          <div class="d-flx fill-height text-center justify-center pa-4">
-          <v-card-title>{{ eventos[model].nombre }}</v-card-title>
-          
-          <v-card-text class="text-body-1">{{ eventos[model].descripcion }}</v-card-text>
-          <v-card-subtitle>Fecha: {{ eventos[model].fecha }}</v-card-subtitle>
-          </div>
-        </v-sheet>
-      </v-expand-transition>
-    </v-sheet>
-    
+      <v-banner-text class="font-weight-bold">
+        ¿Quieres estar afiliado al sindicato de empleados y trabajadores del
+        sena SETRASENA? <br />
+        Da click en el boton a continuación, llena el formulario y comenzaremos
+        los tramites.
+      </v-banner-text>
+
+      <v-banner-actions>
+        <v-btn to="/afiliacion" class="bg-red-darken-3" color="white"
+          >Afiliate aqui</v-btn
+        >
+      </v-banner-actions>
+    </v-banner>
+
+    <v-card-title id="introduccion">
+      Introducción sobre los sindicatos
+    </v-card-title>
+    <v-card class="pa-4">
+      <v-card-text class="text-body-1">
+        Desde la creación del congreso obrero permanente en 1876, como
+        iniciativa de constitución de sindicatos, hasta el año 2023, la lucha
+        sindical ha sido la misma, aunque los contextos sean diferentes, la
+        persecución y el exterminio de los líderes sociales y sindicales en
+        Colombia se ha incrementado gradualmente, al punto de ostentar los
+        primeros puestos entre los países con las más altas tasas de crímenes de
+        líderes sociales, activistas y sindicales. Los exterminios y sus
+        estadísticas no muestran la persecución, el encarcelamiento y las
+        amenazas de muerte a los líderes sindicales, aspectos que determinan la
+        mitigación del ejercicio del liderazgo sindical.
+      </v-card-text>
+      <v-card-text class="text-body-1">
+        Todos los factores antes mencionados, han ocasionado una diáspora
+        sindical, como en ningún país del mundo. Tales acciones han sido
+        utilizadas como método de presión, para eliminar a los sindicatos como
+        contradictores de clase y de esta forma, el establecimiento ha
+        beneficiado a empresarios nacionales y transnacionales, desarrollando en
+        forma combinada todo un proceso de cooptación de dirigentes, con el
+        objetivo de someter las justas y democráticas luchas de los trabajadores
+        colombianos.
+      </v-card-text>
+      <v-card-text class="text-body-1">
+        Por otra parte, entre los países con mejores Índices de Desarrollo
+        Humano y a menudo citados como ejemplos de calidad de vida, los países
+        nórdicos (Dinamarca, Finlandia, Noruega, Islandia y Suecia), sociedades
+        con buenos niveles de educación y garantía de derechos para su
+        población. No se trata de las economías más poderosas del planeta, ni
+        las de mayor Producto Bruto per cápita. Sin embargo, los países nórdicos
+        se encuentran en los primeros lugares en los rankings de Desarrollo
+        Humano, así como del Índice de Felicidad realizado por las Naciones
+        Unidas y cuentan con sindicatos fuertes, negociaciones colectivas y los
+        niveles de sindicalización más altos del mundo.
+      </v-card-text>
+      <v-card-text class="text-body-1">
+        Otra ventaja es el elogiado sistema educativo de Finlandia, las
+        licencias por maternidad de 46 semanas de Noruega y en general los
+        servicios públicos de calidad de todos estos países suelen ser motivo de
+        comentarios en nuestro país y alrededor del mundo.
+      </v-card-text>
+      <v-card-text class="text-body-1">
+        Históricamente, los cinco países nórdicos tienen la tasa de afiliación
+        sindical más alta del mundo. El primero en el ranking es Islandia, con
+        90 % de sus trabajadores afiliados a algún sindicato. Luego siguen
+        Dinamarca (67%), Suecia (65%), Finlandia (58%) y Noruega (50%), de
+        acuerdo con las estadísticas de la OCDE (2019).
+      </v-card-text>
+    </v-card>
+    <v-card-title id="nosotros">
+      Sobre nosotros
+    </v-card-title>
+    <v-card class="pa-4">
+      <v-card-text class="text-body-1">
+        SETRASENA como organización representante de los empleados y
+        trabajadores del SENA y consciente de la situación de nuestra entidad,
+        sigue luchando desde una plataforma propositiva, para que se continúe
+        ejecutando directamente la formación profesional integral, gratuita y
+        con calidad al servicio del pueblo colombiano. Nuestra organización con
+        firmeza lucha por mejorar las condiciones laborales y los derechos
+        económicos, políticos, sociales, culturales y ambientales de los
+        trabajadores del SENA, teniendo como pilares los principios originales
+        del proletariado mundial y una plataforma de lucha acorde con los
+        análisis de la realidad mundial y nacional.
+      </v-card-text>
+      <v-card-text class="text-body-1"
+        >SETRASENA, compromete la experiencia de sus dirigentes sindicales,
+        fogueados y con conocimiento de la situación nacional y mundial, con
+        vocación y espíritu de lucha al servicio de la causa de los trabajadores
+        y el pueblo colombiano.</v-card-text
+      >
+    </v-card>
   </v-card>
 </template>
 
@@ -67,6 +123,7 @@
 import imagen1 from "@/assets/imagen1.jpeg";
 import imagen2 from "@/assets/imagen2.jpeg";
 import imagen3 from "@/assets/imagen3.jpeg";
+import BannerEventos from "@/components/BannerEventos.vue";
 export default {
   data() {
     return {
@@ -87,26 +144,28 @@ export default {
         {
           image: imagen1,
           nombre: "Asamblea general de trabajo",
-          descripcion: "lorem ipsum dolor sit amet consectetur adipisicinge voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
+          descripcion:
+            "lorem ipsum dolor sit amet consectetur adipisicinge voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
+          lugar: "Centro de industria",
           ciudad: "Bogotá, Colombia",
         },
         {
           image: imagen2,
           nombre: "Asamblea nacional",
           descripcion: "Descripción del evento 2",
-          detalle: "lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
+          detalle:
+            "lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
-          ciudad: "Medellin, Colombia",                          
+          lugar: "Centro de industria",
+          ciudad: "Medellin, Colombia",
         },
         {
           image: imagen3,
           nombre: "Evento 3",
           descripcion: "Descripción del evento 3",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
+          lugar: "Centro de industria",
           cuidad: "Bogotá, Colombia",
         },
         {
@@ -114,7 +173,7 @@ export default {
           nombre: "Evento 4",
           descripcion: "Descripción del evento 4",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
+          lugar: "Centro de industria",
           ciudad: "Cali, Colombia",
         },
         {
@@ -122,7 +181,7 @@ export default {
           nombre: "Evento 5",
           descripcion: "Descripción del evento 5",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
+          lugar: "Centro de industria",
           ciudad: "Nueva York, Estados Unidos",
         },
         {
@@ -130,7 +189,7 @@ export default {
           nombre: "Evento 6",
           descripcion: "Descripción del evento 6",
           fecha: "2022-12-31",
-          lugar:"Centro de industria",
+          lugar: "Centro de industria",
           ciudad: "Monterrey, Mexico",
         },
       ],

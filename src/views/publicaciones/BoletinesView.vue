@@ -1,4 +1,7 @@
 <template>
-    <h1>Boletines</h1>
-    <p>En construccion</p>
+    <BannerEventos />
+  
 </template>
+<script setup>
+import BannerEventos from '@/components/BannerEventos.vue';
+</script>

@@ -1,7 +1,7 @@
 <template>
   <div class="menu-item" :class="{ opened: expanded }">
     <!-- Si 'to' no es null, renderiza <router-link>, de lo contrario, renderiza un <div> -->
-    <router-link v-if="to" class="button" :to="to">
+    <router-link v-if="to" class="button" :to="to" >
       <div
         class="label"
         @click="toggleMenu()"

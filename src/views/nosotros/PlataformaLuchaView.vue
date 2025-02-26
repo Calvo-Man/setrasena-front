@@ -156,6 +156,11 @@
         </ol>
       </section>
     </div>
+    <h5 class="text-disabled mt-4 text-center">
+      SETRASENA UN SINDICATO COMPROMETIDO EN LA LUCHA CONTRA LA CORRUPCION
+      <br />
+      Bogotá, Carrera 7 N°34-50
+    </h5>
   </div>
 </template>
 
@@ -167,7 +172,7 @@ export default {
 
 <style scoped>
 .card {
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   padding: 20px;
   border-radius: 10px;

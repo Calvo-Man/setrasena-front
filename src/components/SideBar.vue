@@ -56,14 +56,14 @@ export default {
         to: "",
         children: [
           {
-            label: "Misión y visión",
+            label: "Introducción",
             icon: "",
-            to: "/mision",
+            to: "#introduccion",
           },
           {
-            label: "Visión",
+            label: "Sobre nosotros",
             icon: "",
-            to: "/vision",
+            to: "/home#nosotros",
           },
           {
             label: "Plataforma de lucha",
