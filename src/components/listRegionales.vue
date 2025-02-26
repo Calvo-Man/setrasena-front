@@ -230,9 +230,11 @@
       async deleteItemConfirm () {
         try {
           const response =await axios.delete(`${this.API_Backend}/regional/${this.editedItem.id}`);
+          
         } catch (error) {
           console.error(error);
         }
+        this.initialize();
         this.closeDelete()
       },
 
@@ -272,6 +274,7 @@
         const response = await axios.post(`${this.API_Backend}/regional/crear`, {
           nombre: this.editedItem.nombre,
         });
+        this.initialize();
         alert("Registration successful!");
         
       } catch (error) {

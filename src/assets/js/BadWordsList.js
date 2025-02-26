@@ -52,14 +52,15 @@ export const listBadWords = [
 
   "perra de mierda",
   "folla",
-
+    "maldito",
   "concha",
-
+ "mongolico",
   "mierdita",
   "putisima",
   "macaco",
-
+"caremonda",
   "bocón",
+"triplehijueputa",
 
   "morra",
 

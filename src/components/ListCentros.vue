@@ -254,6 +254,7 @@ export default {
             regional: this.editedItem.regional
           }
         );
+        this.initialize();
         alert("Registration successful!");
       } catch (error) {
         console.error(error);

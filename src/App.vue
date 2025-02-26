@@ -25,6 +25,10 @@ import { RouterView } from "vue-router";
   font-family: "Fira sans", sans-serif;
   
 }
+html {
+  scroll-behavior: smooth;
+}
+
  body{
   background: var(--grey);
 }
