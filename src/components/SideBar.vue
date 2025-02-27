@@ -58,7 +58,7 @@ export default {
           {
             label: "Introducción",
             icon: "",
-            to: "#introduccion",
+            to: "/introduccion",
           },
           {
             label: "Sobre nosotros",
@@ -189,7 +189,7 @@ aside {
   padding: 1rem;
 
   transition: 0.2s ease-in-out;
-  overflow-y: auto;
+  // overflow-y: auto;
  
   .flex {
     flex: 1 1 0%;
@@ -243,7 +243,8 @@ aside {
 
   .menu {
     margin: 0 -1rem;
-
+    max-height: 100vh;
+    overflow-y: auto;
     .button {
       display: flex;
       align-items: center;
@@ -326,13 +327,30 @@ aside {
     z-index: 99;
   }
 }
- /* Ocultar la barra de desplazamiento */
- .scrollable-nav::-webkit-scrollbar {
-    display: none; /* Oculta la barra de desplazamiento */
-  }
+::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de scroll */
+}
 
-  /* Si deseas que la barra lateral siga desplazándose pero sin mostrar la barra de scroll en Firefox y otros navegadores */
-  .scrollable-nav {
-    scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
-  }
+/* Personaliza el "track" o fondo sobre el que se desplaza */
+::-webkit-scrollbar-track {
+  background: var(--red-dark); /* Color de fondo del track */
+}
+
+/* Personaliza el "thumb" o control deslizante */
+::-webkit-scrollbar-thumb {
+  background: var(--dark); /* Color del control */
+}
+
+
+
+/* Cambia el color del "thumb" cuando se presiona */
+::-webkit-scrollbar-thumb:active {
+  background: #333;
+}
+
+/* Personaliza las barras de desplazamiento para Firefox */
+.scrollable-nav-main {
+  scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
+  scrollbar-color: var(--dark) #f1f1f1; /* Color del "thumb" y del track */
+}
 </style>

@@ -2,6 +2,7 @@
   <div class="app">
     <SideBar />
     <div class="container mx-auto scrollable-nav-main">
+      <NavBar />
       <main>
         <RouterView />
       </main>

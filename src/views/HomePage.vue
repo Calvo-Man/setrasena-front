@@ -1,8 +1,12 @@
 <script setup>
+
 import BannerEventos from "@/components/BannerEventos.vue";
+
+
 </script>
+
 <template>
-  <v-card class="mx-auto bg-black" width="1000">
+  <v-card class="mt-0 bg-black" width="1000">
     <v-carousel
       show-arrows="hover"
       cycle

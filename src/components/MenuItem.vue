@@ -152,7 +152,7 @@ export default {
     transition: height 0.3s ease;
     overflow: hidden;
     border-left: solid 1px var(--dark-alt);
-    margin-left: calc(5% + 6px);
+  
   }
   .button{
     &:hover{

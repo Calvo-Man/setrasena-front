@@ -144,7 +144,7 @@ export default {
     letter-spacing: 8px; /* Ajusta el espacio entre las letras */
   }
   .informacion {
-    border-left: 1px solid white;
+    border-left: 1px solid rgb(10, 10, 10);
     padding-left: 6px;
     height: 70%;
 
