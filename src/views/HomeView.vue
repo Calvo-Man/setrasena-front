@@ -16,6 +16,9 @@ import NavBar from "@/components/NavBar.vue";
 </script>
 
 <style scoped lang="scss">
+main{
+  margin-top: 50px;
+}
 .container {
   max-height: 100vh;
   overflow-y: auto;
@@ -24,7 +27,7 @@ import NavBar from "@/components/NavBar.vue";
 
 /* Personaliza las barras de desplazamiento para navegadores basados en Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 12px; /* Ancho de la barra de scroll */
+  width: 1px; /* Ancho de la barra de scroll */
 }
 
 /* Personaliza el "track" o fondo sobre el que se desplaza */

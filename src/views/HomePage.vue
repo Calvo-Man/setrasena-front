@@ -6,7 +6,7 @@ import BannerEventos from "@/components/BannerEventos.vue";
 </script>
 
 <template>
-  <v-card class="mt-0 bg-black" width="1000">
+  <v-card class="mt-0 bg-black" width="100%">
     <v-carousel
       show-arrows="hover"
       cycle

@@ -1,17 +1,46 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from 'vue';
 import logoURL from "../assets/logo.png";
 import MenuItem from "./MenuItem.vue";
 
-const is_expanded = ref(localStorage.getItem("is_expanded") === "true");
+// Creamos una propiedad reactiva para el estado del menú
+const is_expanded = ref(true);
 
+// Función que actualiza el estado de is_expanded dependiendo del ancho de la ventana
+const updateMenuState = () => {
+  if (window.innerWidth > 1024) {
+    is_expanded.value = true; // Si el ancho es mayor a 1024px, el menú estará expandido
+  } else {
+    is_expanded.value = false; // Si el ancho es menor o igual a 1024px, el menú estará contraído
+  }
+};
+
+// Establecer el valor inicial de is_expanded cuando el componente se monta
+onMounted(() => {
+  updateMenuState(); // Verifica el tamaño de la ventana al cargar el componente
+  window.addEventListener('resize', updateMenuState); // Añade un listener para cuando el tamaño de la ventana cambie
+});
+
+
+// ToggleMenu para alternar el estado de is_expanded
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value;
-  localStorage.setItem("is_expanded", is_expanded.value);
+  console.log(is_expanded.value);
 };
 </script>
 <template>
-  <aside :class="`${is_expanded ? 'is-expanded' : ''}`" class="scrollable-nav position-fixe">
+  <button
+    class="menu-toggle-no-expanded"
+    :class="`${is_expanded ? 'is-expanded' : ''}`"
+    @click="ToggleMenu"
+  >
+    <h3>Menu</h3>
+    <span class="material-icons">keyboard_double_arrow_right</span>
+  </button>
+  <aside
+    :class="`${is_expanded ? 'is-expanded' : ''}`"
+    class="scrollable-nav-main"
+  >
     <div class="logo">
       <img :src="logoURL" alt="" />
     </div>
@@ -22,7 +51,7 @@ const ToggleMenu = () => {
     </div>
     <h3>Menu</h3>
 
-    <div class="menu">
+    <div class="menu scrollable-nav-main">
       <MenuItem
         v-for="(item, index) in menuTree"
         :key="index"
@@ -43,6 +72,7 @@ export default {
   name: "recursive-menu",
   data: () => ({
     smallMenu: false,
+    is_expanded:true,
     //Menu de opciones de la barra lateral
     menuTree: [
       {
@@ -154,7 +184,6 @@ export default {
         label: "Administracion",
         icon: "admin_panel_settings",
         to: "/admin",
-
       },
       {
         label: "Generar PQRS",
@@ -175,6 +204,39 @@ export default {
 </script>
 
 <style lang="scss">
+.menu-toggle-no-expanded {
+  display: flex;
+  position: absolute;
+  z-index: 991;
+  .material-icons {
+    position: absolute;
+    top: 10px;
+    left: 65px;
+    font-size: 2rem;
+    color: var(--dark);
+    transition: 0.2s ease-out;
+  }
+
+  &:hover {
+    .material-icons {
+      color: var(--red-dark);
+      transform: translateX(0.5rem);
+    }
+  }
+  &.is-expanded {
+    display: none;
+    opacity: 0;
+  }
+  h3 {
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    color: var(--dark);
+    font-size: 0.985rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+}
 aside {
   max-height: 100vh;
   display: flex;
@@ -187,10 +249,10 @@ aside {
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
-
+  opacity: 0;
   transition: 0.2s ease-in-out;
-  // overflow-y: auto;
- 
+  display: none;
+
   .flex {
     flex: 1 1 0%;
   }
@@ -297,12 +359,18 @@ aside {
 
   &.is-expanded {
     width: var(--sidebar-width);
-
+    display: flex;
+    opacity: 1;
+    transition: 0.3s ease-in-out;
     .menu-toggle-wrap {
       top: -3rem;
 
       .menu-toggle {
-        transform: rotate(-180deg);
+        opacity: 0;
+        @media (max-width: 1024px) {
+          transform: rotate(-180deg);
+          opacity: 1;
+        }
       }
     }
 
@@ -324,24 +392,28 @@ aside {
 
   @media (max-width: 1024px) {
     position: absolute;
-    z-index: 99;
+    z-index: 991;
   }
 }
+/* Personaliza las barras de desplazamiento para navegadores basados en Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra de scroll */
+  width: 1px; /* Ancho de la barra de scroll */
 }
 
 /* Personaliza el "track" o fondo sobre el que se desplaza */
 ::-webkit-scrollbar-track {
-  background: var(--red-dark); /* Color de fondo del track */
+  background: #f1f1f1; /* Color de fondo del track */
 }
 
 /* Personaliza el "thumb" o control deslizante */
 ::-webkit-scrollbar-thumb {
-  background: var(--dark); /* Color del control */
+  background: var(--light); /* Color del control */
 }
 
-
+/* Cambia el color del "thumb" cuando está en hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1298cd;
+}
 
 /* Cambia el color del "thumb" cuando se presiona */
 ::-webkit-scrollbar-thumb:active {
@@ -351,6 +423,6 @@ aside {
 /* Personaliza las barras de desplazamiento para Firefox */
 .scrollable-nav-main {
   scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
-  scrollbar-color: var(--dark) #f1f1f1; /* Color del "thumb" y del track */
+  scrollbar-color: var(--dark) var(--red-dark); /* Color del "thumb" y del track */
 }
 </style>

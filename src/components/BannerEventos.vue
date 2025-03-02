@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto" max-width="1000">
+  <v-sheet class="mx-auto" max-width="100%">
     <v-slide-group
       v-model="model"
       class="pa-4 bg-grey-lighten-"
