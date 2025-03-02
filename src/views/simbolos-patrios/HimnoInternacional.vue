@@ -4,6 +4,18 @@
       <h1 class="card-title">Himno Internacional Socialista</h1>
     </div>
     <div class="card-body">
+      <div class="video-container">
+        <iframe
+          width="100%"
+          height="315"
+          src="https://www.youtube.com/embed/Aj8vctaO-oA"
+          title="Himno Nacional de Colombia"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
       <div class="row">
         <!-- Coro -->
         <section class="col-12 col-md-6 col-lg-4 section">
@@ -16,20 +28,10 @@
           </p>
         </section>
 
-        <!-- Primera Estrofa -->
-        <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Primera Estrofa</h2>
-          <p>
-            Agrupémonos todos,<br />
-            en la lucha final.<br />
-            El género humano<br />
-            es la internacional. (Bis)<br />
-          </p>
-        </section>
-
+       
         <!-- Segunda Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Segunda Estrofa</h2>
+          <h2 class="section-title">Primera Estrofa</h2>
           <p>
             ¡Arriba, parias de la Tierra!<br />
             ¡En pie, famélica legión!<br />
@@ -40,7 +42,7 @@
 
         <!-- Tercera Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Tercera Estrofa</h2>
+          <h2 class="section-title">Segunda Estrofa</h2>
           <p>
             Del pasado hay que hacer añicos.<br />
             ¡Legión esclava en pie a vencer!<br />
@@ -51,7 +53,7 @@
 
         <!-- Cuarta Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Cuarta Estrofa</h2>
+          <h2 class="section-title">Tercera Estrofa</h2>
           <p>
             Ni en dioses, reyes ni tribunos,<br />
             está el supremo salvador.<br />
@@ -62,7 +64,7 @@
 
         <!-- Quinta Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Quinta Estrofa</h2>
+          <h2 class="section-title">Cuarta Estrofa</h2>
           <p>
             Para hacer que el tirano caiga<br />
             y el mundo esclavo liberar,<br />
@@ -73,7 +75,7 @@
 
         <!-- Sexta Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Sexta Estrofa</h2>
+          <h2 class="section-title">Quinta Estrofa</h2>
           <p>
             La ley nos burla y el Estado<br />
             oprime y sangra al productor;<br />
@@ -84,7 +86,7 @@
 
         <!-- Séptima Estrofa -->
         <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Séptima Estrofa</h2>
+          <h2 class="section-title">Sexta Estrofa</h2>
           <p>
             Basta ya de tutela odiosa,<br />
             que la igualdad ley ha de ser:<br />
@@ -93,16 +95,7 @@
           </p>
         </section>
 
-        <!-- Corro Repetido -->
-        <section class="col-12 col-md-6 col-lg-4 section">
-          <h2 class="section-title">Corro Repetido</h2>
-          <p>
-            Agrupémonos todos,<br />
-            en la lucha final.<br />
-            El género humano<br />
-            es la internacional. (Bis)<br />
-          </p>
-        </section>
+      
 
       </div>
     </div>
@@ -117,7 +110,7 @@ export default {
 
 <style scoped>
 .card {
-  width: 80%;
+  width: 100%;
   margin: 20px auto;
   padding: 20px;
   border-radius: 10px;

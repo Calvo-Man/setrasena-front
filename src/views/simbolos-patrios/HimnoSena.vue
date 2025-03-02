@@ -4,6 +4,18 @@
       <h1 class="card-title">Himno Estudiantil del SENA</h1>
     </div>
     <div class="card-body">
+      <div class="video-container">
+        <iframe
+          width="100%"
+          height="315"
+          src="https://www.youtube.com/embed/LMKaOSB2N4Q"
+          title="Himno Nacional de Colombia"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+      </div>
       <div class="row">
         <!-- Coro -->
         <section class="col-12 col-md-6 col-lg-4 section">
