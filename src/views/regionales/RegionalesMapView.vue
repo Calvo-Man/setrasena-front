@@ -4,7 +4,7 @@ import MapColombia from "@/components/MapColombia.vue";
 <template>
     <v-card
       class="mx-auto"
-      width="700"
+      width="100%"
     >
     <v-card-title class="text-center">
       Regionales
@@ -13,7 +13,7 @@ import MapColombia from "@/components/MapColombia.vue";
       class="mx-auto"
       height="500"
       lazy-src="https://picsum.photos/id/11/100/60"
-      width="700"
+      width="100%"
       :src="bannerImage"
     >
       <template v-slot:placeholder>
