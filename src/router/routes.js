@@ -16,8 +16,14 @@ import ComunicadosView from "@/views/publicaciones/ComunicadosView.vue";
 import FlashInformativoView from "@/views/publicaciones/FlashInformativoView.vue";
 import EventosyReunionesView from "@/views/eventos/EventosyReunionesView.vue";
 import PanelAdminView from "@/views/admin/PanelAdminView.vue";
+import LoginView from "@/views/admin/LoginView.vue";
 
 export const routes = [
+  {
+    path:"/auth/login",
+    name:"LoginAdmin",
+    component:LoginView
+  },
   {
     path: "/",
     name: "home",

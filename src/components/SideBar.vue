@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 import logoURL from "../assets/logo.png";
 import MenuItem from "./MenuItem.vue";
 
@@ -18,9 +18,8 @@ const updateMenuState = () => {
 // Establecer el valor inicial de is_expanded cuando el componente se monta
 onMounted(() => {
   updateMenuState(); // Verifica el tamaño de la ventana al cargar el componente
-  window.addEventListener('resize', updateMenuState); // Añade un listener para cuando el tamaño de la ventana cambie
+  window.addEventListener("resize", updateMenuState); // Añade un listener para cuando el tamaño de la ventana cambie
 });
-
 
 // ToggleMenu para alternar el estado de is_expanded
 const ToggleMenu = () => {
@@ -63,6 +62,12 @@ const ToggleMenu = () => {
         :smallMenu="smallMenu"
       />
     </div>
+    <div class="logout menu">
+      <router-link to="/settings" class="button">
+        <span class="material-icons">logout</span>
+        <span class="text">Cerrar sesión</span>
+      </router-link>
+    </div>
   </aside>
 </template>
 <script>
@@ -72,7 +77,7 @@ export default {
   name: "recursive-menu",
   data: () => ({
     smallMenu: false,
-    is_expanded:true,
+    is_expanded: true,
     //Menu de opciones de la barra lateral
     menuTree: [
       {
@@ -204,6 +209,10 @@ export default {
 </script>
 
 <style lang="scss">
+.logout {
+  height: 8vh;
+ 
+}
 .menu-toggle-no-expanded {
   display: flex;
   position: absolute;
