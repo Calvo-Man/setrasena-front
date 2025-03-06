@@ -30,7 +30,7 @@ html {
 }
 
  body{
-  background: var(--grey);
+  background: var(--light);
 }
 button {
   cursor: pointer;
@@ -45,9 +45,7 @@ button {
     flex: 1 1 0;
     padding: 2rem;
     padding-top: 1rem;
-    @media (max-width: 768px) {
-      padding-left: 6rem;
-    }
+    
   }
 }
 

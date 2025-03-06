@@ -1,6 +1,6 @@
 <template>
   <div class="form-container mx-auto">
-    <v-container class="mx-auto text-center bg-white rounded" width="55vw">
+    <v-container class="mx-auto text-center bg-white rounded" width="100%">
       <h3 class="font-weight-black text-dark mb-4">Formulario de Afiliación</h3>
       <h3 class="font-weight-black text-white bg-dark mb-4">
         Datos Personales

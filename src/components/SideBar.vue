@@ -24,7 +24,6 @@ onMounted(() => {
 // ToggleMenu para alternar el estado de is_expanded
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value;
-  console.log(is_expanded.value);
 };
 </script>
 <template>
@@ -58,17 +57,24 @@ const ToggleMenu = () => {
         :label="item.label"
         :icon="item.icon"
         :to="item.to"
+        :select="item.select"
+        :href="item.href"
         :depth="0"
         :smallMenu="smallMenu"
       />
     </div>
-    <div class="logout menu">
-      <router-link to="/settings" class="button">
-        <span class="material-icons">logout</span>
-        <span class="text">Cerrar sesión</span>
-      </router-link>
+    
+    <div class="text-center pt-3 ">
+      <v-btn prepend-icon="mdi-logout" color="black">
+        <template v-slot:prepend>
+          <v-icon color="white"></v-icon>
+        </template>
+
+        Cerrar sesion
+      </v-btn>
     </div>
   </aside>
+  
 </template>
 <script>
 import MenuItem from "./MenuItem.vue";
@@ -93,18 +99,16 @@ export default {
           {
             label: "Introducción",
             icon: "",
-            to: "/introduccion",
+            href: "/home#introduccion",
+            select:"/home#introduccion",
           },
           {
             label: "Sobre nosotros",
             icon: "",
-            to: "/home#nosotros",
+            href: "/home#nosotros",
+            to:"",
           },
-          {
-            label: "Plataforma de lucha",
-            icon: "",
-            to: "/plataforma-lucha",
-          },
+          
         ],
       },
       {
@@ -116,6 +120,11 @@ export default {
             label: "Principios",
             icon: "",
             to: "/principios",
+          },
+          {
+            label: "Plataforma de lucha",
+            icon: "",
+            to: "/plataforma-lucha",
           },
         ],
       },
@@ -210,8 +219,7 @@ export default {
 
 <style lang="scss">
 .logout {
-  height: 8vh;
- 
+  height: 9vh;
 }
 .menu-toggle-no-expanded {
   display: flex;
@@ -230,6 +238,9 @@ export default {
     .material-icons {
       color: var(--red-dark);
       transform: translateX(0.5rem);
+    }
+    h3{
+      color: var(--red-dark);
     }
   }
   &.is-expanded {
@@ -251,7 +262,7 @@ aside {
   display: flex;
   flex-direction: column;
 
-  background-color: var(--red-dark);
+  background-color: var(--light);
   color: var(--light);
 
   width: calc(2rem + 32px);
@@ -292,7 +303,7 @@ aside {
 
       &:hover {
         .material-icons {
-          color: var(--light);
+          color: var(--red-dark);
           transform: translateX(0.5rem);
         }
       }
@@ -335,7 +346,7 @@ aside {
       }
 
       &:hover {
-        background-color: var(--red-dark);
+        background-color: var(--dark);
         box-shadow: 10px 1px 4px var(--dark);
 
         .material-icons,
@@ -346,11 +357,11 @@ aside {
 
       &.router-link-exact-active {
         background-color: var(--dark);
-        border-right: 5px solid var(--light);
+        border-right: 5px solid var(--red-dark);
 
         .material-icons,
         .text {
-          color: var(--light);
+          color: var(--red-dark);
         }
       }
     }
@@ -375,10 +386,10 @@ aside {
       top: -3rem;
 
       .menu-toggle {
-        opacity: 0;
+        display: none;
         @media (max-width: 1024px) {
           transform: rotate(-180deg);
-          opacity: 1;
+          display: flex;
         }
       }
     }
@@ -432,6 +443,6 @@ aside {
 /* Personaliza las barras de desplazamiento para Firefox */
 .scrollable-nav-main {
   scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
-  scrollbar-color: var(--dark) var(--red-dark); /* Color del "thumb" y del track */
+  scrollbar-color: var(--dark) var(--light); /* Color del "thumb" y del track */
 }
 </style>

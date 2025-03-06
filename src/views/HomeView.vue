@@ -5,19 +5,21 @@
       <NavBar />
       <main>
         <RouterView />
+        <Footer />
       </main>
     </div>
   </div>
 </template>
 
 <script setup>
+import Footer from "@/components/FooterView.vue";
 import SideBar from "@/components/SideBar.vue";
 import NavBar from "@/components/NavBar.vue";
 </script>
 
 <style scoped lang="scss">
-main{
-  margin-top: 50px;
+main {
+  margin-top: 60px;
 }
 .container {
   max-height: 100vh;

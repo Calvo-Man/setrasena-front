@@ -1,6 +1,6 @@
 <template>
   <div class="form-container mx-auto">
-    <v-container class="mx-auto text-center bg-white rounded" width="600">
+    <v-container class="mx-aut text-center bg-white rounded" width="100%">
       <div class="bg-dark card-header">
         <h3 class="font-weight-black text-white mb-4">Formulario para PQRS</h3>
       </div>

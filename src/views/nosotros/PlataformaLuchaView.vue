@@ -1,8 +1,12 @@
+<script setup>
+import BannerAfiliacion from '@/components/BannerAfiliacion.vue';
+</script>
 <template>
-  <div class="card">
+  <div class="card" width="100%">
     <div class="card-header">
       <h1 class="card-title">Plataforma de Lucha</h1>
     </div>
+    <BannerAfiliacion/>
     <div class="card-body">
       <section class="section">
         <h2 class="section-title">Introducción</h2>
@@ -172,8 +176,8 @@ export default {
 
 <style scoped>
 .card {
-  width: 90%;
-  margin: 20px auto;
+  width: 100%;
+
   padding: 20px;
   border-radius: 10px;
   box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
@@ -196,9 +200,6 @@ export default {
   padding: 20px;
 }
 
-.section {
-  margin-bottom: 30px;
-}
 
 .section-title {
   font-size: 1.4em;

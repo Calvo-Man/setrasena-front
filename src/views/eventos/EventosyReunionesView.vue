@@ -7,7 +7,7 @@
         :color="isSelected ? 'white' : 'red-darken-2'"
         class="ma-3  d-flex borde-card mx-auto"
         height="200"
-        width="800"
+        width="100%"
         @click="toggle"
       >
         <div class="w-33">
@@ -48,11 +48,11 @@
   
     data() {
       return {
-        page: 1, // Current page
+        page: 1, // Pagina actual
         eventos: [
           {
             nombre: "Asamblea general de trabajo",
-            imagen: imagen1,
+            imagen: "/img/imagen1.jpeg",
             descripcion:
               "beatae deserunt aut cupiditate nulla repellat commodi, voluptates minima at quae? Praesentium, accusamus!",
             fecha: "2022-12-31",
@@ -71,7 +71,7 @@
             inicio: "10:00 a.m",
             fin: "12:00 p.m",
             tipo_evento: "Evento virtual",
-            lugar: "Microsoft teams", // Fixed duplicate "lugar"
+            lugar: "Microsoft teams", 
             ciudad: "Medellín, Colombia",
           },
           {

@@ -1,8 +1,12 @@
+<script setup>
+import BannerAfiliacion from '@/components/BannerAfiliacion.vue';
+</script>
 <template>
   <div class="card">
     <div class="card-header">
       <h1 class="card-title">Nuestros Principios</h1>
     </div>
+    <BannerAfiliacion/>
     <div class="card-body">
       <section class="section">
         <h2 class="section-title">Declaración de Principios</h2>
@@ -115,6 +119,7 @@
 </template>
 
 <script>
+import BannerAfiliacion from '@/components/BannerAfiliacion.vue';
 export default {
   name: "PlataformaLuchaCard",
 };
@@ -122,8 +127,8 @@ export default {
 
 <style scoped>
 .card {
-  width: 90%;
-  margin: 20px auto;
+  width: 100%;
+  
   padding: 20px;
   border-radius: 10px;
   box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
@@ -146,9 +151,7 @@ export default {
   padding: 20px;
 }
 
-.section {
-  margin-bottom: 30px;
-}
+
 
 .section-title {
   font-size: 1.4em;

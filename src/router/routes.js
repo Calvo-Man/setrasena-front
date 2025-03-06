@@ -17,12 +17,11 @@ import FlashInformativoView from "@/views/publicaciones/FlashInformativoView.vue
 import EventosyReunionesView from "@/views/eventos/EventosyReunionesView.vue";
 import PanelAdminView from "@/views/admin/PanelAdminView.vue";
 import LoginView from "@/views/admin/LoginView.vue";
-
 export const routes = [
   {
-    path:"/auth/login",
-    name:"LoginAdmin",
-    component:LoginView
+    path: "/auth/login",
+    name: "LoginAdmin",
+    component: LoginView,
   },
   {
     path: "/",
@@ -31,19 +30,29 @@ export const routes = [
     redirect: { path: "/home" },
     children: [
       {
-        path: "/home",
+        path: "home",
         name: "Home",
         component: HomePage,
-        
+        children: [
+          {
+            path: "/introduccion",
+            name: "Introduccion",
+            redirect: "/home#introduccion",
+          },
+          {
+            path: "/home#nosotros",
+            name: "Nosotros",
+            redirect: "/home#nosotros",
+          },
+        ],
       },
 
-      { path: "/introduccion", name: "Introduccion", redirect:"/home#introduccion"},
       { path: "/pqrs", name: "PQRS", component: PqrsView },
       { path: "/afiliacion", name: "Afilicion", component: AfilicionView },
       { path: "/mision", name: "Mision", component: MisionView },
       { path: "/vision", name: "Vision", component: VisionView },
       {
-        path: "/plataforma-lucha",
+        path: "plataforma-lucha",
         name: "Plataforma de lucha",
         component: PlataformaLuchaView,
       },
@@ -79,5 +88,10 @@ export const routes = [
       },
       { path: "/admin", name: "Panel Admin", component: PanelAdminView },
     ],
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: HomeView,
   },
 ];

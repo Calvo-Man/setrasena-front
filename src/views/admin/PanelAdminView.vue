@@ -11,6 +11,11 @@ import ListEventos from "@/components/ListEventos.vue";
     <div class="card-header">
       <h1 class="card-title">Panel de Administración</h1>
     </div>
+    <div class="card-body text-center mt-5">
+      <h3>Bienvenido al panel de administración del SETRASENA</h3>
+      <h5>Aqui podrás gestionar los boletines, comunicados, flash informativos, eventos y reuniones, slider del inicio, regionales y centros de formación.</h5>
+      <h5>Por favor, selecciona una opción para comenzar:</h5>
+    </div>
     <v-container class="mx-auto">
       <v-row>
         <!-- Botones para mostrar los formularios -->
@@ -69,12 +74,12 @@ export default {
     API_Backend: import.meta.env.VITE_API_BACKEND,
     selectedForm: "",
     opciones: [
-      { value: "boletin", nombre: "Boletín" },
-      { value: "comunicado", nombre: "Comunicado" },
-      { value: "flash", nombre: "Flash Informativo" },
-      { value: "eventos", nombre: "Eventos" },
-      { value: "regional", nombre: "Regional" },
-      { value: "centroFormacion", nombre: "Centro de Formación" },
+      { value: "boletin", nombre: "Boletínes" },
+      { value: "comunicado", nombre: "Comunicados" },
+      { value: "flash", nombre: "Flash Informativos" },
+      { value: "eventos", nombre: "Eventos y Reuniones" },
+      { value: "regional", nombre: "Regionales" },
+      { value: "centroFormacion", nombre: "Centros de Formación" },
     ],
     regionales: [],
   }),
@@ -119,7 +124,7 @@ export default {
 <style scoped>
 .card {
   width: 100%;
-  margin: 20px auto;
+  
   padding: 20px;
   border-radius: 10px;
   box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
