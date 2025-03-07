@@ -87,7 +87,7 @@ export const routes = [
         component: EventosyReunionesView,
       },
       {
-        path: "/admi",
+        path: "/admin",
         name: "Panel Admin",
         component: PanelAdminView,
         // meta: { requiresAuth: false },
