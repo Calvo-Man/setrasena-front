@@ -37,12 +37,12 @@ export const routes = [
           {
             path: "/introduccion",
             name: "Introduccion",
-            redirect: "/home#introduccion",
+            
           },
           {
             path: "/home#nosotros",
             name: "Nosotros",
-            redirect: "/home#nosotros",
+           
           },
         ],
       },
@@ -87,13 +87,14 @@ export const routes = [
         component: EventosyReunionesView,
       },
       {
-        path: "/admin",
+        path: "/admi",
         name: "Panel Admin",
         component: PanelAdminView,
-        meta: { requiresAuth: true },
+        // meta: { requiresAuth: false },
       },
     ],
   },
+  // {path:"/admin",name:"PanelAdmin",component:PanelAdminView},
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
