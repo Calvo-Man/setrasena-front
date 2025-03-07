@@ -7,52 +7,56 @@
       {{ descripcion }}
     </h4>
     <v-card
-  v-for="(evento, index) in paginatedEventos"
-  :key="index"
-  :color="isSelected ? 'white' : 'red-darken-2'"
-  class="ma-3 d-flex borde-card mx-auto"
-  height="auto"
-  width="100%"
-  @click="toggle"
->
-  <div class="d-flex flex-column flex-md-row">
-    <!-- Imagen -->
-    <div class="w-100 w-md-33">
-      <v-img :src="evento.imagen" height="200" cover></v-img>
-    </div>
-    <!-- Información -->
-    <div class="d-flex flex-column w-100 w-md-66">
-      <div class="info-date d-flex flex-column flex-md-row align-start align-md-center">
-        <div class="day align-center">
-          <p class="text-h3 text-white">{{ getDay(evento.fecha) }}</p>
+      v-for="(evento, index) in paginatedEventos"
+      :key="index"
+      :color="'red-darken-2'"
+      class="ma-3 d-flex borde-card mx-auto"
+      height="auto"
+      width="100%"
+    >
+      <div class="d-flex flex-column flex-md-row">
+        <!-- Imagen -->
+        <div class="w-100 w-md-33">
+          <v-img :src="evento.imagen" height="200" cover></v-img>
         </div>
-        <p class="month text-5">
-          {{ getMonthAbbreviation(evento.fecha) }}
-        </p>
-        <p class="year text-5">{{ getYear(evento.fecha) }}</p>
-        <div class="informacion">
-          <p>{{ evento.ciudad }}</p>
-          <p>{{ evento.fecha }}</p>
-        </div>
-        <v-spacer></v-spacer>
-        <div>
-          <v-btn class="material-icons bg-black ver-pdf">
-            <span class="material-icons">visibility</span>
-            <h3>Ver documento</h3>
-          </v-btn>
+        <!-- Información -->
+        <div class="d-flex flex-column w-100 w-md-66">
+          <div
+            class="info-date d-flex flex-column flex-md-row align-start align-md-center"
+          >
+            <div class="day align-center">
+              <p class="text-h3 text-white">{{ getDay(evento.fecha) }}</p>
+            </div>
+            <p class="month text-5">
+              {{ getMonthAbbreviation(evento.fecha) }}
+            </p>
+            <p class="year text-5">{{ getYear(evento.fecha) }}</p>
+            <div class="informacion">
+              <p>{{ evento.ciudad }}</p>
+              <p>{{ evento.fecha }}</p>
+            </div>
+            <v-spacer></v-spacer>
+            <div>
+              <v-btn
+                class="material-icons bg-black ver-pdf"
+                :href="evento.documento"
+                target="_blank"
+              >
+                <span class="material-icons">visibility</span>
+                <h3>Ver documento</h3>
+              </v-btn>
+            </div>
+          </div>
+          <div class="descripcion">
+            <v-card-title class="text-body-1">{{ evento.nombre }}</v-card-title>
+            <v-card-text class="text-body-2">
+              {{ evento.descripcion }}
+            </v-card-text>
+          </div>
         </div>
       </div>
-      <div class="descripcion">
-        <v-card-title class="text-body-1">{{ evento.nombre }}</v-card-title>
-        <v-card-text class="text-body-2">
-          {{ evento.descripcion }}
-        </v-card-text>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex fill-height justify-center"></div>
-</v-card>
-
+      <div class="d-flex fill-height justify-center"></div>
+    </v-card>
 
     <v-pagination
       v-model="page"
@@ -63,8 +67,6 @@
 </template>
 
 <script>
-import { h } from 'vue';
-
 export default {
   name: "banner-eventos",
   props: {
@@ -78,7 +80,7 @@ export default {
     },
     descripcion: {
       type: String,
-    }
+    },
   },
   data() {
     return {

@@ -35,7 +35,7 @@
               </p>
               <div class="informacion">
                 <p>{{ evento.inicio }} a {{ evento.fin }}</p>
-                <p>{{ evento.tipo_evento }}: {{ evento.lugar }}</p>
+                <p>{{ evento.modalidad }}: {{ evento.lugar }}</p>
                 <p>{{ evento.ciudad }}</p>
               </div>
             </div>
@@ -68,7 +68,7 @@ export default {
         fecha: "2022-12-31",
         inicio: "9:00 a.m",
         fin: "10:00 a.m",
-        tipo_evento: "Evento presencial",
+        modalidad: "Evento presencial",
         lugar: "Circunavalar 27,Centro de industria y turismo",
         ciudad: "Monteria, Cordóba",
       },
@@ -79,9 +79,9 @@ export default {
         fecha: "2022-01-15",
         inicio: "10:00 a.m",
         fin: "12:00 p.m",
-        tipo_evento: "Evento virtual",
+        modalidad: "Evento virtual",
         lugar: "Microsoft teams",
-        lugar: "Centro de industria",
+      
         ciudad: "Medellín, Colombia",
       },
       

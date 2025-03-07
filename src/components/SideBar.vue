@@ -1,41 +1,75 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import logoURL from "../assets/logo.png";
 import MenuItem from "./MenuItem.vue";
 
-// Creamos una propiedad reactiva para el estado del menú
+// Reactive state for the menu (sidebar expanded/collapsed)
 const is_expanded = ref(true);
 
-// Función que actualiza el estado de is_expanded dependiendo del ancho de la ventana
+// Function to update sidebar state based on window width
 const updateMenuState = () => {
   if (window.innerWidth > 1024) {
-    is_expanded.value = true; // Si el ancho es mayor a 1024px, el menú estará expandido
+    is_expanded.value = true; // Expanded for larger screens
   } else {
-    is_expanded.value = false; // Si el ancho es menor o igual a 1024px, el menú estará contraído
+    is_expanded.value = false; // Collapsed for smaller screens
   }
 };
 
-// Establecer el valor inicial de is_expanded cuando el componente se monta
+// Initial check for window size when the component mounts
 onMounted(() => {
-  updateMenuState(); // Verifica el tamaño de la ventana al cargar el componente
-  window.addEventListener("resize", updateMenuState); // Añade un listener para cuando el tamaño de la ventana cambie
+  updateMenuState(); // Check the window size
+  window.addEventListener("resize", updateMenuState); // Add resize listener
 });
 
-// ToggleMenu para alternar el estado de is_expanded
-const ToggleMenu = () => {
-  is_expanded.value = !is_expanded.value;
+// Function to toggle sidebar on small screens (less than 1024px)
+const toggleSidebar = () => {
+  if (window.innerWidth < 1024) {
+    is_expanded.value = !is_expanded.value;
+  }
 };
+
+// Cerrar el sidebar cuando se emite el evento
+const closeSidebar = () => {
+  if (window.innerWidth < 1024) {
+    is_expanded.value = false;
+  }
+};
+
+// Ref for sidebar element to detect clicks outside
+const sidebarRef = ref(null);
+
+// Function to close sidebar when clicking outside
+const closeSidebarIfClickedOutside = (event) => {
+  if (window.innerWidth > 1024) return;
+  // Close sidebar if click is outside the sidebar or menu toggle button
+  if (sidebarRef.value && !sidebarRef.value.contains(event.target)) {
+    is_expanded.value = false;
+  }
+};
+
+// Add event listener on mount, and remove on before unmount
+onMounted(() => {
+  window.addEventListener("click", closeSidebarIfClickedOutside);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("click", closeSidebarIfClickedOutside);
+});
 </script>
+
 <template>
-  <button
-    class="menu-toggle-no-expanded"
-    :class="`${is_expanded ? 'is-expanded' : ''}`"
-    @click="ToggleMenu"
-  >
-    <h3>Menu</h3>
-    <span class="material-icons">keyboard_double_arrow_right</span>
-  </button>
+  <div>
+    <button
+      class="menu-toggle-no-expanded"
+      :class="`${is_expanded ? 'is-expanded' : ''}`"
+      @click.stop="toggleSidebar"
+    >
+      <h3>Menu</h3>
+      <span class="material-icons">keyboard_double_arrow_right</span>
+    </button>
+  </div>
   <aside
+    ref="sidebarRef"
     :class="`${is_expanded ? 'is-expanded' : ''}`"
     class="scrollable-nav-main"
   >
@@ -43,7 +77,7 @@ const ToggleMenu = () => {
       <img :src="logoURL" alt="" />
     </div>
     <div class="menu-toggle-wrap">
-      <button class="menu-toggle" @click="ToggleMenu">
+      <button class="menu-toggle" @click="toggleSidebar">
         <span class="material-icons">keyboard_double_arrow_right</span>
       </button>
     </div>
@@ -57,27 +91,26 @@ const ToggleMenu = () => {
         :label="item.label"
         :icon="item.icon"
         :to="item.to"
-        :select="item.select"
         :href="item.href"
         :depth="0"
         :smallMenu="smallMenu"
+        @closeSidebar="closeSidebar"
       />
     </div>
-    
+
     <div class="text-center pt-3 ">
-      <v-btn prepend-icon="mdi-logout" color="black">
+      <v-btn prepend-icon="mdi-logout" color="black" @click="toggleSidebar()">
         <template v-slot:prepend>
           <v-icon color="white"></v-icon>
         </template>
-
         Cerrar sesion
       </v-btn>
     </div>
   </aside>
-  
 </template>
 <script>
 import MenuItem from "./MenuItem.vue";
+import store from "@/store";
 
 export default {
   name: "recursive-menu",
@@ -100,15 +133,13 @@ export default {
             label: "Introducción",
             icon: "",
             href: "/home#introduccion",
-            select:"/home#introduccion",
           },
           {
             label: "Sobre nosotros",
             icon: "",
             href: "/home#nosotros",
-            to:"",
+            to: "",
           },
-          
         ],
       },
       {
@@ -214,6 +245,12 @@ export default {
   components: {
     MenuItem,
   },
+  methods: {
+    Logout() {
+      store.dispatch("logout");
+      this.$router.push({ path: "/" });
+    },
+  },
 };
 </script>
 
@@ -239,7 +276,7 @@ export default {
       color: var(--red-dark);
       transform: translateX(0.5rem);
     }
-    h3{
+    h3 {
       color: var(--red-dark);
     }
   }

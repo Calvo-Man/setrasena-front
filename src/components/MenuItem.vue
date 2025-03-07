@@ -2,7 +2,13 @@
   <div class="menu-item" :class="{ opened: expanded }">
     <!-- Si 'to' no es null, renderiza <router-link>, de lo contrario, renderiza un <div> -->
     <router-link v-if="to" class="button" :to="to">
-      <div class="label" @click="toggleMenu()">
+      <div
+        class="label"
+        @click="
+          toggleMenu();
+          CloseSidebar();
+        "
+      >
         <div class="left">
           <span v-if="icon" class="material-icons">{{ icon }}</span>
           <span class="text" v-if="showLabel">{{ label }}</span>
@@ -16,7 +22,7 @@
     </router-link>
 
     <!--Si href no es null, renderiza <a>, de lo contrario, renderiza un <div>-->
-    <div v-else class="button"  @click="toggleMenu()">
+    <div v-else class="button" @click="toggleMenu()">
       <a class="label" :href="href">
         <div class="left">
           <span v-if="icon" class="material-icons">{{ icon }}</span>
@@ -29,20 +35,6 @@
         </div>
       </a>
     </div>
-    <!-- Renderiza un <div> si 'to' es null -->
-    <!-- <div v-else class="button" @click="toggleMenu()">
-      <div class="label">
-        <div class="left">
-          <span v-if="icon" class="material-icons">{{ icon }}</span>
-          <span class="text" v-if="showLabel">{{ label }}</span>
-        </div>
-        <div v-if="data" class="right">
-          <i class="expand material-icons arrow" :class="{ opened: expanded }">
-            expand_more
-          </i>
-        </div>
-      </div>
-    </div> -->
 
     <div
       v-show="showChildren"
@@ -60,7 +52,6 @@
         :icon="item.icon"
         :to="item.to"
         :href="item.href"
-        :select="item.select"
         :depth="depth + 1"
         :smallMenu="smallMenu"
       />
@@ -94,7 +85,6 @@ export default {
     },
     to: { type: String },
     href: { type: String },
-    select: { type: String },
   },
   computed: {
     showLabel() {
@@ -126,6 +116,9 @@ export default {
         }, 300);
       }
     },
+    CloseSidebar() {
+      this.$emit("CloseSidebar");
+    },
   },
 };
 </script>
@@ -150,7 +143,7 @@ export default {
       align-items: center;
       gap: 10px;
     }
-    
+
     .arrow {
       transition: all 0.3s ease;
       &.expand {

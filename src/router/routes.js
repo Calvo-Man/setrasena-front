@@ -86,7 +86,12 @@ export const routes = [
         name: "Eventos y Reuniones",
         component: EventosyReunionesView,
       },
-      { path: "/admin", name: "Panel Admin", component: PanelAdminView },
+      {
+        path: "/admin",
+        name: "Panel Admin",
+        component: PanelAdminView,
+        meta: { requiresAuth: true },
+      },
     ],
   },
   {

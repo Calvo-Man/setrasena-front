@@ -13,7 +13,7 @@
                 v-model="email"
                 label="Correo electrónico"
                 :rules="emailRules"
-                required
+              
               />
             </v-col>
           </v-row>
@@ -24,7 +24,7 @@
                 v-model="password"
                 label="Contraseña"
                 :rules="passwordRules"
-                required
+              
               />
             </v-col>
           </v-row>
@@ -45,6 +45,7 @@
   
   <script>
   import axios from "axios";
+  import store from "@/store";
   
   export default {
     data: () => ({
@@ -62,19 +63,32 @@
   
     methods: {
       async submit() {
-        try {
-        //   const response = await axios.post(`${this.API_Backend}/pqrs/crear`, {
-            
-        //     email: this.email,
-        //     password:this.password
-            
-        //   });
-          alert("Login exitoso");
-          this.$router.push({ name: 'home' });
-        } catch (error) {
-          console.error(error);
-          alert("Hubo un error al iniciar sesión");
-        }
+        // try {
+        //   const response = await axios.post(`${import.meta.env.VITE_API_BACKEND}/auth/login`, {
+        //   email: this.email,
+        //   password: this.password,
+        // })
+
+        // this.$store.commit('setUser', response.data)
+
+        // this.$notify({ text: 'Login exitoso', type: 'success' })
+        await store.dispatch('login')
+
+        this.$router.push({ path: '/admin' })
+      // } catch (error) {
+      //   if (error.response.data.message === 'Incorrect password') {
+      //     //this.$notify({ text: 'Contraseña incorrecta', type: 'error' })
+      //     this.passwordError = 'Contraseña incorrecta'
+      //   } else if (error.response.data.message === 'Invalid credentials') {
+      //     //this.$notify({ text: 'El usuario no existe', type: 'error' })
+      //     this.emailError = 'El usuario no existe'
+      //   } else if (error.request) {
+      //     //  console.error('Sin respuesta del servidor:', error.request)
+      //   } else {
+      //     // console.error('Error en la solicitud:', error.message)
+      //   }
+      //   //console.error('Configuración completa del error:', error.config)
+      // }
       },
     },
   };

@@ -259,6 +259,7 @@ export default {
     phone: "",
     email: "",
     fecha_ingreso: "",
+    fecha_salida: "",
     cargo: "",
     grado: "",
     regional: "",
@@ -310,6 +311,8 @@ export default {
         !this.phone ||
         !this.email ||
         !this.fecha_ingreso ||
+        !this.fecha_salida ||
+        !this.objeto_contractual ||
         !this.cargo ||
         !this.grado ||
         !this.regional ||
@@ -335,6 +338,7 @@ export default {
         honorario_mensual: this.salario,
         objeto_contractual: this.objeto_contractual,
         fecha_ingreso_sena: this.fecha_ingreso,
+        fecha_salida_sena: this.fecha_salida,
         cargo: this.cargo,
         grado: this.grado,
         dependencia: this.dependencia,

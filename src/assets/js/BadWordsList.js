@@ -39,33 +39,29 @@ export const listBadWords = [
   "imbecil",
   "culero",
   "hijueputa",
-
   "negrata",
   "zorrón",
   "puta mierda",
   "mierda de perro",
-
   "pichón",
   "pichonazo",
   "pichon",
   "caradura",
-
   "perra de mierda",
   "folla",
-    "maldito",
+  "maldito",
   "concha",
- "mongolico",
+  "mongolico",
   "mierdita",
   "putisima",
   "macaco",
-"caremonda",
+  "caremonda",
   "bocón",
-"triplehijueputa",
-
+  "triplehijueputa",
+  "picha",
+  "carepicha",
   "morra",
-
   "guarraz",
-
   "puro pedo",
   "mequetrefe",
   "cojudos",
@@ -76,19 +72,15 @@ export const listBadWords = [
   "tonto",
   "mierda asquerosa",
   "puteador",
-
   "comepollas",
   "perra de mierda",
-
   "papanatas",
   "pelagatos",
   "cachondo",
   "gay",
   "gey",
-
   "chico de mierda",
   "sangrón",
   "mongol",
-
   "hijo de la gran puta",
 ];
