@@ -23,7 +23,7 @@
 
     <!--Si href no es null, renderiza <a>, de lo contrario, renderiza un <div>-->
     <div v-else class="button" @click="toggleMenu()">
-      <a class="label" :href="href">
+      <a class="label" :href="href"  >
         <div class="left">
           <span v-if="icon" class="material-icons">{{ icon }}</span>
           <span class="text" v-if="showLabel">{{ label }}</span>
@@ -54,6 +54,7 @@
         :href="item.href"
         :depth="depth + 1"
         :smallMenu="smallMenu"
+        @click="CloseSidebar()"
       />
     </div>
   </div>
