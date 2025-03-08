@@ -23,7 +23,7 @@ main {
 }
 .container {
   max-height: 100vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   width: 100%;
 }
 
