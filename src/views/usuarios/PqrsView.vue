@@ -170,6 +170,13 @@ export default {
           centro: this.centro_formacion,
         });
         this.snackbar = true
+        this.name = "";
+        this.apellido = "";
+        this.email = "";
+        this.telefono = "";
+        this.regional = "";
+        this.centro_formacion = "";
+        this.mensaje = "";
       } catch (error) {
         console.error(error);
       }
