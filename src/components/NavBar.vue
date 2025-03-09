@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <v-carousel :show-arrows="false" hide-delimiters cycle height="100%" class="logo">
+    <v-carousel :show-arrows="false" hide-delimiters cycle height="100%" class="logo-container">
       <v-carousel-item
         v-for="(item, i) in items"
         :key="i"
@@ -20,7 +20,7 @@ import image3 from "@/assets/fenaltrase.png";
 export default {
   data() {
     return {
-      items: [{ src: image1 }, { src: image2 }, { src: image3 },],
+      items: [{ src: image1 },],
     };
   },
 };
@@ -43,14 +43,21 @@ export default {
     justify-content: center;
   }
 }
+.logo-container {
+  margin-left: calc(40% - 100px);
+  width: 250px;
+  @media (max-width: 1024px) {
+    margin-left: 10px;
+  }
+  @media (max-width: 600px) {
+    margin-left: 90px;
+  }
 
+}
 .logo {
   width: 200px; /* Puedes ajustar el tamaño de la imagen */
-  height: 60px;
-  margin-left: calc(40% - 100px);
-
-  @media (max-width: 1024px) {
-    margin-left: 0;
-  }
+  height: 50px;
+  
+  
 }
 </style>
