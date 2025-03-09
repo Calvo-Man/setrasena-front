@@ -2,7 +2,6 @@
     <v-banner
       color="red-darken-3"
       icon="mdi-account-box"
-      
       id="introduccion"
     >
       <template v-slot:prepend>
@@ -14,7 +13,7 @@
         Da click en el boton a continuación, llena el formulario y comenzaremos
         los tramites.
       </v-banner-text>
-
+      
       <v-banner-actions>
         <v-btn to="/afiliacion" class="bg-red-darken-3" color="white"
           >Afiliate aqui</v-btn

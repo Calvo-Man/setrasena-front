@@ -1,50 +1,17 @@
 <template>
-    <v-card width="100%" class="pa-3">
-      <v-card-title class="text-center bg-black rounded">Eventos y Reuniones SETRASENA</v-card-title>
-      <v-card
-        v-for="(evento, index) in paginatedEventos"
-        :key="index"
-        :color="isSelected ? 'white' : 'red-darken-2'"
-        class="ma-3  d-flex borde-card mx-auto"
-        height="200"
-        width="100%"
-        @click="toggle"
-      >
-        <div class="w-33">
-          <v-img :src="evento.imagen" height="200" cover></v-img>
-        </div>
-        <div>
-          <div class="info-date d-flex">
-            <div class="day align-center">
-              <p class="text-h3 text-white">{{ getDay(evento.fecha) }}</p>
-            </div>
-            <p class="month text-5">
-              {{ getMonthAbbreviation(evento.fecha) }}
-            </p>
-            <div class="informacion">
-              <p>{{ evento.inicio }} a {{ evento.fin }}</p>
-              <p>{{ evento.tipo_evento }}: {{ evento.lugar }}</p>
-              <p>{{ evento.ciudad }}</p>
-            </div>
-          </div>
-          <div class="descripcion">
-            <v-card-title class="text-body-1">{{ evento.nombre }}</v-card-title>
-            <v-card-text class="text-body-2">{{ evento.descripcion }}</v-card-text>
-          </div>
-        </div>
-        <div class="d-flex fill-height justify-center"></div>
-      </v-card>
-  
-      <v-pagination v-model="page" :length="totalPages" rounded="0"></v-pagination>
-    </v-card>
+  <Eventos :eventos="eventos" :titulo="'Eventos y reuniones SETRASENA'" :descripcion="'Consulta todos nuestros eventos y reuniones en esta sección, y mantente informado.'"></Eventos>
   </template>
   
   <script>
   import imagen1 from "@/assets/imagen1.jpeg";
   import imagen2 from "@/assets/imagen2.jpeg";
+  import Eventos from "@/components/Eventos.vue";
   
   export default {
     name: "banner-eventos",
+    components: {
+      Eventos,
+    },
   
     data() {
       return {
