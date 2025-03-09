@@ -20,7 +20,7 @@ import image3 from "@/assets/fenaltrase.png";
 export default {
   data() {
     return {
-      items: [{ src: image1 },],
+      items: [{ src: image1 }, { src: image2 }, { src: image3 }],
     };
   },
 };
