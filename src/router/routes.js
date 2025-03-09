@@ -4,6 +4,7 @@ import MisionView from "@/views/nosotros/MisionView.vue";
 import PlataformaLuchaView from "@/views/nosotros/PlataformaLuchaView.vue";
 import PqrsView from "@/views/usuarios/PqrsView.vue";
 import AfilicionView from "@/views/usuarios/AfilicionView.vue";
+import consultarAfiliacion from "@/views/usuarios/consultarAfiliacion.vue";
 import VisionView from "@/views/nosotros/VisionView.vue";
 import HimnoNacional from "@/views/simbolos-patrios/HimnoNacional.vue";
 import HimnoSena from "@/views/simbolos-patrios/HimnoSena.vue";
@@ -49,6 +50,12 @@ export const routes = [
 
       { path: "/pqrs", name: "PQRS", component: PqrsView },
       { path: "/afiliacion", name: "Afilicion", component: AfilicionView },
+      {
+        path: "/consultar-afiliacion",
+        name: "Consultar Afiliacion",
+        component: consultarAfiliacion,
+      },
+
       { path: "/mision", name: "Mision", component: MisionView },
       { path: "/vision", name: "Vision", component: VisionView },
       {
@@ -94,7 +101,6 @@ export const routes = [
       },
     ],
   },
-  // {path:"/admin",name:"PanelAdmin",component:PanelAdminView},
   {
     path: "/:catchAll(.*)",
     name: "NotFound",

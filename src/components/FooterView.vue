@@ -41,8 +41,8 @@ export default {
   name: "FooterView",
   components: {BannerAfiliacion},
   data: () => ({
-    icons: [{icon:"mdi-facebook",href:"https://www.facebook.com/setrasenabol/"}, {icon:"mdi-twitter",href:"https://x.com/SetrasenaJnal"}, "mdi-linkedin", "mdi-instagram"],
-    hrefs: ["https://www.facebook.com/setrasenabol/", "twitter", "linkedin", "instagram"],
+    icons: [{icon:"mdi-facebook",href:"https://www.facebook.com/setrasenabol/"}, {icon:"mdi-twitter",href:"https://x.com/SetrasenaJnal"}, ],
+    
   }),
 };
 </script>

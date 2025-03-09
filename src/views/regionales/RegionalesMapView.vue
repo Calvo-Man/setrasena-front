@@ -25,7 +25,7 @@
     </v-card>
     <v-card class="mb-4" elevation="0">
       <v-card-title class="headline  title bg-black mb-4"
-        >Comites seleccionados</v-card-title
+        >Comites seleccionales</v-card-title
       >
       <v-card-text>
         <v-row>

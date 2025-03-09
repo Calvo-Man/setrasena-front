@@ -5,6 +5,7 @@ import ListBoletines from "@/components/ListBoletines.vue";
 import ListComunicados from "@/components/ListComunicados.vue";
 import ListFlash from "@/components/ListFlash.vue";
 import ListEventos from "@/components/ListEventos.vue";
+import ListAfiliaciones from "@/components/ListAfiliaciones.vue";
 </script>
 <template>
   <div class="card">
@@ -61,6 +62,11 @@ import ListEventos from "@/components/ListEventos.vue";
           <v-card v-if="selectedForm === 'centroFormacion'">
             <ListCentros :regionales="regionales" />
           </v-card>
+
+          <!-- Formulario de Afiliaciones -->
+          <v-card v-if="selectedForm === 'afiliaciones'">
+            <ListAfiliaciones />
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -78,6 +84,7 @@ export default {
       { value: "comunicado", nombre: "Comunicados" },
       { value: "flash", nombre: "Flash Informativos" },
       { value: "eventos", nombre: "Eventos y Reuniones" },
+      { value: "afiliaciones", nombre: "Afiliaciones" },
       { value: "regional", nombre: "Regionales" },
       { value: "centroFormacion", nombre: "Centros de Formación" },
     ],

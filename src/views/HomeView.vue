@@ -19,7 +19,7 @@ import NavBar from "@/components/NavBar.vue";
 
 <style scoped lang="scss">
 main {
-  margin-top: 60px;
+  margin-top: 50px;
 }
 .container {
   max-height: 100vh;

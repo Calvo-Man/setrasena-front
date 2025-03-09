@@ -116,8 +116,18 @@ export const MenuSidebar = [
       to: "/pqrs",
     },
     {
-      label: "Afiliate aqui",
+      label: "Afiliacion",
       icon: "app_registration",
-      to: "/afiliacion",
+      
+      children:[
+        {
+          label: "Afiliate aqui",
+          to: "/afiliacion",},
+        {
+          label: "Consultar estado",
+          to: "/consultar-afiliacion",
+        },
+      ]
     },
+    
   ];
