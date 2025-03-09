@@ -104,6 +104,7 @@
         </h5>
       </v-form>
     </v-container>
+    <SnackBar :text="'PQRS creado exitosamente'" v-model:snackbar="snackbar" />
   </div>
 </template>
 
@@ -111,10 +112,13 @@
 import axios from "axios";
 import {Filter} from "bad-words";  // Importa la librería
 import { listBadWords } from "@/assets/js/BadWordsList";
-
+import SnackBar from "@/components/SnackBar.vue";
 
 
 export default {
+  components: {
+    SnackBar
+  },
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
     // Crear una instancia de la librería Filter
@@ -135,6 +139,7 @@ export default {
     ],
     phoneRules: [(value) => !!value || "El telefono es requerido."],
     isProfane: false, // Variable para controlar el estado de malas palabras
+    snackbar: false
     
   }),
   mounted() {
@@ -154,18 +159,17 @@ export default {
         alert("Por favor, no utilices malas palabras.");
         return; // Detener la ejecución del formulario
       }
-
       try {
         const response = await axios.post(`${this.API_Backend}/pqrs/crear`, {
           nombres: this.name,
           apellidos: this.apellido,
-          email: this.email,
           telefono: this.telefono,
-          regional: this.regional,
-          centro: this.centro_formacion,
+          correo: this.email,
           asunto: this.mensaje,
+          // regional: this.regional,
+          centro: this.centro_formacion,
         });
-        alert("¡Registro exitoso!");
+        this.snackbar = true
       } catch (error) {
         console.error(error);
       }
