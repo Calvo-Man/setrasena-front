@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <v-carousel :show-arrows="false" hide-delimiters cycle height="100%">
+    <v-carousel :show-arrows="false" hide-delimiters cycle height="100%" class="logo">
       <v-carousel-item
         v-for="(item, i) in items"
         :key="i"
