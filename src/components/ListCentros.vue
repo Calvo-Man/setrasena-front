@@ -46,26 +46,7 @@
                       required 
                     />
                   </v-col>
-                  <!--  <v-col
-                      cols="12"
-                      md="4"
-                      sm="6"
-                    >
-                      <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col
-                      cols="12"
-                      md="4"
-                      sm="6"
-                    >
-                      <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
-                      ></v-text-field>
-                    </v-col> -->
+                 
                 </v-row>
               </v-container>
             </v-card-text>

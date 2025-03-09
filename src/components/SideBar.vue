@@ -98,19 +98,37 @@ onBeforeUnmount(() => {
       />
     </div>
 
-    <div class="text-center pt-3 ">
-      <v-btn prepend-icon="mdi-logout" color="black" @click="toggleSidebar()">
+    <div class="text-center pt-3 " v-if="store.state.isAuthenticated == true">
+      <v-btn prepend-icon="mdi-logout" color="black" @click="DialogLogout()">
         <template v-slot:prepend>
           <v-icon color="white"></v-icon>
         </template>
         Cerrar sesion
       </v-btn>
     </div>
+    <v-dialog v-model="dialogLogout" max-width="500px">
+      <v-card>
+        <v-card-title class="text-h5 text-center"
+          >¿Quieres cerrar sesion?</v-card-title
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue-darken-1" variant="text" @click="closeLogout"
+            >Cancelar</v-btn
+          >
+          <v-btn color="blue-darken-1" variant="text" @click="logoutConfirm"
+            >Confirmar</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </aside>
 </template>
 <script>
 import MenuItem from "./MenuItem.vue";
 import store from "@/store";
+import { MenuSidebar } from "@/assets/js/MenuSidebar";
 
 export default {
   name: "recursive-menu",
@@ -118,137 +136,24 @@ export default {
     smallMenu: false,
     is_expanded: true,
     //Menu de opciones de la barra lateral
-    menuTree: [
-      {
-        label: "Home",
-        icon: "home",
-        to: "/home",
-      },
-      {
-        label: "Quienes somos",
-        icon: "groups",
-        to: "",
-        children: [
-          {
-            label: "Introducción",
-            icon: "",
-            href: "/home#introduccion",
-          },
-          {
-            label: "Sobre nosotros",
-            icon: "",
-            href: "/home#nosotros",
-            to: "",
-          },
-        ],
-      },
-      {
-        label: "Estatutos",
-        icon: "description",
-
-        children: [
-          {
-            label: "Principios",
-            icon: "",
-            to: "/principios",
-          },
-          {
-            label: "Plataforma de lucha",
-            icon: "",
-            to: "/plataforma-lucha",
-          },
-        ],
-      },
-      {
-        label: "Junta directiva",
-        icon: "people_outline",
-
-        children: [
-          {
-            label: "Junta nacional",
-            icon: "",
-            to: "/junta-nacional",
-          },
-        ],
-      },
-      {
-        label: "Simbolos patrios",
-        icon: "flag",
-
-        children: [
-          {
-            label: "Himno de colombia",
-            icon: "",
-            to: "/himno-colombia",
-          },
-          {
-            label: "Himno del SENA",
-            icon: "",
-            to: "/himno-sena",
-          },
-          {
-            label: "Himno internacional socialista",
-            icon: "",
-            to: "/himno-socialista",
-          },
-        ],
-      },
-      {
-        label: "Eventos y reuniones",
-        icon: "event",
-        to: "/eventos",
-      },
-      {
-        label: "Regionales",
-        icon: "map",
-        to: "/regionales",
-      },
-      {
-        label: "Publicaciones",
-        icon: "forum",
-
-        children: [
-          {
-            label: "Boletines",
-            icon: "",
-            to: "/boletines",
-          },
-          {
-            label: "Comunicados",
-            icon: "",
-            to: "/comunicados",
-          },
-          {
-            label: "Flash informativo",
-            icon: "",
-            to: "/flash-informativo",
-          },
-        ],
-      },
-      {
-        label: "Administracion",
-        icon: "admin_panel_settings",
-        to: "/admin",
-      },
-      {
-        label: "Generar PQRS",
-        icon: "support",
-        to: "/pqrs",
-      },
-      {
-        label: "Afiliate aqui",
-        icon: "app_registration",
-        to: "/afiliacion",
-      },
-    ],
+    menuTree: MenuSidebar,
+    dialogLogout: false,
   }),
   components: {
     MenuItem,
   },
   methods: {
-    Logout() {
+    DialogLogout() {
+      this.dialogLogout = true;
+      
+    },
+    closeLogout() {
+      this.dialogLogout = false;
+    },
+    logoutConfirm() {
       store.dispatch("logout");
       this.$router.push({ path: "/" });
+      this.dialogLogout = false;
     },
   },
 };
@@ -256,7 +161,7 @@ export default {
 
 <style lang="scss">
 .logout {
-  height: 9vh;
+  height: 19vh;
 }
 .menu-toggle-no-expanded {
   display: flex;

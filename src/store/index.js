@@ -7,6 +7,7 @@ export default createStore({
   },
   getters: {
     getUser: state => state.user,
+    isAuthenticated: state => state.isAuthenticated
   },
   mutations: {
     setUser(state, user) {

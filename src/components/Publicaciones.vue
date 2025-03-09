@@ -1,5 +1,5 @@
 <template>
-  <v-card width="100%" class="pa-3">
+  <v-card  class="pa-3">
     <v-card-title class="text-center bg-black rounded">{{
       titulo
     }}</v-card-title>
@@ -11,18 +11,16 @@
       :key="index"
       :color="'red-darken-2'"
       class="ma-3 d-flex borde-card mx-auto"
-      height="auto"
-      width="100%"
     >
-      <div class="d-flex flex-column flex-md-row">
+      <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="w-100 w-md-33">
+        <div class="w-100 w-sm-100 w-lg-33 ">
           <v-img :src="evento.imagen" height="200" cover></v-img>
         </div>
         <!-- Información -->
-        <div class="d-flex flex-column w-100 w-md-66">
+        <div class="d-flex flex-column ">
           <div
-            class="info-date d-flex flex-column flex-md-row align-start align-md-center"
+            class="info-date d-flex"
           >
             <div class="day align-center">
               <p class="text-h3 text-white">{{ getDay(evento.fecha) }}</p>
@@ -35,7 +33,7 @@
               <p>{{ evento.ciudad }}</p>
               <p>{{ evento.fecha }}</p>
             </div>
-            <v-spacer></v-spacer>
+            
             <div>
               <v-btn
                 class="material-icons bg-black ver-pdf"
@@ -48,7 +46,7 @@
             </div>
           </div>
           <div class="descripcion">
-            <v-card-title class="text-body-1">{{ evento.nombre }}</v-card-title>
+            <v-card-title class="text-body1">{{ evento.nombre }}</v-card-title>
             <v-card-text class="text-body-2">
               {{ evento.descripcion }}
             </v-card-text>
@@ -140,6 +138,7 @@ export default {
     position: absolute;
     top: 10px;
     right: 0;
+    font-size: 0.6rem;
   }
 }
 
@@ -189,10 +188,8 @@ export default {
   }
 }
 .descripcion {
-  padding: 10px;
-  width: 100%;
-  p {
-    font-size: 0.9rem;
-  }
+  padding: 0px;
+  
+
 }
 </style>

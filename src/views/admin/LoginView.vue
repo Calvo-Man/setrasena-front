@@ -40,18 +40,24 @@
           </h5>
         </v-form>
       </v-container>
+      <SnackBar :text="'Inicio de sesión exitoso'" v-model:snackbar="snackbar" />
     </div>
   </template>
   
   <script>
   import axios from "axios";
   import store from "@/store";
+  import SnackBar from "@/components/SnackBar.vue";
   
   export default {
+    components: {
+      SnackBar
+    },
     data: () => ({
       API_Backend: import.meta.env.VITE_API_BACKEND,
       email: "",
       password: "",
+      snackbar: false,
       emailRules: [
         (value) => !!value || "El correo es requerido.",
         (value) => /.+@.+\..+/.test(value) || "El correo no es valido.",
@@ -74,7 +80,11 @@
         // this.$notify({ text: 'Login exitoso', type: 'success' })
         await store.dispatch('login')
 
-        this.$router.push({ path: '/admin' })
+        this.snackbar = true
+        setTimeout(() => {
+          this.$router.push({ path: '/admin' })
+        }, 1000);
+       
       // } catch (error) {
       //   if (error.response.data.message === 'Incorrect password') {
       //     //this.$notify({ text: 'Contraseña incorrecta', type: 'error' })
