@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" width="100%" height="100%">
     <v-card-title class="text-center bg-blck mb-4">
-      Subdirectivas y comites seleccionales
+      Subdirectivas y comites seccionales
     </v-card-title>
     <v-card class="mb-4" elevation="0">
       <v-card-title class="headline  title bg-black mb-4"
@@ -78,7 +78,7 @@
     </v-card>
     <v-card class="mb-4" elevation="0">
       <v-card-title class="headline  title bg-black mb-4"
-        >Comites seleccionales</v-card-title
+        >Comites seccionales</v-card-title
       >
       <v-card-text>
         <v-row>
