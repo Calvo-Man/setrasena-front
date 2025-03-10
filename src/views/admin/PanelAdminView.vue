@@ -14,7 +14,7 @@ import ListAfiliaciones from "@/components/ListAfiliaciones.vue";
     </div>
     <div class="card-body text-center mt-5">
       <h3>Bienvenido al panel de administración del SETRASENA</h3>
-      <h5>Aqui podrás gestionar los boletines, comunicados, flash informativos, eventos y reuniones, slider del inicio, regionales y centros de formación.</h5>
+      <h5>Aqui podrás gestionar los boletines, comunicados, flash informativos, eventos y reuniones, afiliaciones, regionales y centros de formación.</h5>
       <h5>Por favor, selecciona una opción para comenzar:</h5>
     </div>
     <v-container class="mx-auto">
