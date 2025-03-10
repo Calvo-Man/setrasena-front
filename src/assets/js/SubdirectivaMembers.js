@@ -690,7 +690,7 @@ export const SubdirectivaMembers = [
     ]
   },
   {
-    "name": "BOYACÁ",
+    "name": "BOYACA",
     "members": [
       {
         "nombres": "HUGO ALEJANDRO",

@@ -30,8 +30,8 @@
 
               <template v-slot:default="{ isActive }">
                 <v-card class="scrollable-nav-main">
-                  <v-card-title class=" text-center mb-4 title bg-black"
-                    >Miembros de la subdirectiva {{ item.name }}</v-card-title
+                  <h3 class=" text-center mb-4 title bg-black"
+                    >Miembros de la subdirectiva {{ item.name }}</h3
                   >
                   <v-card-text>
                     <v-row>
@@ -103,8 +103,8 @@
 
               <template v-slot:default="{ isActive }">
                 <v-card class="scrollable-nav-main">
-                  <v-card-title class=" text-center mb-4 title bg-black"
-                    >Miembros del comite seccional {{ item.name }}</v-card-title
+                  <h3 class=" text-center mb-4 title bg-black"
+                    >Miembros del comite seccional {{ item.name }}</h3
                   >
                   <v-card-text>
                     <v-row>
