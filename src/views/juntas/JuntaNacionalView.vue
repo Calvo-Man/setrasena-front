@@ -23,7 +23,7 @@
                 <div><strong>Regional:</strong> {{ member.regional }}</div>
                 <div>
                   <strong>Email:</strong>
-                  <a :href="'mailto:' + member.email">{{ member.email }}</a>
+                  <a >{{ member.email }}</a>
                 </div>
               </v-card-text>
             </v-card>
