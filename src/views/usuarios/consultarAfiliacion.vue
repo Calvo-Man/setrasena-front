@@ -32,29 +32,31 @@
           </v-col>
         </v-row>
       </v-form>
-      <div class="card-body text-center mt-5" v-if="afiliacion">
-        <h3>
-          Datos de su solicitud de afiliación:
-        </h3>
-        
-          <h4>
-            Nombre: {{ afiliacion.nombres }}
-          </h4>
-          <h4>
-            Apellido: {{ afiliacion.apellidos }}
-          </h4>
-          <h4>
-            Documento: {{ afiliacion.documento }}
-          </h4>
-          <h4>Email: {{ afiliacion.email }}</h4>
-          <h4>Telefono: {{ afiliacion.telefono }}</h4>
-          <h4>
-            Objeto contractual: {{ afiliacion.objeto_contractual }}
-          </h4>
-          <h4>
-            Estado: {{ afiliacion.estado }}
-          </h4>
+      <div class="card-body text-center mt-5">
+          <div class="datos" v-if="items.length > 0">
+          <h3>
+              Datos de su solicitud de afiliación:
+            </h3>
+            <!-- 
+          <p><strong>Nombre:</strong> {{ afiliacion.nombres }}</p>
+          <p><strong>Apellidos:</strong> {{ afiliacion.apellidos }}</p>
+          <p><strong>Documento:</strong> {{ afiliacion.documento }}</p>
+          <p><strong>Email:</strong> {{ afiliacion.email }}</p>
+          <p><strong>Telefono:</strong> {{ afiliacion.telefono }}</p>
+          <p>
+            <strong>Objeto Contractual:</strong>
+            {{ afiliacion.objeto_contractual }}
+          </p>
+          <p><strong>Estado:</strong> {{ afiliacion.estado }}</p>
+          -->
           
+          <v-data-table
+          :headers="headers"
+          :items="items"
+          item-key="name"
+          hide-default-footer
+          ></v-data-table>
+        </div> 
       </div>
     </v-container>
   </div>
@@ -66,7 +68,20 @@ export default {
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
     documento: "",
-    afiliacion: null,
+    items: [],
+    headers: [
+      {
+        title: "Documento",
+        align: "start",
+        key: "documento",
+      },
+      { title: "Nombre",  key: "nombres" },
+      { title: "Apellidos",  key: "apellidos" },
+      { title: "Telefono", key: "telefono" },
+      { title: "Email",  key: "email" },
+      { title: "Objeto contractual",  key: "objeto_contractual" },
+      { title: "Estado", align: "end", key: "estado" },
+    ],
   }),
 
   methods: {
@@ -75,8 +90,8 @@ export default {
         const response = await axios.get(
           `${this.API_Backend}/afiliado/${this.documento}`
         );
-        this.afiliacion = response.data;
-        console.log(this.afiliacion);
+        this.items = [response.data];
+        console.log(this.items);
       } catch (error) {
         console.error(error);
       }
