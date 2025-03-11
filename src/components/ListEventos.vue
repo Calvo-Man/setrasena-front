@@ -23,24 +23,70 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="5" sm="8">
+                  <v-col cols="12" md="4" sm="12">
                     <v-text-field
                       v-model="editedItem.nombre"
-                      label="Nombre del Evento"
+                      label="Titulo"
                       required
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="7" sm="6">
+                  <v-col cols="12" md="4" sm="12">
                     <v-text-field
-                      v-model="editedItem.descripcion"
-                      label="descripcion"
+                      v-model="editedItem.ciudad"
+                      label="Ciudad"
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="12" md="4" sm="6">
+                  <v-col cols="12" md="4" sm="12">
+                    <v-text-field
+                      v-model="editedItem.lugar"
+                      label="Lugar"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="4" sm="12">
+                    <v-select
+                      v-model="editedItem.modalidad"
+                      label="Modalidad"
+                      :items="['Presencial', 'Virtual']"
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="4" sm="12">
                     <v-text-field
                       v-model="editedItem.fecha"
-                      label="fecha"
+                      label="Fecha"
+                      type="date"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="8" md="4" sm="12">
+                    <v-text-field
+                      v-model="editedItem.hora"
+                      label="Hora de inicio"
+                      type="time"
+                      required
                     ></v-text-field>
+                  </v-col>
+                  <v-col cols="8" md="4" sm="12">
+                    <v-text-field
+                      label="Hora de fin"
+                      v-model="editedItem.fin"
+                      type="time"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" md="6" sm="12">
+                    <v-file-input
+                      v-model="editedItem.imagen"
+                      label="Seleccione una imagen"
+                      accept="image/*"
+                      required
+                    ></v-file-input>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      v-model="editedItem.descripcion"
+                      label="Descripción"
+                      rows="4"
+                      required
+                    />
                   </v-col>
                 </v-row>
               </v-container>
@@ -60,7 +106,7 @@
         <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card>
             <v-card-title class="text-h5"
-              >Estas seguro de eliminar este boletin?</v-card-title
+              >Estas seguro de eliminar este evento?</v-card-title
             >
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -79,10 +125,8 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.archivo="{ item }">
-      <v-icon class="me-2" size="small" @click="editItem(item)">
-        mdi-download
-      </v-icon>
+    <template v-slot:item.imagen="{ item }">
+      <v-img :src="`${API_Backend}/${item.imagen}`" height="100" width="100" alt="Imagen del evento" cover></v-img>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon class="me-2" size="small" @click="editItem(item)">
@@ -114,45 +158,44 @@ export default {
         key: "nombre",
       },
       { title: "Descripción", key: "descripcion" },
-      { title: "Imagen", key: "imagen", sortable: false },
       { title: "Fecha", key: "fecha" },
-      { title: "Inicio", key: "inicio", sortable: false },
+      { title: "hora", key: "hora", sortable: false },
       { title: "Fin", key: "fin", sortable: false },
       { title: "Modalidad", key: "modalidad" },
       { title: "Lugar", key: "lugar" },
       { title: "Ciudad", key: "ciudad" },
+      { title: "Imagen", key: "imagen", sortable: false },
       { title: "Actions", key: "actions", sortable: false },
     ],
-    eventos: [
-      {
-        nombre: "Reunion de trabajo",
-        descripcion: "Reunion de trabajo de todo el personal",
-        imagen: "img/imagen",
-        fecha: "2022-12-31",
-        inicio: "3:00 p.m",
-        fin: "4:00 p.m",
-        modalidad: "Presencial",//o Virtual
-        lugar: "Circunavalar 27,Centro de industria y turismo",
-        ciudad: "Monteria, Cordoba",
-
-      },
-    ],
+    eventos: [],
     editedIndex: -1,
     editedItem: {
       nombre: null,
       descripcion: null,
-      
+      imagen: null,
+      fecha: null,
+      hora: null,
+      fin: null,
+      modalidad: null,
+      lugar: null,
+      ciudad: null,
     },
     defaultItem: {
       nombre: null,
       descripcion: null,
-      
+      imagen: null,
+      fecha: null,
+      hora: null,
+      fin: null,
+      modalidad: null,
+      lugar: null,
+      ciudad: null,
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Agregar Boletin" : "Editar Boletin";
+      return this.editedIndex === -1 ? "Agregar Evento" : "Editar Evento";
     },
   },
 
@@ -172,8 +215,8 @@ export default {
   methods: {
     async initialize() {
       try {
-        const response = await axios.get(`${this.API_Backend}/boletin`);
-        this.regionales = response.data;
+        const response = await axios.get(`${this.API_Backend}/evento`);
+        this.eventos = response.data;
       } catch (error) {
         console.error(error);
       }
@@ -194,7 +237,7 @@ export default {
     async deleteItemConfirm() {
       try {
         const response = await axios.delete(
-          `${this.API_Backend}/boletin/${this.editedItem.id}`
+          `${this.API_Backend}/evento/${this.editedItem.id}`
         );
       } catch (error) {
         console.error(error);
@@ -234,20 +277,65 @@ export default {
 
     async save() {
       try {
-        const response = await axios.post(`${this.API_Backend}/boletin/crear`, {
-          nombre: this.editedItem.nombre,
-        });
-        alert("Registration successful!");
+        // Validación previa de los campos
+        if (
+          !this.editedItem.nombre ||
+          !this.editedItem.descripcion ||
+          !this.editedItem.fecha ||
+          !this.editedItem.imagen
+        ) {
+          alert("Por favor, complete todos los campos obligatorios.");
+          return;
+        }
+        // Crear el objeto FormData para enviar tanto los datos del evento como la imagen
+        const formData = new FormData();
+        formData.append("nombre", this.editedItem.nombre);
+        formData.append("descripcion", this.editedItem.descripcion);
+        formData.append("fecha", this.editedItem.fecha);
+        formData.append("hora", this.editedItem.hora);
+        formData.append("fin", this.editedItem.fin);
+        formData.append("modalidad", this.editedItem.modalidad);
+        formData.append("lugar", this.editedItem.lugar);
+        formData.append("ciudad", this.editedItem.ciudad);
+        formData.append("tipo", "Evento");
+
+        // Verificar si se ha seleccionado una imagen
+        if (this.editedItem.imagen instanceof File) {
+          formData.append("imagen", this.editedItem.imagen);
+        } else {
+          alert("Por favor, seleccione una imagen.");
+          return;
+        }
+
+        // Enviar la solicitud POST con los datos del evento y la imagen
+        const response = await axios.post(
+          `${this.API_Backend}/evento/crear`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", // Especifica que estamos enviando un formulario con archivos
+            },
+          }
+        );
+
+        alert("Registro exitoso del evento.");
+
+        this.initialize();
       } catch (error) {
         console.error(error);
-        alert("Error registering Regional");
+        alert(
+          "Hubo un error al registrar el evento. Por favor, intente nuevamente."
+        );
       }
+
+      // Cerrar el diálogo o el formulario
       this.close();
     },
+
     async actualizar() {
       try {
         const response = await axios.put(
-          `${this.API_Backend}/boletin/${this.editedItem.id}`,
+          `${this.API_Backend}/evento/${this.editedItem.id}`,
           {
             nombre: this.editedItem.nombre,
           }
