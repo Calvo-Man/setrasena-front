@@ -1,11 +1,9 @@
 <script setup>
 import ListCentros from "@/components/ListCentros.vue";
 import listRegionales from "@/components/listRegionales.vue";
-import ListBoletines from "@/components/ListBoletines.vue";
-import ListComunicados from "@/components/ListComunicados.vue";
-import ListFlash from "@/components/ListFlash.vue";
 import ListEventos from "@/components/ListEventos.vue";
 import ListAfiliaciones from "@/components/ListAfiliaciones.vue";
+import PanelPublicaciones from "@/components/PanelPublicaciones.vue";
 </script>
 <template>
   <div class="card">
@@ -35,17 +33,17 @@ import ListAfiliaciones from "@/components/ListAfiliaciones.vue";
         <v-col cols="12">
           <!-- Formulario de Boletín -->
           <v-card v-if="selectedForm === 'boletin'">
-            <ListBoletines />
+            <PanelPublicaciones :tipo_publicacion="'boletines'" :publicaciones="publicaciones" />
           </v-card>
 
           <!-- Formulario de Comunicado -->
           <v-card v-if="selectedForm === 'comunicado'">
-            <ListComunicados />
+            <PanelPublicaciones :tipo_publicacion="'comunicados'" :publicaciones="publicaciones" />
           </v-card>
 
           <!-- Formulario de Flash Informativo -->
           <v-card v-if="selectedForm === 'flash'">
-            <ListFlash />
+            <PanelPublicaciones :tipo_publicacion="'flash informativos'" :publicaciones="publicaciones" />
           </v-card>
 
           <!-- Formulario de Eventos -->
@@ -89,6 +87,20 @@ export default {
       { value: "centroFormacion", nombre: "Centros de Formación" },
     ],
     regionales: [],
+    publicaciones: [
+      {
+        nombre: "Boletin 1",
+      descripcion: "Descripción del boletín 1",
+      fecha: "null",
+      ciudad: "null",
+      },
+      {
+        nombre: "Boletin 1",
+      descripcion: "Descripción del boletín 1",
+      fecha: "null",
+      ciudad: "null",
+      },
+    ],
   }),
   mounted() {
     this.fetchRegionales();

@@ -14,8 +14,8 @@
     >
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="w-100 w-sm-100 w-lg-33 ">
-          <v-img :src="evento.imagen" height="200" cover></v-img>
+        <div class="w-100 w-sm-100 w-lg-100 ">
+          <v-img :src="`${API_Backend}/${evento.imagen}`" height="200" width="400" alt="Imagen del evento" cover></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">
@@ -28,8 +28,8 @@
             </p>
             <p class="year text-5">{{ getYear(evento.fecha) }}</p>
             <div class="informacion">
-              <p>{{ evento.inicio }} a {{ evento.fin }}</p>
-              <p>{{ evento.tipo_evento }}: {{ evento.lugar }}</p>
+              <p>{{ evento.hora }} a {{ evento.fin }}</p>
+              <p>Evento {{ evento.modalidad }}: {{ evento.lugar }}</p>
               <p>{{ evento.ciudad }}</p>
             </div>
           </div>
@@ -71,6 +71,7 @@ export default {
   data() {
     return {
       page: 1, // Current page
+      API_Backend: import.meta.env.VITE_API_BACKEND,
     };
   },
 
