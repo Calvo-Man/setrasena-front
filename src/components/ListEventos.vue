@@ -131,8 +131,8 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogImagen" max-width="60%">
-          <v-card>
+        <v-dialog v-model="dialogImagen">
+          <v-card class="d-flex flex-column align-center justify-center">
             <v-img
               :src="`${API_Backend}/${editedItem.imagen}`"
               height="100%"

@@ -103,12 +103,12 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogImagen" max-width="60%">
-          <v-card>
+        <v-dialog v-model="dialogImagen">
+          <v-card class="d-flex flex-column align-center justify-center">
             <v-img
               :src="`${API_Backend}/${editedItem.imagen}`"
               height="100%"
-              width="100%"
+              width="90%"
               alt="Imagen del evento"
               cover
             ></v-img>
@@ -217,11 +217,11 @@ export default {
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Agregar " : "Editar";
+      return this.editedIndex === -1 ? "Agregar " : "Editar ";
     },
   },
 
-  watch: {
+  watch: { 
     dialog(val) {
       val || this.close();
     },
