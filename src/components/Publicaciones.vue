@@ -7,15 +7,15 @@
       {{ descripcion }}
     </h4>
     <v-card
-      v-for="(evento, index) in paginatedEventos"
+      v-for="(evento, index) in paginatedpublicaciones"
       :key="index"
       :color="'red-darken-2'"
       class="ma-3 d-flex borde-card mx-auto"
     >
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="w-100 w-sm-100 w-lg-33 ">
-          <v-img :src="evento.imagen" height="200" cover></v-img>
+        <div class="w-100 w-sm-100 w-lg-100 ">
+          <v-img :src="`${API_Backend}/${evento.imagen}`"   class="img-container" alt="Imagen del evento" ></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">
@@ -37,7 +37,7 @@
             <div>
               <v-btn
                 class="material-icons bg-black ver-pdf"
-                :href="evento.documento"
+                :href="`${API_Backend}/${evento.documento}`"
                 target="_blank"
               >
                 <span class="material-icons">visibility</span>
@@ -65,11 +65,12 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  name: "banner-eventos",
+  name: "banner-publicaciones",
   props: {
-    eventos: {
-      type: Array,
+    tipo: {
+      type: String,
       required: true,
     },
     titulo: {
@@ -83,17 +84,19 @@ export default {
   data() {
     return {
       page: 1, // Current page
+      API_Backend: import.meta.env.VITE_API_BACKEND,
+      publicaciones: [],
     };
   },
 
   computed: {
     totalPages() {
-      return Math.ceil(this.eventos.length / 5);
+      return Math.ceil(this.publicaciones.length / 5);
     },
-    // Paginate eventos based on the current page
-    paginatedEventos() {
+    // Paginate publicaciones based on the current page
+    paginatedpublicaciones() {
       const start = (this.page - 1) * 5;
-      return this.eventos.slice(start, start + 5);
+      return this.publicaciones.slice(start, start + 5);
     },
   },
 
@@ -126,6 +129,21 @@ export default {
       const d = new Date(date);
       return d.getFullYear();
     },
+
+    async getPublicaciones() {
+      try {
+        const response = await axios.get(`${this.API_Backend}/publicacion/tipo/${this.tipo}`);
+        this.publicaciones = response.data;
+      } catch (error) {
+        console.error("Error al obtener publicaciones:", error);
+      }
+    },
+  },
+  created() {
+    this.getPublicaciones();
+    this.publicaciones.sort(
+        (a, b) => new Date(b.fecha) - new Date(a.fecha)
+      )
   },
 };
 </script>
@@ -136,10 +154,33 @@ export default {
   position: relative;
   .ver-pdf {
     position: absolute;
-    top: 10px;
+    top: 0px;
     right: 0;
     font-size: 0.6rem;
   }
+}
+.img-container {
+  width: 400px;
+  @media (max-width: 1215px) {
+    width: 350px;
+  }
+  @media (max-width: 1200px) {
+    width: 300px;
+  }
+  @media (max-width: 1100px) {
+    width: 250px;
+  }
+  @media (max-width: 1050px) {
+    width: 220px;
+  }
+  @media (max-width: 1024px) {
+    width: 400px;
+  }
+  @media (max-width: 959px) {
+    width: 100vw;
+  }
+
+
 }
 
 .info-date {

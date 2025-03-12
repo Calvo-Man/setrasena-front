@@ -23,8 +23,8 @@ import BannerEventos from "@/components/BannerEventos.vue";
       Eventos y reuniones recientes SETRASENA
     </v-card-title>
     <BannerEventos />
+    <div id="introduccion"></div>
     <BannerAfiliacion />
-
     <section>
       <v-card-title>
         Introducción sobre los sindicatos

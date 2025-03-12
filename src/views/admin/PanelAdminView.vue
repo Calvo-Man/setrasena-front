@@ -33,17 +33,17 @@ import PanelPublicaciones from "@/components/PanelPublicaciones.vue";
         <v-col cols="12">
           <!-- Formulario de Boletín -->
           <v-card v-if="selectedForm === 'boletin'">
-            <PanelPublicaciones :tipo_publicacion="'boletines'" :publicaciones="publicaciones" />
+            <PanelPublicaciones :tipo_publicacion="'Boletín'" />
           </v-card>
 
           <!-- Formulario de Comunicado -->
           <v-card v-if="selectedForm === 'comunicado'">
-            <PanelPublicaciones :tipo_publicacion="'comunicados'" :publicaciones="publicaciones" />
+            <PanelPublicaciones :tipo_publicacion="'Comunicado'" />
           </v-card>
 
           <!-- Formulario de Flash Informativo -->
           <v-card v-if="selectedForm === 'flash'">
-            <PanelPublicaciones :tipo_publicacion="'flash informativos'" :publicaciones="publicaciones" />
+            <PanelPublicaciones :tipo_publicacion="'flash informativos'"  />
           </v-card>
 
           <!-- Formulario de Eventos -->
@@ -87,20 +87,7 @@ export default {
       { value: "centroFormacion", nombre: "Centros de Formación" },
     ],
     regionales: [],
-    publicaciones: [
-      {
-        nombre: "Boletin 1",
-      descripcion: "Descripción del boletín 1",
-      fecha: "null",
-      ciudad: "null",
-      },
-      {
-        nombre: "Boletin 1",
-      descripcion: "Descripción del boletín 1",
-      fecha: "null",
-      ciudad: "null",
-      },
-    ],
+    
   }),
   mounted() {
     this.fetchRegionales();
@@ -136,6 +123,7 @@ export default {
         console.error(error);
       }
     },
+    
   },
 };
 </script>

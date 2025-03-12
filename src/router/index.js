@@ -8,14 +8,14 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     // Si hay una posición guardada, regresa a ella
     if (savedPosition) {
-      return savedPosition;
+      
     } else {
       // Aquí es donde puedes manipular el scroll del contenedor
       const container = document.querySelector('.container');
       if (container) {
         container.scrollTop = 0; // Asegura que el contenedor haga scroll al inicio
       }
-      return { top: 0 }; // Si no se especifica, hará scroll al inicio
+    return { x: 0, y: 0 };
     }
   },
 });

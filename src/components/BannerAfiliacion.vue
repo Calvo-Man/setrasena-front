@@ -2,7 +2,7 @@
     <v-banner
       color="red-darken-3"
       icon="mdi-account-box"
-      id="introduccion"
+
     >
       <template v-slot:prepend>
         <v-avatar></v-avatar>

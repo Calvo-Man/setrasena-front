@@ -15,7 +15,7 @@
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
         <div class="w-100 w-sm-100 w-lg-100 ">
-          <v-img :src="`${API_Backend}/${evento.imagen}`" height="200" width="400" alt="Imagen del evento" cover></v-img>
+          <v-img :src="`${API_Backend}/${evento.imagen}`" class="img-container" alt="Imagen del evento" cover></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">
@@ -129,6 +129,29 @@ export default {
     right: 0;
     font-size: 0.6rem;
   }
+}
+.img-container {
+  width: 400px;
+  @media (max-width: 1215px) {
+    width: 350px;
+  }
+  @media (max-width: 1200px) {
+    width: 300px;
+  }
+  @media (max-width: 1100px) {
+    width: 250px;
+  }
+  @media (max-width: 1050px) {
+    width: 220px;
+  }
+  @media (max-width: 1024px) {
+    width: 400px;
+  }
+  @media (max-width: 959px) {
+    width: 100vw;
+  }
+
+
 }
 
 .info-date {

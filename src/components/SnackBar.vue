@@ -1,7 +1,7 @@
 <template>
     <div class="text-center ma-2">
       
-      <v-snackbar v-model="localSnackbar" color="green">
+      <v-snackbar v-model="localSnackbar" :color="color">
         {{ text }}
   
         <template v-slot:actions>
@@ -22,6 +22,9 @@
     },
     props: {
       text: {
+        type: String,
+      },
+      color: {
         type: String,
       },
       snackbar: {
