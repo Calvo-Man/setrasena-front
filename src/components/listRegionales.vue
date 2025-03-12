@@ -61,7 +61,7 @@
   </v-data-table>
 
   <!-- Snackbar Component -->
-  <SnackBar :text="'Regional agregada exitosamente'" v-model:snackbar="snackbar" />
+  <SnackBar :text="textSnackbar" :color="colorSnackbar" v-model:snackbar="snackbar" />
 </template>
 
 <script>
@@ -78,6 +78,8 @@ export default {
       snackbar: false, // Control snackbar visibility here
       dialog: false,
       dialogDelete: false,
+      textSnackbar: "",
+      colorSnackbar: "",
       headers: [
         { title: "Regionales", align: "start", sortable: false, key: "nombre" },
         { title: "Actions", key: "actions", sortable: false }
@@ -137,6 +139,12 @@ export default {
         console.error(error);
       }
       this.initialize();
+        this.textSnackbar = "Regional eliminada exitosamente.";
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       this.closeDelete();
     },
 
@@ -177,9 +185,9 @@ export default {
           nombre: this.editedItem.nombre
         });
         this.initialize();
-        this.snackbar = true; // Show snackbar on successful save
-
-        // Hide snackbar after 3 seconds
+        this.textSnackbar = "Regional agregada exitosamente.";
+        this.colorSnackbar ="green"
+        this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
@@ -194,8 +202,13 @@ export default {
         await axios.put(`${this.API_Backend}/regional/${this.editedItem.id}`, {
           nombre: this.editedItem.nombre
         });
-        alert("Registration successful!");
         this.initialize();
+        this.textSnackbar = "Regional actualizada exitosamente.";
+        this.colorSnackbar ="orange-darken-4"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       } catch (error) {
         console.error(error);
         alert("Error updating Regional");

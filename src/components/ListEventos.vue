@@ -440,7 +440,7 @@ export default {
             },
           }
         );
-        this.initialize();
+    
         this.initialize();
         this.textSnackbar = "Evento actualizado exitosamente.";
         this.colorSnackbar ="orange-darken-4"

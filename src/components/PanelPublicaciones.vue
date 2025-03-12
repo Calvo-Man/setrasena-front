@@ -192,7 +192,7 @@ export default {
       { title: "Fecha", key: "fecha" },
       { title: "Ciudad", key: "ciudad" },
       { title: "Imagen", key: "imagen", sortable: false },
-      { title: "PDF", key: "archivo", sortable: false },
+      { title: "PDF", key: "documento", sortable: false },
       { title: "Actions", key: "actions", sortable: false },
     ],
 

@@ -94,24 +94,7 @@ export default {
   },
 
   methods: {
-    async SaveRegional() {
-      if (!this.regional) {
-        console.log("Debe llenar el campo");
-        return;
-      }
-      try {
-        const response = await axios.post(
-          `${this.API_Backend}/regional/crear`,
-          {
-            nombre: this.regional,
-          }
-        );
-        alert("Registration successful!");
-      } catch (error) {
-        console.error(error);
-        alert("Error registering Regional");
-      }
-    },
+    
     setForm(form) {
       this.selectedForm = form;
     },
