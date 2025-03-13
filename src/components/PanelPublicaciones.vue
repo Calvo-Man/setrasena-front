@@ -77,8 +77,15 @@
               <v-btn color="blue-darken-1" variant="text" @click="close">
                 Cancelar
               </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="ElegirAccion">
-                Save
+              <v-btn
+                :loading="loading"
+                class="flex-grow-1"
+                
+                variant="text"
+                color="blue-darken-1"
+                @click="ElegirAccion"
+              >
+                Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -94,6 +101,7 @@
                 >Cancel</v-btn
               >
               <v-btn
+                :loading="loading"
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
@@ -108,7 +116,7 @@
             <v-img
               :src="`${API_Backend}/${editedItem.imagen}`"
               height="100%"
-              width="90%"
+              width="100%"
               alt="Imagen del evento"
               cover
             ></v-img>
@@ -152,7 +160,7 @@
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">
+      <v-btn :loading="loading" color="primary" @click="initialize">
         Recargar
       </v-btn>
     </template>
@@ -177,6 +185,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     dialogImagen: false,
+    loading: false,
     snackbar: false, // Control snackbar visibility here
     textSnackbar: "",
     colorSnackbar: "",
@@ -240,12 +249,20 @@ export default {
   methods: {
     async initialize() {
       try {
+        this.loading = true;
         const response = await axios.get(
           `${this.API_Backend}/publicacion/tipo/${this.tipo_publicacion}`
         );
         this.publicaciones = response.data;
+        this.loading = false;
       } catch (error) {
-        console.error(error);
+        this.loading = false;
+        this.textSnackbar = "Error al cargar datos.";
+        this.colorSnackbar = "red";
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
     },
 
@@ -275,9 +292,11 @@ export default {
 
     async deleteItemConfirm() {
       try {
+        this.loading = true;
         const response = await axios.delete(
           `${this.API_Backend}/publicacion/${this.editedItem.id}`
         );
+        this.loading = false;
         this.initialize();
         this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
         this.colorSnackbar ="red"
@@ -286,9 +305,15 @@ export default {
           this.snackbar = false;
         }, 3000);
       } catch (error) {
-        console.error(error);
+        this.loading = false;
+        this.textSnackbar = `Error al eliminar ${this.tipo_publicacion}, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
-      this.closeDelete();
+  
     },
 
     close() {
@@ -323,6 +348,7 @@ export default {
 
     async save() {
       try {
+        this.loading = true;
         // Validación previa de los campos
         if (
           !this.editedItem.nombre ||
@@ -355,7 +381,6 @@ export default {
           alert("Por favor, seleccione un documento.");
           return;
         }
-
         const response = await axios.post(
           `${this.API_Backend}/publicacion/crear`,
           formData,
@@ -365,9 +390,9 @@ export default {
             },
           }
         );
-
+        this.loading = false;
         this.initialize();
-        this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
+        this.textSnackbar = `${this.tipo_publicacion} guardado exitosamente.`;
         this.colorSnackbar ="green"
         this.snackbar = true;
         setTimeout(() => {
@@ -376,10 +401,13 @@ export default {
 
         this.initialize();
       } catch (error) {
-        console.error(error);
-        alert(
-          "Hubo un error al registrar el evento. Por favor, intente nuevamente."
-        );
+        this.loading = false;
+        this.textSnackbar = `Error al guardar ${this.tipo_publicacion}, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
 
       // Cerrar el diálogo o el formulario
@@ -387,12 +415,14 @@ export default {
     },
     async actualizar() {
       try {
+        this.loading = true;
         const response = await axios.put(
           `${this.API_Backend}/publicacion/${this.editedItem.id}`,
           {
             nombre: this.editedItem.nombre,
           }
         );
+        this.loading = false;
         this.initialize();
         this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
         this.colorSnackbar ="orange-darken-4"
@@ -401,8 +431,13 @@ export default {
           this.snackbar = false;
         }, 3000);
       } catch (error) {
-        console.error(error);
-        alert("Error registering Regional");
+        this.loading = false;
+        this.textSnackbar = `Error al actualizar ${this.tipo_publicacion}, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
     },
   },

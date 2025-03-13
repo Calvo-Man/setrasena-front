@@ -1,5 +1,5 @@
 <template>
-  <v-card  class="pa-3">
+  <v-card class="pa-3">
     <v-card-title class="text-center bg-black rounded">{{
       titulo
     }}</v-card-title>
@@ -15,13 +15,16 @@
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
         <div class="w-100 w-sm-100 w-lg-100 ">
-          <v-img :src="`${API_Backend}/${evento.imagen}`"   class="img-container" alt="Imagen del evento" ></v-img>
+          <v-img
+            :src="`${API_Backend}/${evento.imagen}`"
+            class="img-container"
+            alt="Imagen del evento"
+            cover
+          ></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">
-          <div
-            class="info-date d-flex"
-          >
+          <div class="info-date d-flex">
             <div class="day align-center">
               <p class="text-h3 text-white">{{ getDay(evento.fecha) }}</p>
             </div>
@@ -33,10 +36,10 @@
               <p>{{ evento.ciudad }}</p>
               <p>{{ evento.fecha }}</p>
             </div>
-            
-            <div>
+
+            <div class="ver-pdf">
               <v-btn
-                class="material-icons bg-black ver-pdf"
+                class="material-icons bg-black "
                 :href="`${API_Backend}/${evento.documento}`"
                 target="_blank"
               >
@@ -132,7 +135,9 @@ export default {
 
     async getPublicaciones() {
       try {
-        const response = await axios.get(`${this.API_Backend}/publicacion/tipo/${this.tipo}`);
+        const response = await axios.get(
+          `${this.API_Backend}/publicacion/tipo/${this.tipo}`
+        );
         this.publicaciones = response.data;
       } catch (error) {
         console.error("Error al obtener publicaciones:", error);
@@ -141,9 +146,7 @@ export default {
   },
   created() {
     this.getPublicaciones();
-    this.publicaciones.sort(
-        (a, b) => new Date(b.fecha) - new Date(a.fecha)
-      )
+    this.publicaciones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
   },
 };
 </script>
@@ -152,35 +155,35 @@ export default {
 .borde-card {
   border: 1px solid black;
   position: relative;
+}
+.ver-pdf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
+}
+
+@media (max-width: 1215px) {
   .ver-pdf {
-    position: absolute;
-    top: 0px;
-    right: 0;
-    font-size: 0.6rem;
+    top: 50px;
   }
 }
+
+@media (max-width: 1024px) {
+  .ver-pdf {
+    top: 0;
+  }
+}
+
 .img-container {
-  width: 400px;
-  @media (max-width: 1215px) {
-    width: 350px;
-  }
-  @media (max-width: 1200px) {
-    width: 300px;
-  }
-  @media (max-width: 1100px) {
-    width: 250px;
-  }
-  @media (max-width: 1050px) {
-    width: 220px;
-  }
+  width: 350px;
+
   @media (max-width: 1024px) {
     width: 400px;
   }
   @media (max-width: 959px) {
     width: 100vw;
   }
-
-
 }
 
 .info-date {
@@ -236,7 +239,5 @@ export default {
   @media (max-width: 400px) {
     width: 75%;
   }
-  
-
 }
 </style>

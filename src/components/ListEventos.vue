@@ -15,7 +15,7 @@
               Agregar
             </v-btn>
           </template>
-          <v-card >
+          <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
             </v-card-title>
@@ -23,7 +23,10 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" class="text-center align-center justify-center">
+                  <v-col
+                    cols="12"
+                    class="text-center align-center justify-center"
+                  >
                     <v-img
                       :src="`${API_Backend}/${editedItem.imagen}`"
                       width="400"
@@ -105,8 +108,14 @@
               <v-btn color="blue-darken-1" variant="text" @click="close">
                 Cancelar
               </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="ElegirAccion">
-                Save
+              <v-btn
+                :loading="loading"
+                class="flex-grow-1"
+                variant="text"
+                color="blue-darken-1"
+                @click="ElegirAccion"
+              >
+                Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -122,6 +131,7 @@
                 >Cancel</v-btn
               >
               <v-btn
+                :loading="loading"
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
@@ -170,20 +180,24 @@
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">
+      <v-btn :loading="loading" color="primary" @click="initialize">
         Recargar
       </v-btn>
     </template>
   </v-data-table>
   <!-- Snackbar Component -->
-  <SnackBar :text="textSnackbar" :color="colorSnackbar" v-model:snackbar="snackbar" />
+  <SnackBar
+    :text="textSnackbar"
+    :color="colorSnackbar"
+    v-model:snackbar="snackbar"
+  />
 </template>
 <script>
 import axios from "axios";
 import SnackBar from "./SnackBar.vue";
 export default {
   components: {
-    SnackBar
+    SnackBar,
   },
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
@@ -191,6 +205,7 @@ export default {
     dialogDelete: false,
     dialogImagen: false,
     snackbar: false,
+    loading: false,
     textSnackbar: "",
     colorSnackbar: "",
     headers: [
@@ -261,10 +276,18 @@ export default {
   methods: {
     async initialize() {
       try {
+        this.loading = true;
         const response = await axios.get(`${this.API_Backend}/evento`);
         this.eventos = response.data;
+        this.loading = false;
       } catch (error) {
         console.error(error);
+        this.textSnackbar = "Error al cargar datos.";
+        this.colorSnackbar = "red";
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
     },
 
@@ -294,18 +317,26 @@ export default {
 
     async deleteItemConfirm() {
       try {
+        this.loading = true;
         const response = await axios.delete(
           `${this.API_Backend}/evento/${this.editedItem.id}`
         );
         this.initialize();
         this.textSnackbar = "Evento eliminado exitosamente.";
+        this.colorSnackbar = "red";
+        this.snackbar = true;
+        this.loading = false;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
+      } catch (error) {
+        this.loading = false;
+        this.textSnackbar = `Error al eliminar ${this.tipo_publicacion}, intente nuevamente.`;
         this.colorSnackbar ="red"
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
-      } catch (error) {
-        console.error(error);
       }
       this.closeDelete();
     },
@@ -326,22 +357,16 @@ export default {
       });
     },
     async ElegirAccion() {
-      if (!this.editedItem.nombre) {
-        console.log("Debe llenar el campo");
-        return;
-      }
-
       if (this.editedIndex !== -1) {
         this.actualizar();
       } else {
         this.save();
       }
-
-      this.close();
     },
 
     async save() {
       try {
+        this.loading = true;
         // Validación previa de los campos
         if (
           !this.editedItem.nombre ||
@@ -371,7 +396,6 @@ export default {
           alert("Por favor, seleccione una imagen.");
           return;
         }
-
         const response = await axios.post(
           `${this.API_Backend}/evento/crear`,
           formData,
@@ -381,29 +405,29 @@ export default {
             },
           }
         );
-
+        // this.loading = false;
         this.initialize();
         this.textSnackbar = "Evento guardado exitosamente.";
-        this.colorSnackbar ="green"
+        this.colorSnackbar = "green";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
-
-        this.initialize();
       } catch (error) {
-        console.error(error);
-        alert(
-          "Hubo un error al registrar el evento. Por favor, intente nuevamente."
-        );
+        this.loading = false;
+        this.textSnackbar = `Error al guardar ${this.tipo_publicacion}, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
-
-      // Cerrar el diálogo o el formulario
       this.close();
     },
 
     async actualizar() {
       try {
+        this.loading = true;
         // Validación previa de los campos
         if (
           !this.editedItem.nombre ||
@@ -429,8 +453,7 @@ export default {
         // Verificar si se ha seleccionado una imagen
         if (this.editedItem.imagen instanceof File) {
           formData.append("imagen", this.editedItem.imagen);
-        } 
-
+        }
         const response = await axios.patch(
           `${this.API_Backend}/evento/${this.editedItem.id}`,
           formData,
@@ -440,18 +463,24 @@ export default {
             },
           }
         );
-    
+        this.loading = false;
         this.initialize();
         this.textSnackbar = "Evento actualizado exitosamente.";
-        this.colorSnackbar ="orange-darken-4"
+        this.colorSnackbar = "orange-darken-4";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
       } catch (error) {
-        console.error(error);
-        alert("Error registering Regional");
+        this.loading = false;
+        this.textSnackbar = `Error al actualizar ${this.tipo_publicacion}, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
+      this.close();
     },
   },
 };

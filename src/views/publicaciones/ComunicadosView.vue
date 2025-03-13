@@ -1,8 +1,11 @@
 <template>
   <Publicaciones
+    :tipo="'Comunicado'"
     :eventos="eventos"
     :titulo="'COMUNICADOS A LA OPINIÓN PÚBLICA '"
-    :descripcion="'Consulta todos nuestros comunicados en esta sección, y mantente informado.'"
+    :descripcion="
+      'Consulta todos nuestros comunicados en esta sección, y mantente informado.'
+    "
   />
 </template>
 <script>

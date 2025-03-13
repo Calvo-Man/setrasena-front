@@ -56,8 +56,8 @@
               <v-btn color="blue-darken-1" variant="text" @click="close">
                 Cancelar
               </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="ElegirAccion">
-                Save
+              <v-btn :loading="loading" color="blue-darken-1" variant="text" @click="ElegirAccion">
+                Guardar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -76,6 +76,7 @@
                 color="blue-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
+                :loading="loading"
                 >OK</v-btn
               >
               <v-spacer></v-spacer>
@@ -93,21 +94,30 @@
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">
+      <v-btn color="primary" @click="initialize" :loading="loading">
         Reset
       </v-btn>
     </template>
   </v-data-table>
+  <SnackBar :text="textSnackbar" :color="colorSnackbar" v-model:snackbar="snackbar" />
 </template>
 <script>
 import axios from "axios";
-
+import SnackBar from "./SnackBar.vue";
 export default {
+  components: {
+    SnackBar
+  },
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
     regional: [],
     dialog: false,
     dialogDelete: false,
+    loading: false,
+    textSnackbar: "",
+    colorSnackbar: "",
+    snackbar: false,
+    centros: [],
     headers: [
       {
         title: "Centros de Formación",
@@ -117,27 +127,21 @@ export default {
       },
       { title: "Direccion", key: "direccion" },
       { title: "Regional", key: "regional.nombre" },
-      // { title: 'Carbs (g)', key: 'carbs' },
-      // { title: 'Protein (g)', key: 'protein' },
+      
       { title: "Acciones", key: "actions", sortable: false },
     ],
-    centros: [],
     editedIndex: -1,
     editedItem: {
       nombre: null,
       direccion: null,
       regional: null,
-      // calories: 0,
-      // fat: 0,
-      // carbs: 0,
-      // protein: 0,
+      
     },
     defaultItem: {
       nombre: null,
       direccion: null,
       regional: null,
-      // carbs: 0,
-      // protein: 0,
+      
     },
   }),
   props: {
@@ -167,10 +171,18 @@ export default {
   methods: {
     async initialize() {
       try {
+        this.loading = true;
         const response = await axios.get(`${this.API_Backend}/centro`);
         this.centros = response.data;
+        this.loading = false;
       } catch (error) {
-        console.error(error);
+        this.loading = false;
+        this.textSnackbar = "Error al cargar datos.";
+        this.colorSnackbar = "red";
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
     },
     editItem(item) {
@@ -186,12 +198,26 @@ export default {
     },
     async deleteItemConfirm() {
       try {
+        this.loading = true;
         const response = await axios.delete(
           `${this.API_Backend}/centro/${this.editedItem.id}`
         );
+        this.loading = false;
         this.initialize();
+        this.textSnackbar = `Centro de formación eliminado exitosamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       } catch (error) {
-        console.error(error);
+        this.loading = false;
+        this.textSnackbar = `Error al eliminar centro de formación, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
       this.closeDelete();
     },
@@ -227,6 +253,7 @@ export default {
 
     async save() {
       try {
+        this.loading = true;
         const response = await axios.post(
           `${this.API_Backend}/centro/crear`,
           {
@@ -235,16 +262,28 @@ export default {
             regional: this.editedItem.regional
           }
         );
+        this.loading = false;
         this.initialize();
-        alert("Registration successful!");
+        this.textSnackbar = `Centro de formación guardado exitosamente.`;
+        this.colorSnackbar ="green"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       } catch (error) {
-        console.error(error);
-        alert("Error registering Regional");
+        this.loading = false;
+        this.textSnackbar = `Error al guardar centro de formación, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
       this.close();
     },
     async actualizar() {
       try {
+        this.loading = true;
         const response = await axios.patch(
           `${this.API_Backend}/centro/${this.editedItem.id}`,
           {
@@ -253,11 +292,23 @@ export default {
             regional: this.editedItem.regional
           }
         );
-        alert("Registration successful!");
+        this.loading = false;
         this.initialize();
+        this.textSnackbar = `Centro de formación actualizado exitosamente.`;
+        this.colorSnackbar ="orange-darken-4"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       } catch (error) {
-        console.error(error);
-        alert("Error registering Regional");
+        
+        this.loading = false;
+        this.textSnackbar = `Error al actualizar centro de formación, intente nuevamente.`;
+        this.colorSnackbar ="red"
+        this.snackbar = true;
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 3000);
       }
     },
   },
