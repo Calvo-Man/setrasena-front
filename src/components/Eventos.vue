@@ -10,12 +10,17 @@
       v-for="(evento, index) in paginatedEventos"
       :key="index"
       :color="'red-darken-2'"
-      class="ma-3 d-flex borde-card mx-auto"
+      class="ma-3 d-flex borde-card mx-auto card-container"
     >
-      <div class="d-flex  flex-column flex-md-row" >
+      <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="w-100 w-sm-100 w-lg-100 ">
-          <v-img :src="`${evento.imagen}`" class="img-container" alt="Imagen del evento" cover></v-img>
+        <div class="">
+          <v-img
+            :src="`${evento.imagen}`"
+            class="img-container"
+            alt="Imagen del evento"
+            cover
+          ></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">
@@ -34,14 +39,16 @@
             </div>
           </div>
           <div class="descripcion">
-            <v-card-title class="text-body1">{{ evento.nombre }}</v-card-title>
+            <v-card-title class="text-body1 nombre">{{
+              evento.nombre
+            }}</v-card-title>
             <v-card-text class="text-body-2">
               {{ evento.descripcion }}
             </v-card-text>
           </div>
         </div>
       </div>
-      <div class="d-flex fill-height justify-center"></div>
+      
     </v-card>
 
     <v-pagination
@@ -124,28 +131,25 @@ export default {
   border: 1px solid black;
   position: relative;
 }
-.ver-pdf {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 0.6rem;
-  
-  @media (max-width: 1024px) {
-    right: 0px;
-  }
-  @media (max-width: 1215px) {
-    left: 0;
-    width: 150px;
-  }
-}
-.img-container {
-  width: 350px;
 
+.img-container {
+  width: 300px;
+
+  @media (max-width: 1093px) {
+    width: 300px;
+  }
+  @media (max-width: 1036px) {
+    width: 280px;
+  }
   @media (max-width: 1024px) {
     width: 400px;
   }
   @media (max-width: 959px) {
     width: 100vw;
+    height: 400px;
+  }
+  @media (max-width: 540px) {
+    height: auto;
   }
 }
 
@@ -170,7 +174,7 @@ export default {
     font-size: 1.5rem; /* Ajusta el tamaño de la fuente según lo necesites */
     letter-spacing: 8px; /* Ajusta el espacio entre las letras */
     @media (max-width: 500px) {
-        margin-left: -20px;
+      margin-left: -20px;
     }
   }
   .year {
@@ -180,27 +184,27 @@ export default {
     font-size: 1.5rem;
     letter-spacing: 3px;
     @media (max-width: 500px) {
-        margin-left: -20px;
+      margin-left: -20px;
     }
   }
   .informacion {
     border-left: 1px solid rgb(10, 10, 10);
     padding-left: 6px;
     height: 70%;
-    
+
     margin-top: 10px;
     p {
       font-size: 0.7rem;
     }
     @media (max-width: 500px) {
-        width: 50%;
+      width: 50%;
     }
     @media (max-width: 430px) {
-        width: 45%;
+      width: 45%;
     }
-    @media (max-width: 370px) {
-        width: 35%;
-        margin-bottom: 80px;
+    @media (max-width: 400px) {
+      width: 35%;
+      margin-bottom: 80px;
     }
   }
 
@@ -211,13 +215,30 @@ export default {
   }
 }
 .descripcion {
-  padding: 0px;
+  padding: 5px;
   margin-top: 10px;
+  
+  .nombre {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    @media (max-width: 1120px) {
+      font-size: 1.3rem;
+    }
+    @media (max-width: 600px) {
+      font-size: 1.2rem;
+    }
+  }
+  @media (max-width: 920px) {
+    width: 85%;
+  }
   @media (max-width: 600px) {
-    width: 90%;
+    width: 85%;
   }
   @media (max-width: 400px) {
-    width: 75%;
+    width: 70%;
+  }
+  @media (max-width: 350px) {
+    width: 60%;
   }
 }
 </style>

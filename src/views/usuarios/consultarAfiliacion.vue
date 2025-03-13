@@ -1,4 +1,3 @@
-<script setup></script>
 <template>
   <div class="card">
     <div class="card-header">
@@ -26,37 +25,32 @@
 
         <v-row justify="center">
           <v-col cols="6">
-            <v-btn type="submit" color="red-darken-3" :disabled="!documento">
+            <v-btn
+              type="submit"
+              :loading="loading"
+              color="red-darken-3"
+              :disabled="!documento"
+            >
               Consultar
             </v-btn>
           </v-col>
         </v-row>
       </v-form>
       <div class="card-body text-center mt-5">
-          <div class="datos" v-if="items.length > 0">
+        <div class="datos" >
           <h3>
-              Datos de su solicitud de afiliación:
-            </h3>
-            <!-- 
-          <p><strong>Nombre:</strong> {{ afiliacion.nombres }}</p>
-          <p><strong>Apellidos:</strong> {{ afiliacion.apellidos }}</p>
-          <p><strong>Documento:</strong> {{ afiliacion.documento }}</p>
-          <p><strong>Email:</strong> {{ afiliacion.email }}</p>
-          <p><strong>Telefono:</strong> {{ afiliacion.telefono }}</p>
-          <p>
-            <strong>Objeto Contractual:</strong>
-            {{ afiliacion.objeto_contractual }}
-          </p>
-          <p><strong>Estado:</strong> {{ afiliacion.estado }}</p>
-          -->
-          
+            {{ mensaje }}
+          </h3>
           <v-data-table
+          v-if="items.length > 0"
           :headers="headers"
           :items="items"
-          item-key="name"
+          item-key="documento"
           hide-default-footer
-          ></v-data-table>
-        </div> 
+          >
+        </v-data-table>
+      </div>
+      
       </div>
     </v-container>
   </div>
@@ -69,17 +63,19 @@ export default {
     API_Backend: import.meta.env.VITE_API_BACKEND,
     documento: "",
     items: [],
+    loading: false,
+    mensaje: "",
     headers: [
       {
         title: "Documento",
         align: "start",
         key: "documento",
       },
-      { title: "Nombre",  key: "nombres" },
-      { title: "Apellidos",  key: "apellidos" },
+      { title: "Nombre", key: "nombres" },
+      { title: "Apellidos", key: "apellidos" },
       { title: "Telefono", key: "telefono" },
-      { title: "Email",  key: "email" },
-      { title: "Objeto contractual",  key: "objeto_contractual" },
+      { title: "Email", key: "email" },
+      { title: "Objeto contractual", key: "objeto_contractual" },
       { title: "Estado", align: "end", key: "estado" },
     ],
   }),
@@ -87,13 +83,21 @@ export default {
   methods: {
     async fetchAfiliacionesByDocumento() {
       try {
+        this.loading = true;
         const response = await axios.get(
-          `${this.API_Backend}/afiliado/${this.documento}`
+          `${this.API_Backend}/afiliado/documento/${this.documento}`
         );
-        this.items = [response.data];
-        console.log(this.items);
+        if (response.data) {
+          this.items = [response.data]; 
+          this.mensaje = "Datos de su solicitud de afiliación:";
+        } else {
+          this.items = []; 
+          this.mensaje = "No se encontraron datos de afiliación para el documento ingresado.";
+        }
+        this.loading = false;
       } catch (error) {
         console.error(error);
+        this.loading = false;
       }
     },
   },
@@ -103,7 +107,6 @@ export default {
 <style scoped>
 .card {
   width: 100%;
-
   padding: 20px;
   border-radius: 10px;
   box-shadow: 10px 4px 8px rgba(0, 0, 0, 0.1);
@@ -122,16 +125,8 @@ export default {
   margin: 0;
 }
 
-.opcion-panel {
-  border-right: 1px solid black;
-}
-
 .v-btn {
   width: 100%;
-}
-
-.v-card {
-  margin-bottom: 20px;
 }
 
 .v-form {
