@@ -97,7 +97,7 @@ export const routes = [
         path: "/admin",
         name: "Panel Admin",
         component: PanelAdminView,
-        meta: { requiresAuth: false },
+        // meta: { requiresAuth: false },
       },
     ],
   },
