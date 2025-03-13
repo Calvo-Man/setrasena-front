@@ -132,7 +132,7 @@
               >
               <v-btn
                 :loading="loading"
-                color="blue-darken-1"
+                color="red"
                 variant="text"
                 @click="deleteItemConfirm"
                 >OK</v-btn
@@ -144,7 +144,7 @@
         <v-dialog v-model="dialogImagen">
           <v-card class="d-flex flex-column align-center justify-center">
             <v-img
-              :src="`${API_Backend}/${editedItem.imagen}`"
+              :src="`${editedItem.imagen}`"
               height="100%"
               width="100%"
               alt="Imagen del evento"
@@ -162,7 +162,7 @@
     </template>
     <template v-slot:item.imagen="{ item }">
       <v-img
-        :src="`${API_Backend}/${item.imagen}`"
+        :src="`${item.imagen}`"
         height="100"
         width="100"
         alt="Imagen del evento"
@@ -281,7 +281,7 @@ export default {
         this.eventos = response.data;
         this.loading = false;
       } catch (error) {
-        console.error(error);
+      
         this.textSnackbar = "Error al cargar datos.";
         this.colorSnackbar = "red";
         this.snackbar = true;
@@ -325,7 +325,7 @@ export default {
         this.textSnackbar = "Evento eliminado exitosamente.";
         this.colorSnackbar = "red";
         this.snackbar = true;
-        this.loading = false;
+        
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
@@ -463,7 +463,7 @@ export default {
             },
           }
         );
-        this.loading = false;
+        // this.loading = false;
         this.initialize();
         this.textSnackbar = "Evento actualizado exitosamente.";
         this.colorSnackbar = "orange-darken-4";

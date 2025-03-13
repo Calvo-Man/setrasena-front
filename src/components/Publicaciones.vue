@@ -14,12 +14,12 @@
     >
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="w-100 w-sm-100 w-lg-100 ">
+        <div class="w-100 w-sm-100 w-lg-100">
           <v-img
-            :src="`${API_Backend}/${evento.imagen}`"
+            :src="`${evento.imagen}`"
             class="img-container"
             alt="Imagen del evento"
-            cover
+            
           ></v-img>
         </div>
         <!-- Información -->
@@ -40,7 +40,7 @@
             <div class="ver-pdf">
               <v-btn
                 class="material-icons bg-black "
-                :href="`${API_Backend}/${evento.documento}`"
+                :href="`${evento.documento}`"
                 target="_blank"
               >
                 <span class="material-icons">visibility</span>
@@ -155,6 +155,7 @@ export default {
 .borde-card {
   border: 1px solid black;
   position: relative;
+  
 }
 .ver-pdf {
   position: absolute;
@@ -176,13 +177,14 @@ export default {
 }
 
 .img-container {
-  width: 350px;
+  width: 360px;
 
   @media (max-width: 1024px) {
     width: 400px;
   }
   @media (max-width: 959px) {
     width: 100vw;
+    
   }
 }
 

@@ -15,7 +15,7 @@
       <div class="d-flex  flex-column flex-md-row" >
         <!-- Imagen -->
         <div class="w-100 w-sm-100 w-lg-100 ">
-          <v-img :src="`${API_Backend}/${evento.imagen}`" class="img-container" alt="Imagen del evento" cover></v-img>
+          <v-img :src="`${evento.imagen}`" class="img-container" alt="Imagen del evento" cover></v-img>
         </div>
         <!-- Información -->
         <div class="d-flex flex-column ">

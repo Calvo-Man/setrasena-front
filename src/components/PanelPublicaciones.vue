@@ -80,7 +80,6 @@
               <v-btn
                 :loading="loading"
                 class="flex-grow-1"
-                
                 variant="text"
                 color="blue-darken-1"
                 @click="ElegirAccion"
@@ -102,7 +101,7 @@
               >
               <v-btn
                 :loading="loading"
-                color="blue-darken-1"
+                color="red"
                 variant="text"
                 @click="deleteItemConfirm"
                 >OK</v-btn
@@ -114,7 +113,7 @@
         <v-dialog v-model="dialogImagen">
           <v-card class="d-flex flex-column align-center justify-center">
             <v-img
-              :src="`${API_Backend}/${editedItem.imagen}`"
+              :src="`${editedItem.imagen}`"
               height="100%"
               width="100%"
               alt="Imagen del evento"
@@ -132,7 +131,7 @@
     </template>
     <template v-slot:item.imagen="{ item }">
       <v-img
-        :src="`${API_Backend}/${item.imagen}`"
+        :src="`${item.imagen}`"
         height="100"
         width="100"
         alt="Imagen del evento"
@@ -145,7 +144,7 @@
       <a
         class="me-2"
         size="small"
-        :href="`${API_Backend}/${item.documento}`"
+        :href="`${item.documento}`"
         target="_blank"
       >
         <span class="material-icons text-black">visibility</span>
@@ -186,6 +185,7 @@ export default {
     dialogDelete: false,
     dialogImagen: false,
     loading: false,
+    
     snackbar: false, // Control snackbar visibility here
     textSnackbar: "",
     colorSnackbar: "",
@@ -296,7 +296,6 @@ export default {
         const response = await axios.delete(
           `${this.API_Backend}/publicacion/${this.editedItem.id}`
         );
-        this.loading = false;
         this.initialize();
         this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
         this.colorSnackbar ="red"
@@ -313,7 +312,7 @@ export default {
           this.snackbar = false;
         }, 3000);
       }
-  
+      this.closeDelete();
     },
 
     close() {
@@ -332,23 +331,15 @@ export default {
       });
     },
     async ElegirAccion() {
-      if (!this.editedItem.nombre) {
-        console.log("Debe llenar el campo");
-        return;
-      }
-
       if (this.editedIndex !== -1) {
         this.actualizar();
       } else {
         this.save();
       }
-
-      this.close();
     },
 
     async save() {
       try {
-        this.loading = true;
         // Validación previa de los campos
         if (
           !this.editedItem.nombre ||
@@ -367,7 +358,7 @@ export default {
         formData.append("fecha", this.editedItem.fecha);
         formData.append("ciudad", this.editedItem.ciudad);
         formData.append("tipo", this.tipo_publicacion);
-
+        
         // Verificar si se ha seleccionado una imagen
         if (this.editedItem.imagen instanceof File) {
           formData.append("imagen", this.editedItem.imagen);
@@ -381,6 +372,7 @@ export default {
           alert("Por favor, seleccione un documento.");
           return;
         }
+        this.loading = true;
         const response = await axios.post(
           `${this.API_Backend}/publicacion/crear`,
           formData,
@@ -390,16 +382,12 @@ export default {
             },
           }
         );
-        this.loading = false;
-        this.initialize();
         this.textSnackbar = `${this.tipo_publicacion} guardado exitosamente.`;
         this.colorSnackbar ="green"
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
         }, 3000);
-
-        this.initialize();
       } catch (error) {
         this.loading = false;
         this.textSnackbar = `Error al guardar ${this.tipo_publicacion}, intente nuevamente.`;
@@ -409,22 +397,38 @@ export default {
           this.snackbar = false;
         }, 3000);
       }
-
       // Cerrar el diálogo o el formulario
+      this.initialize();
       this.close();
+      
     },
     async actualizar() {
       try {
+        const formData = new FormData();
+        formData.append("nombre", this.editedItem.nombre);
+        formData.append("descripcion", this.editedItem.descripcion);
+        formData.append("fecha", this.editedItem.fecha);
+        formData.append("ciudad", this.editedItem.ciudad);
+        formData.append("tipo", this.tipo_publicacion);
+        
+        // Verificar si se ha seleccionado una imagen
+        if (this.editedItem.imagen instanceof File) {
+          formData.append("imagen", this.editedItem.imagen);
+        } 
+        if (this.editedItem.documento instanceof File) {
+          formData.append("documento", this.editedItem.documento);
+        } 
         this.loading = true;
-        const response = await axios.put(
+        const response = await axios.patch(
           `${this.API_Backend}/publicacion/${this.editedItem.id}`,
+          formData,
           {
-            nombre: this.editedItem.nombre,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           }
         );
-        this.loading = false;
-        this.initialize();
-        this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
+        this.textSnackbar = `${this.tipo_publicacion} actualizado exitosamente.`;
         this.colorSnackbar ="orange-darken-4"
         this.snackbar = true;
         setTimeout(() => {
@@ -439,6 +443,8 @@ export default {
           this.snackbar = false;
         }, 3000);
       }
+      this.initialize();
+      this.close();
     },
   },
 };

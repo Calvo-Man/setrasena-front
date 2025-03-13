@@ -43,7 +43,7 @@ import PanelPublicaciones from "@/components/PanelPublicaciones.vue";
 
           <!-- Formulario de Flash Informativo -->
           <v-card v-if="selectedForm === 'flash'">
-            <PanelPublicaciones :tipo_publicacion="'flash informativos'"  />
+            <PanelPublicaciones :tipo_publicacion="'Flash informativo'"  />
           </v-card>
 
           <!-- Formulario de Eventos -->
