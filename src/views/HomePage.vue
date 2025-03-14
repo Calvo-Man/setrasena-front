@@ -1,6 +1,3 @@
-<script setup>
-import BannerEventos from "@/components/BannerEventos.vue";
-</script>
 
 <template>
   <v-card class="mt-0 bg-black" width="100%">
@@ -22,7 +19,7 @@ import BannerEventos from "@/components/BannerEventos.vue";
     <v-card-title>
       Eventos y reuniones recientes SETRASENA
     </v-card-title>
-    <BannerEventos />
+    <BannerEventos/>
     <div id="introduccion"></div>
     <BannerAfiliacion />
     <section>
@@ -108,15 +105,20 @@ import BannerEventos from "@/components/BannerEventos.vue";
 </template>
 
 <script>
-import imagen1 from "@/assets/imagen1.jpeg";
-import imagen2 from "@/assets/imagen2.jpeg";
-import imagen3 from "@/assets/imagen3.jpeg";
+// import imagen1 from "@/assets/imagen1.jpeg";
+// import imagen2 from "@/assets/imagen2.jpeg";
+// import imagen3 from "@/assets/imagen3.jpeg";
 import BannerEventos from "@/components/BannerEventos.vue";
+
 import BannerAfiliacion from "@/components/BannerAfiliacion.vue";
 export default {
+  components: {
+    BannerEventos,
+    BannerAfiliacion
+  },
   data() {
     return {
-     
+     eventos: [],
       model: null,
       slides: [
         {

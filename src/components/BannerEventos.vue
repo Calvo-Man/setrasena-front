@@ -6,12 +6,23 @@
       center-active
       show-arrows
     >
-      <v-slide-group-item v-for="(evento, index) in eventos" :key="index">
-        <v-card :color="'red-darken-2'" class=" ma-2 d-flex border-card">
+      <v-slide-group-item
+        v-for="(evento, index) in eventosRecientes"
+        :key="index"
+      >
+        <v-card
+          :color="'red-darken-2'"
+          class="ma-3 d-flex borde-card mx-auto card-container"
+        >
           <div class="d-flex  flex-column flex-md-row">
             <!-- Imagen -->
-            <div class="w-100 w-sm-100 w-lg-100 ">
-              <v-img :src="evento.imagen" height="200" cover></v-img>
+            <div>
+              <v-img
+                :src="`${evento.imagen}`"
+                class="img-container"
+                alt="Imagen del evento"
+                cover
+              ></v-img>
             </div>
             <!-- Información -->
             <div class="d-flex flex-column ">
@@ -24,8 +35,8 @@
                 </p>
                 <p class="year text-5">{{ getYear(evento.fecha) }}</p>
                 <div class="informacion">
-                  <p>{{ evento.inicio }} a {{ evento.fin }}</p>
-                  <p>{{ evento.tipo_evento }}: {{ evento.lugar }}</p>
+                  <p>{{ evento.hora }} a {{ evento.fin }}</p>
+                  <p>Evento {{ evento.modalidad }}: {{ evento.lugar }}</p>
                   <p>{{ evento.ciudad }}</p>
                 </div>
               </div>
@@ -39,6 +50,7 @@
               </div>
             </div>
           </div>
+          <div class="d-flex fill-height justify-center"></div>
         </v-card>
       </v-slide-group-item>
     </v-slide-group>
@@ -46,41 +58,28 @@
 </template>
 
 <script>
-import imagen1 from "@/assets/imagen1.jpeg";
-import imagen2 from "@/assets/imagen2.jpeg";
+import axios from "axios";
 export default {
   name: "banner-eventos",
-
   data: () => ({
     model: null,
-    eventos: [
-      {
-        nombre: "Asamblea general de trabajo",
-        imagen: "/img/imagen1.jpeg",
-        descripcion:
-          "beatae deserunt aut cupiditate nulla repellat commodi, voluptates minima at quae? Praesentium, accusamus!",
-        fecha: "2022-12-31",
-        inicio: "9:00 a.m",
-        fin: "10:00 a.m",
-        tipo_evento: "Evento presencial",
-        lugar: "Circunavalar 27,Centro de industria y turismo",
-        ciudad: "Monteria, Cordóba",
-      },
-      {
-        nombre: "Asamblea nacional",
-        imagen: imagen2,
-        descripcion:
-          "beatae deserunt aut cupiditate nulla repellat commodi, voluptates minima at quae? Praesentium, accusamus!",
-        fecha: "2022-01-15",
-        inicio: "10:00 a.m",
-        fin: "12:00 p.m",
-        tipo_evento: "Evento virtual",
-        lugar: "Microsoft teams",
-        ciudad: "Medellín, Colombia",
-      },
-    ],
+    eventosRecientes: [],
+    API_Backend: import.meta.env.VITE_API_BACKEND,
   }),
+  mounted() {
+    this.GetEventos();
+  },
   methods: {
+    async GetEventos() {
+      try {
+        const response = await axios.get(`${this.API_Backend}/evento`);
+        this.eventosRecientes = response.data;
+        console.log(this.eventosRecientes);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     // Método para obtener el día de la fecha
     getDay(date) {
       const d = new Date(date);
@@ -114,28 +113,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.border-card {
+.borde-card {
   border: 1px solid black;
   position: relative;
-  @media (max-width: 870px) {
-    width: 600px;
+}
+.card-container {
+  @media (min-width: 960px) {
+    height: 200px;
   }
-  @media (max-width: 700px) {
-   width: 500px;
+}
+.ver-pdf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
+
+  @media (max-width: 1024px) {
+    right: 0px;
+  }
+  @media (max-width: 1215px) {
+    left: 0;
+    width: 150px;
+  }
+}
+.img-container {
+  width: 350px;
+  height: 200px;
   
- }
- @media (max-width: 600px) {
-   width: 480px;
-  
- }
-  @media (max-width: 430px) {
+  @media (max-width: 1024px) {
     width: 400px;
   }
-  .ver-pdf {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    font-size: 0.6rem;
+  @media (max-width: 959px) {
+    width: 100%;
   }
 }
 
@@ -203,10 +212,12 @@ export default {
 .descripcion {
   padding: 0px;
   margin-top: 10px;
+  
   @media (max-width: 600px) {
     width: 90%;
   }
   @media (max-width: 400px) {
+    
     width: 75%;
   }
 }
