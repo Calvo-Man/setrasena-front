@@ -1,50 +1,30 @@
 <template>
   <div class="menu-item" :class="{ opened: expanded }">
-    <!-- Si 'to' no es null, renderiza <router-link>, de lo contrario, renderiza un <div> -->
-    <router-link v-if="to" class="button" :to="to">
-      <div
-        class="label"
-        @click="
-          toggleMenu();
-          CloseSidebar();
-        "
-      >
+    <!-- Renderizar el enlace o el div dependiendo de 'to' o 'href' -->
+    <component :is="to ? 'router-link' : 'div'" 
+      v-bind="to ? { to } : {}" 
+      class="button" 
+      @click="handleClick"
+      v-show="showItems"
+    >
+      <div class="label">
         <div class="left">
           <span v-if="icon" class="material-icons">{{ icon }}</span>
           <span class="text" v-if="showLabel">{{ label }}</span>
         </div>
         <div v-if="data" class="right">
-          <i class="expand material-icons arrow" :class="{ opened: expanded }">
-            expand_more
-          </i>
+          <i class="expand material-icons arrow" :class="{ opened: expanded }">expand_more</i>
         </div>
       </div>
-    </router-link>
-
-    <!--Si href no es null, renderiza <a>, de lo contrario, renderiza un <div>-->
-    <div v-else class="button" @click="toggleMenu()">
-      <a class="label" :href="href"  >
-        <div class="left">
-          <span v-if="icon" class="material-icons">{{ icon }}</span>
-          <span class="text" v-if="showLabel">{{ label }}</span>
-        </div>
-        <div v-if="data" class="right">
-          <i class="expand material-icons arrow" :class="{ opened: expanded }">
-            expand_more
-          </i>
-        </div>
-      </a>
-    </div>
+    </component>
 
     <div
-      v-show="showChildren"
-      :class="{ 'small-menu': smallMenu }"
+      v-if="showChildren"
       class="items-container"
       :style="{ height: containerHeight }"
       ref="container"
     >
       <menu-item
-        :class="{ opened: showChildren }"
         v-for="(item, index) in data"
         :key="index"
         :data="item.children"
@@ -52,65 +32,77 @@
         :icon="item.icon"
         :to="item.to"
         :href="item.href"
+        :noRequiresAdmin="item.noRequiresAdmin"
         :depth="depth + 1"
         :smallMenu="smallMenu"
-        @click="CloseSidebar()"
+        @click="CloseSidebar"
       />
     </div>
   </div>
 </template>
 
 <script>
+import store from '@/store';
+
 export default {
   name: "menu-item",
-  data: () => ({
-    showChildren: false,
-    expanded: false,
-    containerHeight: 0,
-  }),
+  data() {
+    return {
+      expanded: false,
+      showChildren: false,
+      containerHeight: 0,
+    };
+  },
   props: {
-    data: {
-      type: Array,
-    },
-    label: {
-      type: String,
-    },
-    icon: {
-      type: String,
-    },
-    depth: {
-      type: Number,
-    },
-    smallMenu: {
-      type: Boolean,
-    },
-    to: { type: String },
-    href: { type: String },
+    data: Array,
+    label: String,
+    icon: String,
+    depth: Number,
+    smallMenu: Boolean,
+    to: String,
+    href: String,
+    noRequiresAdmin: Boolean,
   },
   computed: {
     showLabel() {
       return this.smallMenu ? this.depth > 0 : true;
     },
+    showItems() {
+      if (this.noRequiresAdmin === true && store.getters.isAuthenticated === false) {
+        return true;
+      } else if (this.noRequiresAdmin === true && store.getters.isAuthenticated === true) {
+        return true;
+      }else if (this.noRequiresAdmin === false && store.getters.isAuthenticated === true) {
+        return true;
+      }else {
+        return false;
+      }
+    }
   },
   methods: {
+    handleClick() {
+      this.toggleMenu();
+      this.CloseSidebar();
+    },
     toggleMenu() {
       this.expanded = !this.expanded;
       if (!this.showChildren) {
         this.showChildren = true;
         this.$nextTick(() => {
-          this.containerHeight = this.$refs["container"].scrollHeight + "px";
+          this.containerHeight = `${this.$refs.container.scrollHeight}px`;
           setTimeout(() => {
             this.containerHeight = "fit-content";
-            if (navigator.userAgent.indexOf("Firefox") != -1)
+            if (navigator.userAgent.indexOf("Firefox") !== -1) {
               this.containerHeight = "-moz-max-content";
-            this.$refs["container"].style.overflow = "visible";
+            }
+            this.$refs.container.style.overflow = "visible";
           }, 300);
         });
       } else {
-        this.containerHeight = this.$refs["container"].scrollHeight + "px";
-        this.$refs["container"].style.overflow = "hidden";
+        this.containerHeight = `${this.$refs.container.scrollHeight}px`;
+        this.$refs.container.style.overflow = "hidden";
         setTimeout(() => {
-          this.containerHeight = 0 + "px";
+          this.containerHeight = "0px";
         }, 10);
         setTimeout(() => {
           this.showChildren = false;
@@ -124,14 +116,14 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .menu-item {
   position: relative;
   width: 100%;
+  
   .label {
     width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     white-space: nowrap;
     user-select: none;
@@ -139,6 +131,7 @@ export default {
     text-decoration: none;
     box-sizing: border-box;
     transition: all 0.3s ease;
+
     > div {
       display: flex;
       align-items: center;
@@ -147,22 +140,23 @@ export default {
 
     .arrow {
       transition: all 0.3s ease;
-      &.expand {
-        &.opened {
-          transform: rotate(180deg);
-        }
+      &.opened {
+        transform: rotate(180deg);
       }
     }
+
     &.small-item {
       width: fit-content;
     }
   }
+
   .items-container {
     width: 100%;
     transition: height 0.3s ease;
     overflow: hidden;
     border-left: solid 1px var(--dark-alt);
   }
+
   .button {
     &:hover {
       cursor: pointer;

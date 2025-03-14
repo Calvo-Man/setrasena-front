@@ -91,6 +91,7 @@ onBeforeUnmount(() => {
         :label="item.label"
         :icon="item.icon"
         :to="item.to"
+        :noRequiresAdmin="item.noRequiresAdmin"
         :href="item.href"
         :depth="0"
         :smallMenu="smallMenu"
@@ -98,7 +99,7 @@ onBeforeUnmount(() => {
       />
     </div>
 
-    <div class="text-center pt-3 " >
+    <div class="text-center pt-3 " v-if="store.state.isAuthenticated">
       <v-btn prepend-icon="mdi-logout" color="black" @click="DialogLogout()">
         <template v-slot:prepend>
           <v-icon color="white"></v-icon>

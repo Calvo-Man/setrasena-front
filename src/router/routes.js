@@ -20,7 +20,7 @@ import PanelAdminView from "@/views/admin/PanelAdminView.vue";
 import LoginView from "@/views/admin/LoginView.vue";
 export const routes = [
   {
-    path: "/auth/login",
+    path: "/administrador/login",
     name: "LoginAdmin",
     component: LoginView,
   },
@@ -97,7 +97,7 @@ export const routes = [
         path: "/admin",
         name: "Panel Admin",
         component: PanelAdminView,
-        // meta: { requiresAuth: false },
+        meta: { requiresAuth: true },
       },
     ],
   },

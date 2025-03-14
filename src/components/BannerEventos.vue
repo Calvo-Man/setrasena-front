@@ -44,7 +44,7 @@
                 <v-card-title class="text-body1">{{
                   evento.nombre
                 }}</v-card-title>
-                <v-card-text class="text-body-2">
+                <v-card-text class="text-body-2 text-descripcion">
                   {{ evento.descripcion }}
                 </v-card-text>
               </div>
@@ -137,7 +137,7 @@ export default {
   }
 }
 .img-container {
-  width: 350px;
+  width: 300px;
   height: 200px;
   
   @media (max-width: 1024px) {
@@ -212,9 +212,9 @@ export default {
 .descripcion {
   padding: 0px;
   margin-top: 10px;
-  
+  width: 700px;
   @media (max-width: 600px) {
-    width: 90%;
+    width: 400px
   }
   @media (max-width: 400px) {
     

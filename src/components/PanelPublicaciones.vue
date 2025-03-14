@@ -46,6 +46,8 @@
                   </v-col>
                   <v-col cols="12" md="6" sm="12">
                     <v-file-input
+                      prepend-icon="mdi-camera"
+                      variant="filled"
                       v-model="editedItem.imagen"
                       label="Seleccione una imagen"
                       accept="image/*"
@@ -141,12 +143,7 @@
       ></v-img>
     </template>
     <template v-slot:item.documento="{ item }">
-      <a
-        class="me-2"
-        size="small"
-        :href="`${item.documento}`"
-        target="_blank"
-      >
+      <a class="me-2" size="small" :href="`${item.documento}`" target="_blank">
         <span class="material-icons text-black">visibility</span>
       </a>
     </template>
@@ -164,7 +161,11 @@
       </v-btn>
     </template>
   </v-data-table>
-  <SnackBar :text="textSnackbar" :color="colorSnackbar" v-model:snackbar="snackbar" />
+  <SnackBar
+    :text="textSnackbar"
+    :color="colorSnackbar"
+    v-model:snackbar="snackbar"
+  />
 </template>
 <script>
 import axios from "axios";
@@ -177,7 +178,7 @@ export default {
     },
   },
   components: {
-      SnackBar
+    SnackBar,
   },
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
@@ -185,7 +186,7 @@ export default {
     dialogDelete: false,
     dialogImagen: false,
     loading: false,
-    
+
     snackbar: false, // Control snackbar visibility here
     textSnackbar: "",
     colorSnackbar: "",
@@ -230,7 +231,7 @@ export default {
     },
   },
 
-  watch: { 
+  watch: {
     dialog(val) {
       val || this.close();
     },
@@ -298,7 +299,7 @@ export default {
         );
         this.initialize();
         this.textSnackbar = `${this.tipo_publicacion} eliminado exitosamente.`;
-        this.colorSnackbar ="red"
+        this.colorSnackbar = "red";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
@@ -306,7 +307,7 @@ export default {
       } catch (error) {
         this.loading = false;
         this.textSnackbar = `Error al eliminar ${this.tipo_publicacion}, intente nuevamente.`;
-        this.colorSnackbar ="red"
+        this.colorSnackbar = "red";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
@@ -358,7 +359,7 @@ export default {
         formData.append("fecha", this.editedItem.fecha);
         formData.append("ciudad", this.editedItem.ciudad);
         formData.append("tipo", this.tipo_publicacion);
-        
+
         // Verificar si se ha seleccionado una imagen
         if (this.editedItem.imagen instanceof File) {
           formData.append("imagen", this.editedItem.imagen);
@@ -383,7 +384,7 @@ export default {
           }
         );
         this.textSnackbar = `${this.tipo_publicacion} guardado exitosamente.`;
-        this.colorSnackbar ="green"
+        this.colorSnackbar = "green";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
@@ -391,7 +392,7 @@ export default {
       } catch (error) {
         this.loading = false;
         this.textSnackbar = `Error al guardar ${this.tipo_publicacion}, intente nuevamente.`;
-        this.colorSnackbar ="red"
+        this.colorSnackbar = "red";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
@@ -400,7 +401,6 @@ export default {
       // Cerrar el diálogo o el formulario
       this.initialize();
       this.close();
-      
     },
     async actualizar() {
       try {
@@ -410,14 +410,14 @@ export default {
         formData.append("fecha", this.editedItem.fecha);
         formData.append("ciudad", this.editedItem.ciudad);
         formData.append("tipo", this.tipo_publicacion);
-        
+
         // Verificar si se ha seleccionado una imagen
         if (this.editedItem.imagen instanceof File) {
           formData.append("imagen", this.editedItem.imagen);
-        } 
+        }
         if (this.editedItem.documento instanceof File) {
           formData.append("documento", this.editedItem.documento);
-        } 
+        }
         this.loading = true;
         const response = await axios.patch(
           `${this.API_Backend}/publicacion/${this.editedItem.id}`,
@@ -429,7 +429,7 @@ export default {
           }
         );
         this.textSnackbar = `${this.tipo_publicacion} actualizado exitosamente.`;
-        this.colorSnackbar ="orange-darken-4"
+        this.colorSnackbar = "orange-darken-4";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;
@@ -437,7 +437,7 @@ export default {
       } catch (error) {
         this.loading = false;
         this.textSnackbar = `Error al actualizar ${this.tipo_publicacion}, intente nuevamente.`;
-        this.colorSnackbar ="red"
+        this.colorSnackbar = "red";
         this.snackbar = true;
         setTimeout(() => {
           this.snackbar = false;

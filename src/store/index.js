@@ -23,11 +23,11 @@ export default createStore({
   actions: {
     login({ commit }) {
       commit('login')
-      commit('cambiar')
+      // commit('cambiar')
     },
     logout({ commit }) {
       commit('logout')
-      commit('reset')
+      // commit('reset')
     },
   },
   plugins: [createPersistedState()],
