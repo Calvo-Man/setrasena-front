@@ -1,46 +1,66 @@
 <template>
   <div class="menu-item" :class="{ opened: expanded }">
-    <!-- Renderizar el enlace o el div dependiendo de 'to' o 'href' -->
-    <component :is="to ? 'router-link' : 'div'" 
-      v-bind="to ? { to } : {}" 
-      class="button" 
-      @click="handleClick"
-      v-show="showItems"
-    >
-      <div class="label">
+    <!-- Si 'to' no es null, renderiza <router-link>, de lo contrario, renderiza un <div> -->
+    <router-link v-if="to" class="button" :to="to" v-show="showItems">
+      <div
+        class="label"
+        @click="
+          toggleMenu();
+          CloseSidebar();
+        "
+      >
         <div class="left">
           <span v-if="icon" class="material-icons">{{ icon }}</span>
           <span class="text" v-if="showLabel">{{ label }}</span>
         </div>
         <div v-if="data" class="right">
-          <i class="expand material-icons arrow" :class="{ opened: expanded }">expand_more</i>
+          <i class="expand material-icons arrow" :class="{ opened: expanded }">
+            expand_more
+          </i>
         </div>
       </div>
-    </component>
+    </router-link>
+
+    <!--Si href no es null, renderiza <a>, de lo contrario, renderiza un <div>-->
+    <div v-else class="button" @click="toggleMenu()" v-show="showItems">
+      <a class="label" :href="href"  >
+        <div class="left">
+          <span v-if="icon" class="material-icons">{{ icon }}</span>
+          <span class="text" v-if="showLabel">{{ label }}</span>
+        </div>
+        <div v-if="data" class="right">
+          <i class="expand material-icons arrow" :class="{ opened: expanded }">
+            expand_more
+          </i>
+        </div>
+      </a>
+    </div>
 
     <div
-      v-if="showChildren"
+      v-show="showChildren"
+      :class="{ 'small-menu': smallMenu }"
       class="items-container"
       :style="{ height: containerHeight }"
       ref="container"
+      
     >
       <menu-item
+        :class="{ opened: showChildren }"
         v-for="(item, index) in data"
         :key="index"
         :data="item.children"
         :label="item.label"
         :icon="item.icon"
+        :noRequiresAdmin="item.noRequiresAdmin"
         :to="item.to"
         :href="item.href"
-        :noRequiresAdmin="item.noRequiresAdmin"
         :depth="depth + 1"
         :smallMenu="smallMenu"
-        @click="CloseSidebar"
+        @click="CloseSidebar()"
       />
     </div>
   </div>
 </template>
-
 <script>
 import store from '@/store';
 

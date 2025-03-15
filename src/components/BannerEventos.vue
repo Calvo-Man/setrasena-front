@@ -1,8 +1,9 @@
 <template>
-  <v-sheet class="mx-auto" max-width="100%">
+  <v-sheet class="mx-auto" 
+  
+   >
     <v-slide-group
       v-model="model"
-      class="pa-4 bg-grey-lighten-"
       center-active
       show-arrows
     >
@@ -74,9 +75,9 @@ export default {
       try {
         const response = await axios.get(`${this.API_Backend}/evento`);
         this.eventosRecientes = response.data;
-        console.log(this.eventosRecientes);
+        
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     },
 
@@ -118,9 +119,7 @@ export default {
   position: relative;
 }
 .card-container {
-  @media (min-width: 960px) {
-    height: 200px;
-  }
+  width: 1000px;
 }
 .ver-pdf {
   position: absolute;

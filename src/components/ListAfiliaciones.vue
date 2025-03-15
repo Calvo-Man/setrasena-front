@@ -47,36 +47,25 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <!-- <v-dialog v-model="dialogDelete" max-width="500px">
-            <v-card>
-              <v-card-title class="text-h5"
-                >Estas seguro de eliminar este centro?</v-card-title
-              >
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue-darken-1" variant="text" @click="closeDelete"
-                  >Cancel</v-btn
-                >
-                <v-btn
-                  color="blue-darken-1"
-                  variant="text"
-                  @click="deleteItemConfirm"
-                  >OK</v-btn
-                >
-                <v-spacer></v-spacer>
-              </v-card-actions>
-            </v-card>
-          </v-dialog> -->
+         
         </v-toolbar>
       </template>
+      <template v-slot:item.estado="{ item }">
+      <v-chip
+        variant="flat"
+        :color="'success'"
+        :text="item.estado"
+        
+      ></v-chip>
+    </template>
       <template v-slot:item.actions="{ item }">
         <v-icon class="me-2" size="small" @click="editItem(item)">
           mdi-pencil
         </v-icon>
       </template>
       <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize">
-          Reset
+        <v-btn color="primary" @click="initialize" :loading="loading">
+          Recargar
         </v-btn>
       </template>
     </v-data-table>
@@ -90,6 +79,7 @@
       regional: [],
       dialog: false,
       dialogDelete: false,
+      loading: false,
       headers: [
         {
           title: "Documento",
@@ -138,11 +128,13 @@
     methods: {
       async initialize() {
         try {
+          this.loading = true;
           const response = await axios.get(`${this.API_Backend}/afiliado`);
           this.afiliaciones = response.data;
-          console.log(this.afiliaciones);
+          this.loading = false;
         } catch (error) {
           console.error(error);
+          this.loading = false;
         }
       },
       editItem(item) {

@@ -37,20 +37,26 @@
         </v-row>
       </v-form>
       <div class="card-body text-center mt-5">
-        <div class="datos" >
+        <div class="datos">
           <h3>
             {{ mensaje }}
           </h3>
           <v-data-table
-          v-if="items.length > 0"
-          :headers="headers"
-          :items="items"
-          item-key="documento"
-          hide-default-footer
+            v-if="items.length > 0"
+            :headers="headers"
+            :items="items"
+            item-key="documento"
+            hide-default-footer
           >
-        </v-data-table>
-      </div>
-      
+            <template v-slot:item.estado="{ item }">
+              <v-chip
+                variant="outlined"
+                :color="'success'"
+                :text="item.estado"
+              ></v-chip>
+            </template>
+          </v-data-table>
+        </div>
       </div>
     </v-container>
   </div>
@@ -88,11 +94,12 @@ export default {
           `${this.API_Backend}/afiliado/documento/${this.documento}`
         );
         if (response.data) {
-          this.items = [response.data]; 
+          this.items = [response.data];
           this.mensaje = "Datos de su solicitud de afiliación:";
         } else {
-          this.items = []; 
-          this.mensaje = "No se encontraron datos de afiliación para el documento ingresado.";
+          this.items = [];
+          this.mensaje =
+            "No se encontraron datos de afiliación para el documento ingresado.";
         }
         this.loading = false;
       } catch (error) {

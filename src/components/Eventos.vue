@@ -14,7 +14,7 @@
     >
       <div class="d-flex  flex-column flex-md-row">
         <!-- Imagen -->
-        <div class="">
+        <div>
           <v-img
             :src="`${evento.imagen}`"
             class="img-container"
@@ -34,23 +34,22 @@
             <p class="year text-5">{{ getYear(evento.fecha) }}</p>
             <div class="informacion">
               <p>{{ evento.hora }} a {{ evento.fin }}</p>
-              <p>Evento {{ evento.modalidad }}: {{ evento.lugar }}</p>
+              <p>Evento {{ evento.modalidad }}</p>
+              <p>{{ evento.lugar }}</p>
               <p>{{ evento.ciudad }}</p>
             </div>
           </div>
           <div class="descripcion">
-            <v-card-title class="text-body1 nombre">{{
+            <v-card-title class="text-body1 text-nombre">{{
               evento.nombre
             }}</v-card-title>
-            <v-card-text class="text-body-2">
+            <v-card-text class="text-body-2 text-descripcion">
               {{ evento.descripcion }}
             </v-card-text>
           </div>
         </div>
       </div>
-      
     </v-card>
-
     <v-pagination
       v-model="page"
       :length="totalPages"
@@ -131,25 +130,31 @@ export default {
   border: 1px solid black;
   position: relative;
 }
+.card-container {
+}
+.ver-pdf {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 0.6rem;
 
+  @media (max-width: 1024px) {
+    right: 0px;
+  }
+  @media (max-width: 1215px) {
+    left: 0;
+    width: 150px;
+  }
+}
 .img-container {
   width: 300px;
+  height: 100%;
 
-  @media (max-width: 1093px) {
-    width: 300px;
-  }
-  @media (max-width: 1036px) {
-    width: 280px;
-  }
   @media (max-width: 1024px) {
     width: 400px;
   }
   @media (max-width: 959px) {
     width: 100vw;
-    height: 400px;
-  }
-  @media (max-width: 540px) {
-    height: auto;
   }
 }
 
@@ -190,11 +195,13 @@ export default {
   .informacion {
     border-left: 1px solid rgb(10, 10, 10);
     padding-left: 6px;
-    height: 70%;
-
     margin-top: 10px;
+
     p {
       font-size: 0.7rem;
+    }
+    @media (max-width: 1115px) {
+      width: 350px;
     }
     @media (max-width: 500px) {
       width: 50%;
@@ -202,7 +209,7 @@ export default {
     @media (max-width: 430px) {
       width: 45%;
     }
-    @media (max-width: 400px) {
+    @media (max-width: 370px) {
       width: 35%;
       margin-bottom: 80px;
     }
@@ -215,30 +222,41 @@ export default {
   }
 }
 .descripcion {
-  padding: 5px;
+  padding: 0px;
   margin-top: 10px;
-  
-  .nombre {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    @media (max-width: 1120px) {
-      font-size: 1.3rem;
-    }
-    @media (max-width: 600px) {
-      font-size: 1.2rem;
-    }
+  .text-nombre {
+    font-size: 1rem;
   }
-  @media (max-width: 920px) {
-    width: 85%;
+  @media (max-width: 1115px) {
+    width: 400px;
+  }
+  @media (max-width: 1024px) {
+    width: auto;
+  }
+  @media (max-width: 960px) {
+    width: 800px;
+  }
+  @media (max-width: 806px) {
+    width: 700px;
+  }
+  @media (max-width: 713px) {
+    width: 650px;
   }
   @media (max-width: 600px) {
-    width: 85%;
+    width: 550px;
   }
-  @media (max-width: 400px) {
-    width: 70%;
+  @media (max-width: 560px) {
+    width: 500px;
   }
-  @media (max-width: 350px) {
-    width: 60%;
+  @media (max-width: 500px) {
+    width: 400px;
+  }
+  @media (max-width: 405px) {
+    width: 73%;
+    margin-top: 15px;
+  }
+  @media (max-width: 364px) {
+    width: 69%;
   }
 }
 </style>
