@@ -52,8 +52,8 @@
       </template>
       <template v-slot:item.estado="{ item }">
       <v-chip
-        variant="flat"
-        :color="'success'"
+        variant="outlined"
+        :color="getColor(item.estado)"
         :text="item.estado"
         
       ></v-chip>
@@ -126,6 +126,13 @@
       this.initialize();
     },
     methods: {
+      getColor (estado) {
+        if(estado == 'Pendiente'){
+          return 'orange'
+        }else if(estado == 'En revisión'){
+          return 'blue'
+        }
+      },
       async initialize() {
         try {
           this.loading = true;

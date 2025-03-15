@@ -130,22 +130,7 @@ export default {
   border: 1px solid black;
   position: relative;
 }
-.card-container {
-}
-.ver-pdf {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 0.6rem;
 
-  @media (max-width: 1024px) {
-    right: 0px;
-  }
-  @media (max-width: 1215px) {
-    left: 0;
-    width: 150px;
-  }
-}
 .img-container {
   width: 300px;
   height: 100%;
@@ -207,10 +192,10 @@ export default {
       width: 50%;
     }
     @media (max-width: 430px) {
-      width: 45%;
+      width: 40%;
     }
     @media (max-width: 370px) {
-      width: 35%;
+      width: 30%;
       margin-bottom: 80px;
     }
   }
@@ -253,10 +238,11 @@ export default {
   }
   @media (max-width: 405px) {
     width: 73%;
-    margin-top: 15px;
+    margin-top: 20px;
   }
-  @media (max-width: 364px) {
+  @media (max-width: 370px) {
     width: 69%;
+    margin-top: 40px;
   }
 }
 </style>

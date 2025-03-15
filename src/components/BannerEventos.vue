@@ -1,12 +1,6 @@
 <template>
-  <v-sheet class="mx-auto" 
-  
-   >
-    <v-slide-group
-      v-model="model"
-      center-active
-      show-arrows
-    >
+  <v-sheet class="mx-auto">
+    <v-slide-group v-model="model" center-active show-arrows>
       <v-slide-group-item
         v-for="(evento, index) in eventosRecientes"
         :key="index"
@@ -37,12 +31,13 @@
                 <p class="year text-5">{{ getYear(evento.fecha) }}</p>
                 <div class="informacion">
                   <p>{{ evento.hora }} a {{ evento.fin }}</p>
-                  <p>Evento {{ evento.modalidad }}: {{ evento.lugar }}</p>
+                  <p>Evento {{ evento.modalidad }}</p>
+                  <p>{{ evento.lugar }}</p>
                   <p>{{ evento.ciudad }}</p>
                 </div>
               </div>
               <div class="descripcion">
-                <v-card-title class="text-body1">{{
+                <v-card-title class="text-body1 text-nombre">{{
                   evento.nombre
                 }}</v-card-title>
                 <v-card-text class="text-body-2 text-descripcion">
@@ -51,7 +46,6 @@
               </div>
             </div>
           </div>
-          <div class="d-flex fill-height justify-center"></div>
         </v-card>
       </v-slide-group-item>
     </v-slide-group>
@@ -75,7 +69,6 @@ export default {
       try {
         const response = await axios.get(`${this.API_Backend}/evento`);
         this.eventosRecientes = response.data;
-        
       } catch (error) {
         // console.error(error);
       }
@@ -118,38 +111,22 @@ export default {
   border: 1px solid black;
   position: relative;
 }
-.card-container {
-  width: 1000px;
-}
-.ver-pdf {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 0.6rem;
 
-  @media (max-width: 1024px) {
-    right: 0px;
-  }
-  @media (max-width: 1215px) {
-    left: 0;
-    width: 150px;
-  }
-}
 .img-container {
   width: 300px;
-  height: 200px;
-  
+  height: 100%;
+
   @media (max-width: 1024px) {
     width: 400px;
   }
   @media (max-width: 959px) {
-    width: 100%;
+    width: 100vw;
   }
 }
 
 .info-date {
   height: 70px;
-  width: 470px;
+  
 
   .day {
     background-color: var(--dark);
@@ -184,20 +161,22 @@ export default {
   .informacion {
     border-left: 1px solid rgb(10, 10, 10);
     padding-left: 6px;
-    height: 70%;
-
     margin-top: 10px;
+
     p {
       font-size: 0.7rem;
+    }
+    @media (max-width: 1115px) {
+      width: 350px;
     }
     @media (max-width: 500px) {
       width: 50%;
     }
     @media (max-width: 430px) {
-      width: 45%;
+      width: 40%;
     }
     @media (max-width: 370px) {
-      width: 35%;
+      width: 30%;
       margin-bottom: 80px;
     }
   }
@@ -211,13 +190,38 @@ export default {
 .descripcion {
   padding: 0px;
   margin-top: 10px;
-  width: 700px;
-  @media (max-width: 600px) {
-    width: 400px
+  .text-nombre {
+    font-size: 1rem;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 1115px) {
+    width: 400px;
+  }
+
+  @media (max-width: 960px) {
+    width: 800px;
+  }
+  @media (max-width: 806px) {
+    width: 700px;
+  }
+  @media (max-width: 713px) {
+    width: 650px;
+  }
+  @media (max-width: 600px) {
+    width: 550px;
+  }
+  @media (max-width: 560px) {
+    width: 500px;
+  }
+  @media (max-width: 500px) {
+    width: 400px;
+  }
+  @media (max-width: 405px) {
     
-    width: 75%;
+    margin-top: 20px;
+  }
+  @media (max-width: 370px) {
+    width: 350px;
+    margin-top: 40px;
   }
 }
 </style>

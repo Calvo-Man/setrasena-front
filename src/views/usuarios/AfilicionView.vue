@@ -69,7 +69,6 @@
             <v-text-field
               v-model="email"
               label="E-mail"
-
               :rules="emailRules"
               type="email"
               required
@@ -123,7 +122,6 @@
               required
             />
           </v-col>
-         
         </v-row>
         <v-row>
           <v-col cols="12" sm="6">
@@ -150,10 +148,10 @@
             <v-text-field
               v-model="numero_contrato"
               label="Numero de contrato"
-              :rules="contratoRules"
+              
               required
             />
-          </v-col>  
+          </v-col>
         </v-row>
         <v-row v-if="objeto_contractual === 'Planta'">
           <v-col cols="8" sm="7">
@@ -190,7 +188,7 @@
               :items="yesNoOptions"
               item-title="text"
               item-value="value"
-              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
+              :rules="[(v) => v !== null || 'Debe seleccionar una opción']"
               required
             />
           </v-col>
@@ -200,7 +198,7 @@
             <v-select
               v-model="isPublicEmployee"
               label="Empleado público"
-              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
+              :rules="[(v) => v !== null || 'Debe seleccionar una opción']"
               :items="yesNoOptions"
               item-title="text"
               item-value="value"
@@ -214,7 +212,7 @@
               :items="yesNoOptions"
               item-title="text"
               item-value="value"
-              :rules="[(v) => !!v || 'Debe seleccionar una opción']"
+              :rules="[(v) => v !== null || 'Debe seleccionar una opción']"
               required
             />
           </v-col>
@@ -243,40 +241,58 @@
         </h5>
       </v-form>
     </v-container>
+    <SnackBar
+      :text="textSnackbar"
+      :color="colorSnackbar"
+      v-model:snackbar="snackbar"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import SnackBar from "@/components/SnackBar.vue";
 export default {
+  components: {
+    SnackBar,
+  },
   data: () => ({
     API_Backend: import.meta.env.VITE_API_BACKEND,
-    nombre: "",
-    apellido: "",
-    fecha_nacimiento: "",
-    lugar_nacimiento: "",
-    idNumber: "",
-    phone: "",
-    email: "",
-    fecha_ingreso: "",
-    fecha_salida: "",
-    cargo: "",
-    grado: "",
-    regional: "",
-    numero_contrato:"",
-    centro_formacion: "",
-    dependencia: "",
-    salario: "",
-    objeto_contractual: "",
+    textSnackbar: null,
+    colorSnackbar: null,
+    snackbar: false,
+    nombre: null,
+    apellido: null,
+    fecha_nacimiento: null,
+    lugar_nacimiento: null,
+    idNumber: null,
+    phone: null,
+    email: null,
+    fecha_ingreso: null,
+    fecha_salida: null,
+    cargo: null,
+    grado: null,
+    regional: null,
+    numero_contrato: null,
+    centro_formacion: null,
+    dependencia: null,
+    salario: null,
+    objeto_contractual: null,
     isInCareer: null,
     isPublicEmployee: null,
     isOfficialWorker: null,
     acceptedTerms: false,
-    
-    yesNoOptions: [{ text: "Sí", value: true }, { text: "No", value: false }],
-    objeto_contractual_options:["Planta","Contrato","Prestación de servicios"],
-    regionales:[],
-    centros:[],
+    yesNoOptions: [
+      { text: "Sí", value: true },
+      { text: "No", value: false },
+    ],
+    objeto_contractual_options: [
+      "Planta",
+      "Contrato",
+      "Prestación de servicios",
+    ],
+    regionales: [],
+    centros: [],
 
     nameRules: [(value) => !!value || "Nombre es requerido."],
     dobRules: [(value) => !!value || "Fecha de nacimiento es requerida."],
@@ -296,32 +312,33 @@ export default {
     dependencyRules: [(value) => !!value || "Dependencia es requerida."],
     salaryRules: [(value) => !!value || "Asignación básica es requerida."],
   }),
-  mounted(){
-    this.fetchRegionales()
+  mounted() {
+    this.fetchRegionales();
   },
 
   methods: {
-    crearAfiliado() {
-      if (
-        !this.nombre ||
-        !this.apellido ||
-        !this.fecha_nacimiento ||
-        !this.lugar_nacimiento ||
-        !this.idNumber ||
-        !this.phone ||
-        !this.email ||
-        !this.fecha_ingreso ||
-        !this.fecha_salida ||
-        !this.objeto_contractual ||
-        !this.cargo ||
-        !this.grado ||
-        !this.regional ||
-        !this.centro_formacion ||
-        !this.dependencia ||
-        !this.salario  
-      ) {
-        return;
-      }
+    async crearAfiliado() {
+      // if (
+      //   !this.nombre ||
+      //   !this.apellido ||
+      //   !this.fecha_nacimiento ||
+      //   !this.lugar_nacimiento ||
+      //   !this.idNumber ||
+      //   !this.phone ||
+      //   !this.email ||
+      //   !this.fecha_ingreso ||
+      //   !this.fecha_salida ||
+      //   !this.objeto_contractual ||
+      //   !this.cargo ||
+      //   !this.grado ||
+      //   !this.regional ||
+      //   !this.centro_formacion ||
+      //   !this.dependencia ||
+      //   !this.salario
+      // ) {
+      //   alert("Todos los campos son obligatorios.");
+      //   return;
+      // }
       // Validar el formulario
       if (!this.acceptedTerms) {
         alert("Debe aceptar los términos para continuar.");
@@ -338,7 +355,7 @@ export default {
         honorario_mensual: this.salario,
         objeto_contractual: this.objeto_contractual,
         fecha_ingreso_sena: this.fecha_ingreso,
-        fecha_salida_sena: this.fecha_salida,
+        fecha_terminacion_contrato: this.fecha_salida,
         cargo: this.cargo,
         grado: this.grado,
         dependencia: this.dependencia,
@@ -346,11 +363,38 @@ export default {
         empleado_publico: this.isPublicEmployee,
         trabajador_oficial: this.isOfficialWorker,
         regional: this.regional,
-        centro: this.centro_formacion
+        centro: this.centro_formacion,
       };
       try {
-        const response = axios.post(`${this.API_Backend}/afiliado/crear`, formData);
-        alert("Datos enviados correctamente");
+        const response = await axios.post(
+          `${this.API_Backend}/afiliado/crear`,
+          formData
+        );
+        
+          this.snackbar = true;
+          this.textSnackbar = "Petición de afiliación creada exitosamente.";
+          this.colorSnackbar = "success";
+
+          this.nombre = null;
+          this.apellido = null;
+          this.fecha_nacimiento = null;
+          this.lugar_nacimiento = null;
+          this.idNumber = null;
+          this.phone = null;
+          this.email = null;
+          this.fecha_ingreso = null;
+          this.fecha_salida = null;
+          this.cargo = null;
+          this.grado = null;
+          this.regional = null;
+          this.centro_formacion = null;
+          this.dependencia = null;
+          this.salario = null;
+          this.objeto_contractual = null;
+          this.isInCareer = null;
+          this.isPublicEmployee = null;
+          this.isOfficialWorker = null;
+        
       } catch (error) {
         if (error.response.status === 400) {
           alert("Error al enviar los datos.");
@@ -370,11 +414,11 @@ export default {
         alert("Debe seleccionar una regional");
         return;
       }
-      this.centro_formacion="";
+      this.centro_formacion = null;
       try {
         this.regionales.forEach((regional) => {
           if (regional.id == id_regional) {
-            this.centros=regional.centros;
+            this.centros = regional.centros;
           }
         });
       } catch (error) {

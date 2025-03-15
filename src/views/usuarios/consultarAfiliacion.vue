@@ -51,7 +51,7 @@
             <template v-slot:item.estado="{ item }">
               <v-chip
                 variant="outlined"
-                :color="'success'"
+                :color="getColor(item.estado)"
                 :text="item.estado"
               ></v-chip>
             </template>
@@ -87,6 +87,13 @@ export default {
   }),
 
   methods: {
+    getColor (estado) {
+        if(estado == 'Pendiente'){
+          return 'orange'
+        }else if(estado == 'En revisión'){
+          return 'blue'
+        }
+      },
     async fetchAfiliacionesByDocumento() {
       try {
         this.loading = true;
